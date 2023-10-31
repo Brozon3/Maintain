@@ -6,9 +6,9 @@ import Nav from 'react-bootstrap/Nav';
 export const NavBar = () => {
     
     return(
-    <Navbar bg="dark" className="bg-body-tertiary">
+    <Navbar className="bg-body-tertiary border border-success">
         <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
                 <img
                     src={require("../MaintainLogo.png")}
                     width="150"
@@ -17,9 +17,8 @@ export const NavBar = () => {
                     alt="Maintain logo"
                 />
             </Navbar.Brand>
-            <Nav className="me-auto">
-                <Nav.Link href="#home" style={{color:'#17A589'}}>Home</Nav.Link>
-                <Nav.Link href="properties" style={{color:'#17A589'}}>Properties</Nav.Link>
+            <Nav>  
+                <Nav.Link href="#login" style={{color:'#17A589'}}><h4>Logout</h4></Nav.Link>
             </Nav>
         </Container>
     </Navbar>    

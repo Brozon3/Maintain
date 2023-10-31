@@ -6,12 +6,7 @@ import { App } from './App';
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-    <>
-    <App />
-      <footer className="container w-50 fixed-bottom">
-        <p>Copyright 2023</p>
-      </footer>
-    </>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

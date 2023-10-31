@@ -1,13 +1,15 @@
 import { NavBar } from './components/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { DisplayProperties } from './components/DisplayProperties';
+import { Footer } from './components/Footer';
 
 export function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <Footer />
         <Routes>
-          <Route path="/"/>
-          <Route path="/add"/>
+          <Route path="/" element={<DisplayProperties/>}/>
         </Routes>
     </BrowserRouter>
   );
