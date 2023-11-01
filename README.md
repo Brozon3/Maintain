@@ -1,12 +1,12 @@
 # Table of Contents
 
-## 1. Introduction
-## 2. Features
-## 3. Usage
-## 4. Appliances Management
-## 5. Notifications
-## 6. Contributing
-## 7. License
+- Introduction
+- Features
+- Usage
+- Appliances Management
+- Notifications
+- Contributing
+- License
 
 # 1. Introduction
 Welcome to the Maintain! This application is designed to help you keep track of tasks that need to be completed in and around your properties, manage a list of household appliances, and sends notifications for upcoming maintenance tasks. Whether you're a homeowner, a tenant, or just someone who wants to stay organized with their house-related responsibilities, this tool is here to make your life easier.
