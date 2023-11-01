@@ -6,7 +6,7 @@ export function DisplayProperties(){
     
     const navigate = useNavigate();
     const addProperty = () => navigate('/addProperty');
-    const viewProperty = () => navigate('/viewProperty');
+    const viewProperty = () => navigate('/taskList');
     
     return(
         <Container className="container w-75" style={{backgroundColor: "#F8F9FA", height: 800}} >

@@ -1,19 +1,25 @@
 import React from "react";
 import { Container, Button, Table, Row, Col } from "react-bootstrap";
+import { useNavigate } from 'react-router';
 
-export const ViewProperty = () => {
+export const PropertyApplianceList = () => {
+
+    const navigate = useNavigate();
+    const taskList = () => navigate('/taskList');
+    const applianceList = () => navigate('/applianceList');
+
     return (
         <Container className="w-75 text-center" style={{backgroundColor: "#F8F9FA", height: 800}} >
             <h1 style={{color: "#2A4D6A"}}>1 First St.</h1>
             <h2 className="mb-5" style={{color: "#2A4D6A"}}>St. John's, NL</h2>
             <Row className="justify-content-md-center">
                 <Col md={{ span: 4, offset: 0}}>
-                    <Button type="submit" className="my-2" style={{backgroundColor: "#17A589", color: "#F8F9FA", borderColor: "#2A4D6A", width: "18rem", height: "3rem"}}>
+                    <Button type="submit" className="my-2" onClick={taskList} style={{backgroundColor: "#17A589", color: "#F8F9FA", borderColor: "#2A4D6A", width: "18rem", height: "3rem"}}>
                         View Tasks
                     </Button>
                 </Col>
                 <Col md={{ span: 4, offset: 0 }}>
-                    <Button type="submit" className="my-2" style={{backgroundColor: "#17A589", color: "#F8F9FA", borderColor: "#2A4D6A", width: "18rem", height: "3rem"}} disabled>
+                    <Button type="submit" className="my-2" onClick={applianceList} style={{backgroundColor: "#17A589", color: "#F8F9FA", borderColor: "#2A4D6A", width: "18rem", height: "3rem"}} disabled>
                         View Appliances
                     </Button>
                 </Col>

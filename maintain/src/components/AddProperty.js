@@ -1,8 +1,10 @@
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router';
 
 export const AddProperty = () => {
+
   return (
     <Container className="container w-75" style={{backgroundColor: "#F8F9FA", height: 800}} >
         <h1 className='mb-3' style={{color: "#2A4D6A"}}>Add a Property</h1>
