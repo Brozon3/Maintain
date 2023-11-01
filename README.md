@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Table of Contents
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Introduction
+Features
+Getting Started
+Usage
+Appliances Management
+Notifications
+Contributing
+License
 
-## Available Scripts
+# 1. Introduction
+Welcome to the Maintain! This application is designed to help you keep track of tasks that need to be completed in and around your properties, manage a list of household appliances, and sends notifications for upcoming maintenance tasks. Whether you're a homeowner, a tenant, or just someone who wants to stay organized with their house-related responsibilities, this tool is here to make your life easier.
 
-In the project directory, you can run:
+# 2. Features
+- Task Tracking
+Create, edit, and delete tasks.
+Categorize tasks by room or type (e.g., plumbing, electrical, landscaping).
+Set due dates and priority levels for tasks.
+Mark tasks as complete when finished.
 
-### `npm start`
+- Appliances Management
+Maintain a list of household appliances, including their make, model, purchase date, and warranty information.
+Set up maintenance schedules for appliances.
+Receive notifications when it's time for appliance maintenance or replacement.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Notifications
+Get reminders for upcoming tasks and appliance maintenance.
+Choose your preferred notification method (e.g., email, SMS).
+Customize notification settings to fit your preferences.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 3. Usage
+Maintain is intuitive to use. Here's a quick overview of how to utilize its core features:
 
-### `npm test`
+Task Tracking:
+Log in to your account.
+Navigate to the "Tasks" section.
+Click "Add Task" to create a new task.
+Fill in task details, such as the title, description, due date, and priority.
+Save the task.
+Mark tasks as complete when they are done.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Appliances Management:
+Access the "Appliances" section.
+Click "Add Appliance" to add a new appliance.
+Enter appliance details, including make, model, purchase date, and warranty information.
+Set up maintenance schedules for each appliance.
+Receive notifications when it's time for maintenance or replacement.
 
-### `npm run build`
+Notifications:
+Customize your notification preferences in the application settings.
+Receive reminders via your preferred notification method.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 4. Appliances Management
+The "Appliances" section allows you to keep a detailed list of your household appliances. You can add, edit, and remove appliances, and set up maintenance schedules to receive timely notifications. Properly maintained appliances can prolong their lifespan and save you money in the long run.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 5. Notifications
+Stay on top of your house maintenance tasks with customizable notifications. Set your preferred notification method (e.g., email, SMS), and the application will remind you of upcoming tasks and appliance maintenance. Don't miss an important maintenance deadline again!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 6. Contributing
+We welcome contributions to Maintain. If you have ideas for new features, bug fixes, or improvements, please feel free to submit a pull request or create an issue on our GitHub repository.
 
-### `npm run eject`
+# 7. License
+Maintain is not yet distributed under the MIT License. You are free to use, modify, and distribute this application according to the terms of the license.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thank you for using the Maintain. We hope it helps you keep your home in great condition, save money on repairs, and reduce the stress of household maintenance. If you have any questions or encounter issues, please don't hesitate to contact our support team. Happy house maintenance!
