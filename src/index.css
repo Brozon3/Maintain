@@ -1,13 +1,78 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html{
+    height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    min-height: 100vh;
+    background-color: #17A589;
+}
+
+.main {
+    background-color: #F8F9FA;
+    min-height: 100vh;
+}
+
+.link { 
+    color: #2A4D6A; 
+} 
+
+.form-check-input:checked {
+    background-color: #2A4D6A;
+}
+
+.blue-text{
+    color: #2A4D6A;
+}
+
+.blue-border {
+    border: 10px solid;
+    border-color: #2A4D6A;
+    border-radius: 10px;
+}
+
+.blue-header {
+    color: #2A4D6A; 
+    text-align: center; 
+    font-size: 40px;
+}
+
+.green-text {
+    color:#17A589 !important;
+}
+
+
+.green-border {
+    border: 10px solid;
+    border-color: #17A589;
+    border-radius: 10px;
+}
+
+.green-button {
+    background-color: #17A589; 
+    color: #F8F9FA; 
+    border-color: #2A4D6A;
+}
+
+.green-button:hover {
+    background-color: #17A589; 
+    color: #F8F9FA; 
+    border-color: #2A4D6A;
+}
+
+.green-button:active {
+    background-color: #17A589 !important; 
+    color: #F8F9FA; 
+    border-color: #2A4D6A;
+}
+
+.green-button:focus {
+    background-color: #17A589; 
+    color: #F8F9FA; 
+    border-color: #2A4D6A;
+}
+
+.green-button:disabled {
+    background-color: #17a589cc; 
+    color: #F8F9FA; 
+    border-color: #2A4D6A;
 }
