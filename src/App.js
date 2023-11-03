@@ -5,11 +5,12 @@ import { Footer } from './components/Footer';
 import { AddProperty } from './components/AddProperty';
 import { PropertyApplianceList } from "./components/PropertyApplianceList";
 import { PropertyTaskList } from "./components/PropertyTaskList";
+import './index.css';
 
 export function App() {
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar userState={"loggedIn"}/>
       <Footer />
         <Routes>
           <Route path="/" element={<DisplayProperties />} />
