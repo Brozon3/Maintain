@@ -1,20 +1,33 @@
 import React from "react";
 import { Container, Row, Form, Button } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-export const PropertyTaskList = () => {
+export const PropertyTaskList = ({properties}) => {
+
+    const { id } = useParams();
+    
+
+    const findProperty = () => {
+        for (let i=0; i < properties.length; i++){
+            if (properties[i].id == id){
+                return properties[i];
+            }
+        }
+    }
+
+    const property = findProperty();
 
     const navigate = useNavigate();
-    const addTask = () => navigate('/addTask');
+    const addTask = () => navigate('/addTask/' + id);
 
     return (
         <Container className="w-75 text-center main" >
 
-            <h1 className="blue-header">1 First St.</h1>
-            <h2 className="mb-2 blue-secondary-header">St. John's, NL</h2>
+            <h1 className="blue-header">{property.address}</h1>
+            <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
 
-            <PropertyDoubleButton current={"task"} />
+            <PropertyDoubleButton current={"task"} id={id}/>
             
             <Row className="justify-content-md-center">
                 <Form className="my-3 w-50 blue-border" style={{textAlign: "left"}}>
