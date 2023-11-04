@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1, 
+        "address": "21 Jump St.", 
+        "city": "Torbay", 
+        "province": "NL"
+    },
+    {
+        "id": 2,
+        "address": "1 First St.",
+        "city": "St. John's",
+        "province": "NL"
+    }
+]
