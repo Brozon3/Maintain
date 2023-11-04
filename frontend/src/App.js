@@ -6,6 +6,7 @@ import { AddProperty } from './components/AddProperty';
 import { PropertyApplianceList } from "./components/PropertyApplianceList";
 import { PropertyTaskList } from "./components/PropertyTaskList";
 import './index.css';
+import { AddTask } from './components/AddTask';
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
           <Route path="/addProperty" element={<AddProperty />} />
           <Route path="/applianceList" element={<PropertyApplianceList />} />
           <Route path="/taskList" element={<PropertyTaskList />} />
+          <Route path="/addTask" element={<AddTask />} />
         </Routes>
     </BrowserRouter>
   );

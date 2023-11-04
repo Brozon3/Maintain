@@ -1,14 +1,18 @@
 import React from "react";
-import { Container, Row, Form } from "react-bootstrap";
+import { Container, Row, Form, Button } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
+import { useNavigate } from "react-router";
 
 export const PropertyTaskList = () => {
+
+    const navigate = useNavigate();
+    const addTask = () => navigate('/addTask');
 
     return (
         <Container className="w-75 text-center main" >
 
             <h1 className="blue-header">1 First St.</h1>
-            <h2 className="mb-5 blue-header">St. John's, NL</h2>
+            <h2 className="mb-2 blue-secondary-header">St. John's, NL</h2>
 
             <PropertyDoubleButton current={"task"} />
             
@@ -68,8 +72,12 @@ export const PropertyTaskList = () => {
                     </Form.Group>
 
                 </Form>
+                <Row className="justify-content-md-center">
+                    <Button className="my-3 green-button non-card-button" type="submit" onClick={addTask}>
+                        Add Custom Task 
+                    </Button>
+                </Row>
             </Row>
-            
         </Container>
     )
 }
