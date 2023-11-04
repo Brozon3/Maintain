@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -43,28 +43,26 @@ const LoginPage = () => {
             onChange={(e) => setPasswordValue(e.target.value)}
           />
         </Form.Group>
+        <hr></hr>
+
         <Button
           disabled={!emailValue || !passwordValue}
-          variant="custom"
-          color="#F8F9FA"
+          className="green-button"
           onClick={onLoginClicked}
         >
           {" "}
           Log In{" "}
         </Button>
+
         <Button
-          variant="custom"
-          color="#F8F9FA"
+          className="green-button"
           onClick={() => navigate("/forgotPassword")}
         >
           {" "}
           Forgot Password?{" "}
         </Button>
-        <Button
-          variant="custom"
-          color="#F8F9FA"
-          onClick={() => navigate("/signUp")}
-        >
+
+        <Button variant="custom" onClick={() => navigate("/signUpPage")}>
           {" "}
           Don't have an account? Sign Up!{" "}
         </Button>

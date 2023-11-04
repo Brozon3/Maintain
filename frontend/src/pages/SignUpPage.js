@@ -4,17 +4,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
+import axios from "axios";
+import { useToken } from "../auth/useToken.js";
 
 const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [token, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
+
   const navigate = useNavigate();
 
   const onSignUpClicked = async () => {
-    alert("SignUp not implemented yet.");
+    const response = await axios.post("/api/signup", {
+      email: emailValue,
+      password: passwordValue,
+    });
+    const { token } = response.data;
+    setToken(token);
+    navigate("/displayProperties");
+    // navigate(`/please-verify?email=${encodeURIComponent(emailValue)}`);
   };
 
   return (
@@ -23,7 +33,7 @@ const SignUpPage = () => {
         className="container w-75"
         style={{ backgroundColor: "#F8F9FA", height: 800 }}
       >
-        <h1> Log-in. </h1>
+        <h1> Sign Up. </h1>
         {errorMessage && <div className="fail">{errorMessage}</div>}
         <Form.Group className="mb-3">
           <Form.Label>Your Email Address</Form.Label>
@@ -53,6 +63,7 @@ const SignUpPage = () => {
             onChange={(e) => setConfirmPasswordValue(e.target.value)}
           />
         </Form.Group>
+        <hr></hr>
 
         <Button
           disabled={
@@ -60,28 +71,20 @@ const SignUpPage = () => {
             !passwordValue ||
             passwordValue !== confirmPasswordValue
           }
-          variant="custom"
-          color="#F8F9FA"
+          className="green-button"
           onClick={onSignUpClicked()}
         >
           {" "}
           Sign Up{" "}
         </Button>
+
         <Button
           variant="custom"
           color="#F8F9FA"
-          onClick={() => navigate("/forgotPassword")}
+          onClick={() => navigate("/loginPage")}
         >
           {" "}
-          Forgot Password?{" "}
-        </Button>
-        <Button
-          variant="custom"
-          color="#F8F9FA"
-          onClick={() => navigate("/signUp")}
-        >
-          {" "}
-          Don't have an account? Sign Up!{" "}
+          Already have an account? Log In!{" "}
         </Button>
       </Container>
     </>
