@@ -1,47 +1,63 @@
 import express from "express";
 const app = express();
-const AWS = require('aws-sdk');
-require('dotenv').config();
-
-const client = new AWS.DynamoDB.DocumentClient();
-const tableName = 'properties';
-
-AWS.config.update({ region: 'us-east-1' })
-
-
+// import AWS from "aws-sdk";
+import { getAllProperties, getSinglePropertyByID, insertProperty, deleteSinglePropertyById } from "./Commands.js";
 
 const port = 3000;
 
 app.use(express.json());
 
-app.get("/rows/all", (req, res) => {
-  var params = {
-      TableName: tableName
-  };
+// const DocumentClient = new AWS.DynamoDB.DocumentClient();
+const TABLE_NAME = 'users';
 
-  client.scan(params, (err, data) => {
-      if (err) {
-          console.log(err);
-      } else {
-          var items = [];
-          for (var i in data.Items)
-              items.push(data.Items[i]['Name']);
-
-          res.contentType = 'application/json';
-          res.send(items);
-      }
-  });
+app.get('/items', async (req, res) => {
+	try {
+		const properties = await getAllProperties(TABLE_NAME);
+		res.status(200).json(properties);
+	} catch (err) {
+		console.error(err);
+		res.status(err.statusCode || 500).json({ message: err.message || 'Something went wrong' });
+	}
 });
 
-app.get("/api/hello/:name", (req, res) => {
-  const { name } = req.params;
-  res.send(`Hello ${name}!!`);
+app.post('/items', async (req, res) => {
+	const body = req.body;
+	try {
+		const newProperty = await insertProperty(TABLE_NAME, body);
+		console.log('newItem', newProperty);
+		res.status(200).json(body);
+	} catch (err) {
+		console.error(err);
+		res.status(err.statusCode || 500).json({ message: err.message || 'Something went wrong' });
+	}
 });
 
-app.post("/api/hello", (req, res) => {
-  res.send(`Hello ${req.body.name}!`);
+app.get('/items/:id', async (req, res) => {
+	let id = req.params.id;
+  id = parseInt(id)
+  
+	try {
+		const item = await getSinglePropertyByID(TABLE_NAME, id);
+		res.status(200).json(item);
+	} catch (err) {
+		console.error(err);
+    console.log("Is this an int: " + Number.isInteger(id))
+		res.status(err.statusCode || 500).json({ message: err.message || 'Something went wrong' });
+	}
+});
+
+app.delete('/items/:id', async (req, res) => {
+	let id = req.params.id;
+  id = parseInt(id)
+	try {
+		const item = await deleteSinglePropertyById(TABLE_NAME, id);
+		res.status(200).json(item);
+	} catch (err) {
+		console.error(err);
+		res.status(err.statusCode || 500).json({ message: err.message || 'Something went wrong' });
+	}
 });
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+})
