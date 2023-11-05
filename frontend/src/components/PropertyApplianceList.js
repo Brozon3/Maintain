@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, Button, Form } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
 import { useParams } from "react-router";
 
@@ -9,7 +9,7 @@ export const PropertyApplianceList = ({properties}) => {
 
     const findProperty = () => {
         for (let i=0; i < properties.length; i++){
-            if (properties[i].id == id){
+            if (properties[i].id === parseInt(id)){
                 return properties[i];
             }
         }
@@ -17,8 +17,12 @@ export const PropertyApplianceList = ({properties}) => {
 
     const property = findProperty();
 
+    const warrantyCheck = () => {
+    
+    }
+
     return (
-        <Container className="w-75 text-center main" >
+        <Container className="text-center main" >
 
             <h1 className="blue-header">{property.address}</h1>
             <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
@@ -28,98 +32,74 @@ export const PropertyApplianceList = ({properties}) => {
             <div>
             <Table responsive="sm" className="my-5 blue-border">
                 <thead>
-                <tr>
-                    <th>Appliance Name</th>
-                    <th>Manufacturer</th>
-                    <th>Model</th>
-                    <th>Serial Number</th>
-                    <th>Purchase Date</th>
-                    <th>Warranty Period</th>
-                    <th>Warranty Expired</th>
-                    <th>User Manual</th>
-                </tr>
+                    <tr>
+                        <th>Type</th>
+                        <th>Manufacturer</th>
+                        <th>Model</th>
+                        <th>Serial Number</th>
+                        <th>Purchase Date</th>
+                        <th>Warranty Length</th>
+                        <th>Warranty Expired</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Washer</td>
-                    <td>LG</td>
-                    <td>LT43A3AWW</td>
-                    <td>57G43031</td>
-                    <th>May 24, 2022</th>
-                    <th>2</th>
-                    <th>No</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Dryer</td>
-                    <td>LG</td>
-                    <td>LE43A3AWW</td>
-                    <td>23G65484</td>
-                    <th>May 24, 2022</th>
-                    <th>2</th>
-                    <th>No</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Refrigerator</td>
-                    <td>Samsung</td>
-                    <td>RF18A5101SR/AA</td>
-                    <td>23J8494</td>
-                    <th>Sept 15, 2021</th>
-                    <th>2</th>
-                    <th>Yes</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Range</td>
-                    <td>GE</td>
-                    <td>JCAS300DMWW</td>
-                    <td>12K1234</td>
-                    <th>Oct 15, 2023</th>
-                    <th>5</th>
-                    <th>No</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Dishwasher</td>
-                    <td>Bosch</td>
-                    <td>SHE3AEM5N</td>
-                    <td>09X0909</td>
-                    <th>Dec 15, 2022</th>
-                    <th>1</th>
-                    <th>No</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Freezer</td>
-                    <td>Frigidaire</td>
-                    <td>FPFU10F8WF</td>
-                    <td>84K2921</td>
-                    <th>Feb 21, 2019</th>
-                    <th>2</th>
-                    <th>Yes</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Water Heater</td>
-                    <td>Rheem</td>
-                    <td>XE40M06ST45U1</td>
-                    <td>1001301831</td>
-                    <th>Aug 14, 2017</th>
-                    <th>3</th>
-                    <th>Yes</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
-                <tr>
-                    <td>Air Purifier</td>
-                    <td>Dyson</td>
-                    <td>BP03</td>
-                    <td>123247192A</td>
-                    <th>March 3, 2023</th>
-                    <th>2</th>
-                    <th>No</th>
-                    <td><a href="#" className="link">User Manual</a></td>
-                </tr>
+                    {property.applianceList.map((appliance, i) => {
+                        if (appliance.empty === false){
+                            return(
+                                <tr key={i}>
+                                    <td className="align-middle">{appliance.applianceType}</td>
+                                    <td className="align-middle" >{appliance.manufacturer}</td>
+                                    <td className="align-middle">{appliance.modelNumber}</td>
+                                    <td className="align-middle">{appliance.serialNumber}</td>
+                                    <td className="align-middle">{appliance.purchaseDate}</td>
+                                    <td className="align-middle">{appliance.warrantyLength}</td>
+                                    <td className="align-middle">--</td>
+                                    <td><a href="/" className="link">User Manual</a></td>
+                                </tr>
+                            )
+                        } else {
+                            return(
+                                    <tr key={i}>
+                                        <td className="align-middle">{appliance.applianceType}</td>
+                                        <td>
+                                            <Form.Select style={{width: "100%"}} className="w-auto">
+                                                <option >--</option>
+                                                <option value={"Amana"}>Amana</option>
+                                                <option value={"Bosch"}>Bosch</option>
+                                                <option value={"Electrolux"}>Electrolux</option>
+                                                <option value={"Frigidaire"}>Frigidaire</option>
+                                                <option value={"GE"}>GE</option>
+                                                <option value={"Hotpoint"}>Hotpoint</option>
+                                                <option value={"Kenmore"}>Kenmore</option>
+                                                <option value={"KitchenAid"}>KitchenAid</option>
+                                                <option value={"LG"}>LG</option>
+                                                <option value={"Maytag"}>Maytag</option>
+                                                <option value={"Miele"}>Miele</option>
+                                                <option value={"Panasonic"}>Panasonic</option>
+                                                <option value={"Speed Queen"}>Speed Queen</option>
+                                                <option value={"Whirlpool"}>Whirlpool</option>
+                                            </Form.Select>
+                                        </td>
+                                        <td>
+                                            <Form.Control type="text" placeholder="0123456789"/>
+                                        </td>
+                                        <td>
+                                            <Form.Control type="text" placeholder="ABCXYZ"/>
+                                        </td>
+                                        <td>
+                                            <Form.Control type="date" placeholder="ABCXYZ"/>
+                                        </td>
+                                        <td>
+                                            <Form.Control type="number" placeholder="1"min={0} max={25} value={0}/>
+                                        </td>
+                                        <td className="align-middle">--</td>
+                                        <td><Button className="green-button" type="submit">+</Button></td>
+                                    </tr>
+                                
+                            )
+                        }
+                    })}
                 </tbody>
             </Table>
             </div> 
