@@ -4,17 +4,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
+import axios from "axios";
+import { useToken } from "../auth/useToken";
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [token, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
   const navigate = useNavigate();
 
   const onLoginClicked = async () => {
-    alert("Login not implemented yet.");
+    const response = await axios.post("/api/login", {
+      email: emailValue,
+      password: passwordValue,
+    });
+    const { token } = response.data;
+    setToken(token);
   };
 
   return (
@@ -62,7 +69,10 @@ const LoginPage = () => {
           Forgot Password?{" "}
         </Button>
 
-        <Button variant="custom" onClick={() => navigate("/signUpPage")}>
+        <Button
+          className="green-button"
+          onClick={() => navigate("/signUpPage")}
+        >
           {" "}
           Don't have an account? Sign Up!{" "}
         </Button>
