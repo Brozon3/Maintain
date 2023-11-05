@@ -11,10 +11,16 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import "./index.css";
 import { AddTask } from "./components/AddTask";
+import "./index.css";
+import { AddTask } from "./components/AddTask";
+import { useState } from "react";
+import data from "./data/dummyProperties.json";
 
 // To add different private route permissions, see https://www.robinwieruch.de/react-router-private-routes/
 export function App() {
   const [user, setUser] = useState(null);
+
+  const [properties, setProperties] = useState(data);
 
   return (
     <BrowserRouter>
