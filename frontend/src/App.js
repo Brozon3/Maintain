@@ -10,6 +10,7 @@ import { PrivateRoute } from "./auth/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import "./index.css";
+import { AddTask } from './components/AddTask';
 
 // To add different private route permissions, see https://www.robinwieruch.de/react-router-private-routes/
 export function App() {
@@ -38,8 +39,7 @@ export function App() {
           <Route path="/addProperty" element={<AddProperty />} />
           <Route path="/applianceList" element={<PropertyApplianceList />} />
           <Route path="/taskList" element={<PropertyTaskList />} />
-        </Route>
-      </Routes>
+        </Routes>
     </BrowserRouter>
   );
 }
