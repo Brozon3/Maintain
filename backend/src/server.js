@@ -1,7 +1,8 @@
 import express from "express";
 import { routes } from "./routes/index.js";
+import { getDbConnection } from "./db.js";
 // TODO once db exists
-// import { initializeDbConnection } from "./db";
+// import { initializeDbConnection } from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,9 @@ app.post("/api/hello", (req, res) => {
   res.send(`Hello ${req.body.name}!`);
 });
 
+getDbConnection(() => {
+  console.log("Connected to Database");
+});
 app.listen(8000, () => {
   console.log("Server is listening on port 8000");
 });
