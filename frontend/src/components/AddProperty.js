@@ -19,13 +19,49 @@ export const AddProperty = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label className='blue-text'>Property State/Province: </Form.Label>
-                <Form.Control type="stprov" placeholder="EX" />
+                <Form.Label className='blue-text'>Property Province: </Form.Label>
+                <Form.Select>
+                    <option value={"AB"}>AB</option>
+                    <option value={"BC"}>BC</option>
+                    <option value={"MB"}>MB</option>
+                    <option value={"NL"}>NL</option>
+                    <option value={"NS"}>NS</option>
+                    <option value={"NT"}>NT</option>
+                    <option value={"NU"}>NT</option>
+                    <option value={"ON"}>ON</option>
+                    <option value={"PE"}>PE</option>
+                    <option value={"QC"}>QC</option>
+                    <option value={"SK"}>SK</option>
+                    <option value={"YT"}>YT</option>
+                </Form.Select>
             </Form.Group>
+
 
             <Form.Group className="mb-3">
                 <Form.Label className='blue-text'>Property Type: </Form.Label>
-                <Form.Control type="type" placeholder="Condo"/>
+                <Form.Select>
+                    <option value={"Apartment"}>Apartment</option>
+                    <option value={"Cabin"}>Cabin</option>
+                    <option value={"Commercial"}>Commercial</option>
+                    <option value={"Condo"}>Condo</option>
+                    <option value={"Home"}>Home</option>
+                </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label className='blue-text'>Carpet: </Form.Label>
+                <Form.Select>
+                    <option value={"No"}>No</option>
+                    <option value={"Yes"}>Yes</option>
+                </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label className='blue-text'>Pets: </Form.Label>
+                <Form.Select>
+                    <option value={"No"}>No</option>
+                    <option value={"Yes"}>Yes</option>
+                </Form.Select>
             </Form.Group>
 
             <Button type="submit" className='green-button'>

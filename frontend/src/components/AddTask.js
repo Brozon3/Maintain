@@ -16,14 +16,14 @@ export const AddTask = () => {
             <Form.Group className="mb-3">
                 <Form.Label className='blue-text'>Frequency: </Form.Label>
                 <Form.Select>
-                    <option value={1}>Weekly</option>
-                    <option value={2}>Bi-Weekly</option>
-                    <option value={3}>Monthly</option>
-                    <option value={4}>Bi-Monthly</option>
-                    <option value={5}>Quarterly</option>
-                    <option value={6}>Semi-Annually</option>
-                    <option value={7}>Annually</option>
-                    <option value={8}>Bi-Annually</option>
+                    <option value={"Weekly"}>Weekly</option>
+                    <option value={"Bi-Weekly"}>Bi-Weekly</option>
+                    <option value={"Monthly"}>Monthly</option>
+                    <option value={"Bi-Monthly"}>Bi-Monthly</option>
+                    <option value={"Quarterly"}>Quarterly</option>
+                    <option value={"Semi-Annually"}>Semi-Annually</option>
+                    <option value={"Annually"}>Annually</option>
+                    <option value={"Bi-Annually"}>Bi-Annually</option>
                 </Form.Select>
             </Form.Group>
 
