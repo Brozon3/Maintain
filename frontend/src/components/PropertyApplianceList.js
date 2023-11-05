@@ -5,10 +5,10 @@ import { PropertyDoubleButton } from "./PropertyDoubleButton";
 export const PropertyApplianceList = () => {
 
     return (
-        <Container className="w-75 text-center main" style={{backgroundColor: "#F8F9FA"}} >
+        <Container className="w-75 text-center main" >
 
             <h1 className="blue-header">1 First St.</h1>
-            <h2 className="mb-5 blue-header">St. John's, NL</h2>
+            <h2 className="mb-2 blue-secondary-header">St. John's, NL</h2>
 
             <PropertyDoubleButton current={"appliance"} />
             

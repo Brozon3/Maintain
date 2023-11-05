@@ -6,7 +6,7 @@ export const NavBar = ({userState}) => {
 
     if (userState === "loggedIn"){
         return(
-            <Navbar className="bg-body-tertiary border border-success">
+            <Navbar className="bg-body-tertiary border border-success" id="top">
                 <Container>
                     <Navbar.Brand href="/">
                         <img
