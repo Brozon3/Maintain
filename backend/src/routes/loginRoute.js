@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { db } from "../db.js";
+import { connectToDb } from "../db.js";
 
 export const loginRoute = {
   path: "/api/login",
@@ -8,13 +8,13 @@ export const loginRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const db = db("Maintain");
+    const db = connectToDb;
 
     const user = await db.collection("users").findOne({ email });
 
     if (!user) return res.sendStatus(401);
 
-    const { _id: is, isVerified, passwordHas, info } = user;
+    const { _id: id, isVerified, passwordHash, info } = user;
 
     const isCorrect = await bcrypt.compare(password, passwordHash);
 

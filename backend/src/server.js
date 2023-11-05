@@ -23,7 +23,7 @@ app.post("/api/hello", (req, res) => {
 
 getDbConnection(() => {
   console.log("Connected to Database");
-});
-app.listen(8000, () => {
-  console.log("Server is listening on port 8000");
+  app.listen(8000, () => {
+    console.log("Server is listening on port 8000");
+  });
 });

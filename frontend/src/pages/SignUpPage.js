@@ -21,6 +21,7 @@ const SignUpPage = () => {
       email: emailValue,
       password: passwordValue,
     });
+
     const { token } = response.data;
     setToken(token);
     navigate("/displayProperties");
@@ -72,7 +73,7 @@ const SignUpPage = () => {
             passwordValue !== confirmPasswordValue
           }
           className="green-button"
-          onClick={onSignUpClicked()}
+          onClick={onSignUpClicked}
         >
           {" "}
           Sign Up{" "}

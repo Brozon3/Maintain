@@ -10,24 +10,15 @@ import { PrivateRoute } from "./auth/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import "./index.css";
-import { AddTask } from './components/AddTask';
+import { AddTask } from "./components/AddTask";
 
 // To add different private route permissions, see https://www.robinwieruch.de/react-router-private-routes/
 export function App() {
   const [user, setUser] = useState(null);
 
-  const handleLogin = () => setUser({ id: "1", name: "chris" });
-  const handleLogout = () => setUser(null);
-
   return (
     <BrowserRouter>
       <NavBar userState={"loggedIn"} />
-
-      {user ? (
-        <button onClick={handleLogout}>Sign Out</button>
-      ) : (
-        <button onClick={handleLogin}>Sign In</button>
-      )}
 
       <Footer />
       <Routes>
@@ -39,7 +30,8 @@ export function App() {
           <Route path="/addProperty" element={<AddProperty />} />
           <Route path="/applianceList" element={<PropertyApplianceList />} />
           <Route path="/taskList" element={<PropertyTaskList />} />
-        </Routes>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

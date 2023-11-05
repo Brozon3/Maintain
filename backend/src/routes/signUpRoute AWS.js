@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { awsUserPool } from "../util/awsUserPool.js";
 // We will need to have this database connection once we have a database to connect to
-import { db } from "../db.js";
+import { connectToDb } from "../db.js";
 
 export const signUpRoute = {
   path: "/api/signup",
@@ -26,7 +26,7 @@ export const signUpRoute = {
         }
 
         // Rename this one based on actual database setup.
-        const db = db("Maintain");
+        const db = connectToDb("Maintain");
 
         // Video specific
         const startingInfo = {
@@ -55,7 +55,7 @@ export const signUpRoute = {
           },
           (err, token) => {
             if (err) return res.sendStatus(500);
-            res.status(200), json({ token });
+            res.status(200).json({ token });
           }
         );
       }
