@@ -22,6 +22,7 @@ const LoginPage = () => {
     });
     const { token } = response.data;
     setToken(token);
+    navigate("./displayProperties");
   };
 
   return (
