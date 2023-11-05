@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 // import { awsUserPool } from "../util/awsUserPool.js";
 import bcrypt from "bcrypt";
 // We will need to have this database connection once we have a database to connect to
-// import { getDbConnection } from "../db";
+import { db } from "../db.js";
 
 // Temp import for basic setup. Remove bcrypt from dependencies when finished
 
@@ -12,8 +12,8 @@ export const signUpRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const db = getDbConnection("react-auth-db");
-    const user = await db.collection("users").finOne({ email });
+    const db = db("Maintain");
+    const user = await db.collection("users").findOne({ email });
 
     if (user) {
       res.sendStatus(409);

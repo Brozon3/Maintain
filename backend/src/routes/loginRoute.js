@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-// import { getDbConnection } from "../db";
+import { db } from "../db.js";
 
 export const loginRoute = {
   path: "/api/login",
@@ -8,7 +8,7 @@ export const loginRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const db = getDbConnection("react-auth-db");
+    const db = db("Maintain");
 
     const user = await db.collection("users").findOne({ email });
 

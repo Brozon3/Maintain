@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { awsUserPool } from "../util/awsUserPool.js";
 // We will need to have this database connection once we have a database to connect to
-import { getDbConnection } from "../db";
+import { db } from "../db.js";
 
 export const signUpRoute = {
   path: "/api/signup",
@@ -26,7 +26,7 @@ export const signUpRoute = {
         }
 
         // Rename this one based on actual database setup.
-        const db = getDbConnection("react-auth-db");
+        const db = db("Maintain");
 
         // Video specific
         const startingInfo = {
