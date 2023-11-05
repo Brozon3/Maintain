@@ -1,16 +1,29 @@
 import React from "react";
 import { Container, Table } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
+import { useParams } from "react-router";
 
-export const PropertyApplianceList = () => {
+export const PropertyApplianceList = ({properties}) => {
+
+    const { id } = useParams();
+
+    const findProperty = () => {
+        for (let i=0; i < properties.length; i++){
+            if (properties[i].id == id){
+                return properties[i];
+            }
+        }
+    }
+
+    const property = findProperty();
 
     return (
         <Container className="w-75 text-center main" >
 
-            <h1 className="blue-header">1 First St.</h1>
-            <h2 className="mb-2 blue-secondary-header">St. John's, NL</h2>
+            <h1 className="blue-header">{property.address}</h1>
+            <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
 
-            <PropertyDoubleButton current={"appliance"} />
+            <PropertyDoubleButton current={"appliance"} id={id}/>
             
             <div>
             <Table responsive="sm" className="my-5 blue-border">
