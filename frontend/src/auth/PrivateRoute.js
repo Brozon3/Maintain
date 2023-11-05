@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { UseUser } from "./useUser";
 
-export const PrivateRoute = ({ redirectPath = "/landing", children }) => {
+export const PrivateRoute = ({ redirectPath = "/login", children }) => {
   const user = UseUser();
 
   if (!user) {

@@ -1,7 +1,8 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Hi Chris.",
+  "proxy": "http://localhost:8000/",
+  "description": "Hi Justin.",
   "main": "index.js",
   "type": "module",
   "scripts": {
