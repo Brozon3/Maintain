@@ -10,6 +10,7 @@ body {
 .main {
     background-color: #F8F9FA;
     min-height: 100vh;
+    width: 95%;
 }
 
 .link { 
@@ -61,4 +62,8 @@ body {
 .non-card-button {
     height: 5vh;
     width: 15vw;
+}
+
+.option:hover{
+    background-color: #2A4D6A;
 }
