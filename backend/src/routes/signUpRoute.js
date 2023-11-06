@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken";
-// import { awsUserPool } from "../util/awsUserPool.js";
-import bcrypt from "bcrypt";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { awsUserPool } from "../util/awsUserPool.js";
 // We will need to have this database connection once we have a database to connect to
 import { connectToDb } from "../db.js";
-
-// Temp import for basic setup. Remove bcrypt from dependencies when finished
 
 export const signUpRoute = {
   path: "/api/signup",
@@ -12,53 +10,55 @@ export const signUpRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const db = connectToDb;
-    const user = await db.collection("users").findOne({ email });
+    const attributes = [
+      // Can add more attributes later. Must also be set up in Cognito
+      new CognitoUserAttribute({ Name: "email", Value: email }),
+    ];
 
-    if (user) {
-      return res.status(409).json({ message: "User already exists." });
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const startingInfo = {
-      hairColor: "test",
-      favoriteFood: "test",
-      bio: "test",
-    };
-
-    const result = await db.collection("users").insertOne({
+    awsUserPool.signUp(
       email,
-      passwordHash,
-      info: startingInfo,
-      isVerified: false,
-    });
-
-    const { insertedId } = result;
-
-    console.log({
-      id: insertedId,
-      email,
-      info: startingInfo,
-      isVerified: false,
-    });
-
-    jwt.sign(
-      {
-        id: insertedId,
-        email,
-        info: startingInfo,
-        isVerified: false,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "2d",
-      },
-      (err, token) => {
+      password,
+      attributes,
+      null,
+      async (err, awsResult) => {
         if (err) {
-          return res.status(500).send(err);
+          console.log(err);
+          return res.status(500).json({ message: "Unable to sign up user" });
         }
-        res.status(200).json({ token });
+
+        // Rename this one based on actual database setup.
+        const db = connectToDb("Maintain");
+
+        // Video specific
+        const startingInfo = {
+          hairColor: "",
+          favoriteFood: "",
+          bio: "",
+        };
+
+        // Insert data of new user into database
+        const result = await db.collection("users").insertOne({
+          email,
+          info: startingInfo,
+        });
+        const { insertedId } = result;
+
+        jwt.sign(
+          {
+            id: insertedId,
+            isVerified: false,
+            email,
+            info: startingInfo,
+          },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "2d",
+          },
+          (err, token) => {
+            if (err) return res.sendStatus(500);
+            res.status(200).json({ token });
+          }
+        );
       }
     );
   },

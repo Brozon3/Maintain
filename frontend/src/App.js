@@ -25,7 +25,7 @@ export function App() {
 
       <Footer />
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<DisplayProperties />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route element={<PrivateRoute user={user} />}>

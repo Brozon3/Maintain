@@ -24,8 +24,8 @@ const SignUpPage = () => {
 
     const { token } = response.data;
     setToken(token);
-    navigate("/displayProperties");
-    // navigate(`/please-verify?email=${encodeURIComponent(emailValue)}`);
+    // navigate("/displayProperties");
+    navigate(`/please-verify?email=${encodeURIComponent(emailValue)}`);
   };
 
   return (
