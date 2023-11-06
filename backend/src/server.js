@@ -1,8 +1,6 @@
 import express from "express";
 import { routes } from "./routes/index.js";
 import { getDbConnection } from "./db.js";
-// TODO once db exists
-// import { initializeDbConnection } from "./db.js";
 
 const app = express();
 app.use(express.json());
