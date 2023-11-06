@@ -9,18 +9,18 @@ AWS.config.update({
 });
 
 export const DocumentClient = new AWS.DynamoDB.DocumentClient();
-export const TABLE_NAME = 'users';
+export const TABLE_NAME = "users";
 
 export const getSinglePropertyByID = async (TABLE_NAME, id) => {
-	const params = {
-		TableName: TABLE_NAME,
-		Key: {
-			id,
-		},
-	};
-	const item = await DocumentClient.get(params).promise();
-	console.log(item)
-	return item;
+  const params = {
+    TableName: TABLE_NAME,
+    Key: {
+      id,
+    },
+  };
+  const item = await DocumentClient.get(params).promise();
+  console.log(item);
+  return item;
 };
 
 export const getAllProperties = async () => {
@@ -33,19 +33,19 @@ export const getAllProperties = async () => {
 };
 
 export const insertProperty = async (TABLE_NAME, itemObject) => {
-	const params = {
-		TableName: TABLE_NAME,
-		Item: itemObject,
-	};
-	return await DocumentClient.put(params).promise();
+  const params = {
+    TableName: TABLE_NAME,
+    Item: itemObject,
+  };
+  return await DocumentClient.put(params).promise();
 };
 
 export const deleteSinglePropertyById = async (TABLE_NAME, id) => {
-	const params = {
-		TableName: TABLE_NAME,
-		Key: {
-			id,
-		},
-	};
-	return await DocumentClient.delete(params).promise();
+  const params = {
+    TableName: TABLE_NAME,
+    Key: {
+      id,
+    },
+  };
+  return await DocumentClient.delete(params).promise();
 };
