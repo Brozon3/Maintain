@@ -6,7 +6,9 @@ export const UseUser = () => {
 
   const getPayloadFromToken = (token) => {
     const encodedPayload = token.split(".")[1];
-    return JSON.parse(atob(encodedPayload));
+    const returnValue = JSON.parse(atob(encodedPayload));
+    console.log(returnValue);
+    return returnValue;
   };
 
   const [user, setUser] = useState(() => {
