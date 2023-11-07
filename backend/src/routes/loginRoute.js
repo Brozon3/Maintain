@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { getUserByEmail } from "../Commands.js";
 // import { connectToDb } from "../db.js";
 // import { DocumentClient } from "../Commands";
 
@@ -12,6 +13,8 @@ export const loginRoute = {
     // const db = connectToDb;
     // const user = await db.collection("users").findOne({ email });
     // const user = await DocumentClient.get(email).promise();
+
+    const user = await getUserByEmail(email);
 
     if (!user) return res.sendStatus(401);
 

@@ -4,9 +4,6 @@ import { sendEmail } from "../util/sendEmail.js";
 // import { awsUserPool } from "../util/awsUserPool.js";
 import bcrypt from "bcrypt";
 import { insertUser, getUserByEmail } from "../Commands.js";
-// import { DocumentClient } from "../Commands"
-
-// Temp import for basic setup. Remove bcrypt from dependencies when finished
 
 export const signUpRoute = {
   path: "/api/signup",
