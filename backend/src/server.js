@@ -7,6 +7,7 @@ import {
   getSinglePropertyByID,
   insertProperty,
   deleteSinglePropertyById,
+  getAllUsers,
 } from "./Commands.js";
 
 const port = 8000;
@@ -27,6 +28,19 @@ app.get("/api/hello/:name", (req, res) => {
 // {"id": 4, "color":"Green", "name":"This is a real street"}
 
 const TABLE_NAME = "users";
+
+//Get all the users
+app.get("/users", async (req, res) => {
+  try {
+    const properties = await getAllUsers("users");
+    res.status(200).json(properties);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
 
 //Get all the properties
 app.get("/properties", async (req, res) => {

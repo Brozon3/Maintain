@@ -49,3 +49,12 @@ export const deleteSinglePropertyById = async (TABLE_NAME, id) => {
   };
   return await DocumentClient.delete(params).promise();
 };
+
+export const getAllUsers = async () => {
+  const params = {
+    TableName: TABLE_NAME,
+  };
+  const items = await DocumentClient.scan(params).promise();
+  console.log(items);
+  return items;
+};
