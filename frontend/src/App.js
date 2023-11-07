@@ -7,12 +7,16 @@ import { PropertyApplianceList } from "./components/PropertyApplianceList";
 import { PropertyTaskList } from "./components/PropertyTaskList";
 import './index.css';
 import { AddTask } from './components/AddTask';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import data from './data/dummyProperties.json'
 
 export function App() {
 
   const [properties, setProperties] = useState(data);
+
+  useEffect(() => {
+    
+  },[properties]);
 
   return (
     <BrowserRouter>
