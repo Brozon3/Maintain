@@ -13,6 +13,7 @@ import "./index.css";
 import { AddTask } from "./components/AddTask";
 import data from "./data/dummyProperties.json";
 import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
+import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
 
 // To add different private route permissions, see https://www.robinwieruch.de/react-router-private-routes/
 export function App() {
@@ -30,11 +31,15 @@ export function App() {
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route element={<PrivateRoute user={user} />}>
+          <Route
+            path="/verifyEmail/:verificationString"
+            element={<PleaseVerifyEmailPage />}
+          />
           <Route path="/displayProperties" element={<DisplayProperties />} />
           <Route path="/addProperty" element={<AddProperty />} />
           <Route path="/applianceList" element={<PropertyApplianceList />} />
           <Route path="/taskList" element={<PropertyTaskList />} />
-          <Route path="/please-verify" element={<PleaseVerifyEmailPage />} />
+          <Route path="/pleaseVerify" element={<PleaseVerifyEmailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
