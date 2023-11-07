@@ -30,12 +30,19 @@ export const updateUserInfoRoute = {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err)
         return res.status(401).json({ message: "Unable to verify token" });
-      const { id } = decoded;
+
+      const { id, isVerified } = decoded;
 
       if (id !== userId)
         return res
           .status(403)
           .json({ message: "Not allowed to update users data" });
+
+      if (!isVerified)
+        return res.status(403).json({
+          message:
+            "You nneed to verify your email before you can update your data.",
+        });
 
       const db = connectToDb();
       const result = await db
@@ -45,7 +52,7 @@ export const updateUserInfoRoute = {
           { $set: { info: updates } },
           { returnOriginal: false }
         );
-      const { email, isVerified, info } = result.value;
+      const { email, info } = result.value;
 
       jwt.sign(
         { id, email, isVerified, info },

@@ -12,6 +12,7 @@ import SignUpPage from "./pages/SignUpPage";
 import "./index.css";
 import { AddTask } from "./components/AddTask";
 import data from "./data/dummyProperties.json";
+import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
 
 // To add different private route permissions, see https://www.robinwieruch.de/react-router-private-routes/
 export function App() {
@@ -33,6 +34,7 @@ export function App() {
           <Route path="/addProperty" element={<AddProperty />} />
           <Route path="/applianceList" element={<PropertyApplianceList />} />
           <Route path="/taskList" element={<PropertyTaskList />} />
+          <Route path="/please-verify" element={<PleaseVerifyEmailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
