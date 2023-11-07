@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../util/awsUserPool.js";
 // We will need to have this database connection once we have a database to connect to
-import { connectToDb } from "../db.js";
 
 export const signUpRoute = {
   path: "/api/signup",

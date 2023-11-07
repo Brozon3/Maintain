@@ -1,6 +1,5 @@
 import express from "express";
 import { routes } from "./routes/index.js";
-import { getDbConnection } from "./db.js";
 const app = express();
 import {
   getAllProperties,
@@ -135,13 +134,13 @@ app.delete("/properties/:id", async (req, res) => {
   }
 });
 
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`);
-// });
-
-getDbConnection(() => {
-  console.log("Connected to Database");
-  app.listen(8000, () => {
-    console.log("Server is listening on port 8000");
-  });
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
+
+// getDbConnection(() => {
+//   console.log("Connected to Database");
+//   app.listen(8000, () => {
+//     console.log("Server is listening on port 8000");
+//   });
+// });
