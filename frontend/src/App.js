@@ -1,34 +1,55 @@
-import { NavBar } from './components/NavBar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { DisplayProperties } from './components/ViewProperties';
-import { Footer } from './components/Footer';
-import { AddProperty } from './components/AddProperty';
+import { NavBar } from "./components/NavBar";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { DisplayProperties } from "./components/ViewProperties";
+import { Footer } from "./components/Footer";
+import { AddProperty } from "./components/AddProperty";
 import { PropertyApplianceList } from "./components/PropertyApplianceList";
 import { PropertyTaskList } from "./components/PropertyTaskList";
-import './index.css';
-import { AddTask } from './components/AddTask';
-import { useEffect, useState } from 'react';
-import data from './data/dummyProperties.json'
+import "./index.css";
+import { AddTask } from "./components/AddTask";
+import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import data from "./data/dummyProperties.json";
+import { PrivateRoute } from "./auth/PrivateRoute";
+import {
+  EmailVerificationFail,
+  EmailVerificationSuccess,
+  EmailVerification,
+  LoginPage,
+  PleaseVerifyEmailPage,
+  SignUpPage,
+} from "./pages";
 
 export function App() {
+  const [user, setUser] = useState(null);
 
   const [properties, setProperties] = useState(data);
 
-  useEffect(() => {
-    
-  },[properties]);
+  useEffect(() => {}, [properties]);
+
+  useEffect(() => {}, [properties]);
 
   return (
     <BrowserRouter>
-      <NavBar userState={"loggedIn"}/>
+      <NavBar userState={"loggedIn"} />
+
       <Footer />
-        <Routes>
-          <Route path="/" element={<DisplayProperties properties={properties} />} />
-          <Route path="/addProperty" element={<AddProperty properties={properties} />} />
-          <Route path="/applianceList/:id" element={<PropertyApplianceList properties={properties} />} />
-          <Route path="/taskList/:id" element={<PropertyTaskList properties={properties} />} />
-          <Route path="/addTask/:id" element={<AddTask properties={properties} />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<DisplayProperties />} />
+        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/signUpPage" element={<SignUpPage />} />
+        <Route element={<PrivateRoute user={user} />}>
+          <Route
+            path="/verifyEmail/:verificationString"
+            element={<PleaseVerifyEmailPage />}
+          />
+          <Route path="/displayProperties" element={<DisplayProperties />} />
+          <Route path="/addProperty" element={<AddProperty />} />
+          <Route path="/applianceList" element={<PropertyApplianceList />} />
+          <Route path="/taskList" element={<PropertyTaskList />} />
+          <Route path="/pleaseVerify" element={<PleaseVerifyEmailPage />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
