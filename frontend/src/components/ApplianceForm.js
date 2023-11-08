@@ -12,12 +12,12 @@ export const ApplianceForm = ({properties, appliance, warrantyCheck}) => {
 
     return(
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <Row className="my-2">
-                <Col className="align-middle">
+            <Row className="my-3 table-input">
+                <Col lg={1}>
                     {appliance.applianceType}  
                 </Col>
-                <Col className="align-middle">
-                    <Form.Select name="brand" {...register("brand", { required: true })}>
+                <Col lg={2}>
+                    <Form.Select name="brand" className="table-input" {...register("brand", { required: true })}>
                         <option >--</option>
                         <option value={"Amana"}>Amana</option>
                         <option value={"Bosch"}>Bosch</option>
@@ -35,22 +35,22 @@ export const ApplianceForm = ({properties, appliance, warrantyCheck}) => {
                         <option value={"Whirlpool"}>Whirlpool</option>
                     </Form.Select>
                 </Col>
-                <Col className="align-middle" >
-                    <Form.Control type="text" placeholder="0123456789" name="model" {...register("model", { required: true })}/>
+                <Col lg={2}>
+                    <Form.Control type="text" placeholder="0123456789" name="model" className="table-input" {...register("model", { required: true })}/>
                 </Col>
-                <Col className="align-middle">
-                    <Form.Control type="text" placeholder="ABCXYZ" name="serialNumber" {...register("serialNumber", { required: true })}/>
+                <Col lg={2}>
+                    <Form.Control type="text" placeholder="ABCXYZ" name="serialNumber" className="table-input" {...register("serialNumber", { required: true })}/>
                 </Col>
-                <Col className="align-middle" name="purchaseDate">
-                    <Form.Control type="date" {...register("purhcaseDate", { required: true })}/>
+                <Col lg={2}>
+                    <Form.Control type="date" className="table-input" name="purchaseDate" {...register("purhcaseDate", { required: true })}/>
                 </Col>
-                <Col className="align-middle">
-                    <Form.Control type="number" placeholder="1" min={0} max={25} defaultValue={0} name="warrantyLength" {...register("warrantyLength", { required: true })}/>
+                <Col lg={1}>
+                    <Form.Control type="number" className="table-input" placeholder="1" min={0} max={25} defaultValue={0} name="warrantyLength" {...register("warrantyLength", { required: true })}/>
                 </Col>
-                <Col className="align-middle">
+                <Col lg={1}>
                     {warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}
                 </Col>
-                <Col className="align-middle w-auto"><Button className="green-button" type="submit">+</Button></Col>
+                <Col lg={1}><Button className="green-button" type="submit">+</Button></Col>
             </Row>
         </Form>
     )
