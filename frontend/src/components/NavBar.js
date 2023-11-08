@@ -50,12 +50,16 @@ export const NavBar = ({ userState }) => {
             />
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link className="green-text" href="/">
+            <Nav.Link className="green-text" href="/displayProperties">
               <h4>Properties</h4>
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link className="green-text" href="#login" onClick={logOutHandler}>
+            <Nav.Link
+              className="green-text"
+              href="#login"
+              onClick={logOutHandler}
+            >
               <h4>Login</h4>
             </Nav.Link>
           </Nav>
