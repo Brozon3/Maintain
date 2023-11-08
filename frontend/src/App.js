@@ -8,6 +8,7 @@ import { PropertyTaskList } from "./components/PropertyTaskList";
 import "./index.css";
 import { AddTask } from "./components/AddTask";
 import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import {
@@ -23,6 +24,8 @@ export function App() {
   const [user, setUser] = useState(null);
 
   const [properties, setProperties] = useState(data);
+
+  useEffect(() => {}, [properties]);
 
   useEffect(() => {}, [properties]);
 
