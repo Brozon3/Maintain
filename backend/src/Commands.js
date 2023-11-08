@@ -32,7 +32,7 @@ export const getUserByEmail = async (email) => {
   console.log("Query params:", params);
   try {
     const result = await DocumentClient.query(params).promise();
-    console.log("Query result:", result); // Add this line for logging
+    console.log("Query result:", result);
 
     if (result.Count > 0) {
       return result.Items[0]; // Match the first user found in the query.
