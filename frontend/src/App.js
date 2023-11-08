@@ -8,17 +8,14 @@ import { PropertyTaskList } from "./components/PropertyTaskList";
 import "./index.css";
 import { AddTask } from "./components/AddTask";
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
 import { PrivateRoute } from "./auth/PrivateRoute";
-import {
-  EmailVerificationFail,
-  EmailVerificationSuccess,
-  EmailVerification,
-  LoginPage,
-  PleaseVerifyEmailPage,
-  SignUpPage,
-} from "./pages";
+import { EmailVerificationFail } from "./pages/EmailVerificationFail";
+import { EmailVerificationSuccess } from "./pages/EmailVerificationSuccess";
+import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
+import LoginPage from "./pages/LoginPage";
+import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
+import SignUpPage from "./pages/SignUpPage";
 
 export function App() {
   const [user, setUser] = useState(null);
