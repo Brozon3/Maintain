@@ -9,6 +9,15 @@ import "./index.css";
 import { AddTask } from "./components/AddTask";
 import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
+import { PrivateRoute } from "./auth/PrivateRoute";
+import {
+  EmailVerificationFail,
+  EmailVerificationSuccess,
+  EmailVerification,
+  LoginPage,
+  PleaseVerifyEmailPage,
+  SignUpPage,
+} from "./pages";
 
 export function App() {
   const [user, setUser] = useState(null);
