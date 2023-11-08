@@ -4,15 +4,49 @@
         "address": "21 Jump St.", 
         "city": "Torbay", 
         "province": "NL",
-        "outstandingTasks": [
-            "Fall is here! Time to declutter the gutters.",
-            "It's been one year already! Time to clean the dryer vent again.",
-            "Vacuum time! Those pesky carpets are always dirty."
-        ],
-        "upcomingTasks": [
-            "Winter is coming! Time to bring in the patio furniture.",
-            "Safety first! Check fire alarms and fire extinguishers.",
-            "They help us stay clean but get dirty in the process. Time to scrub the tub."
+        "tasks": [
+            {
+                "taskName": "Fall is here! Time to declutter the gutters.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Oct 29, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "It's been one year already! Time to clean the dryer vent again.",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Oct 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Vacuum time! Those pesky carpets are always dirty.",
+                "recurring": true,
+                "frequency": "Weekly",
+                "completeBy": "Nov 5, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Winter is coming! Time to bring in the patio furniture.",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Dec 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Safety first! Check fire alarms and fire extinguishers.",
+                "recurring": true,
+                "frequency": "Semi-Annually",
+                "completeBy": "Nov 15, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "They help us stay clean but get dirty in the process. Time to scrub the tub.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Nov 19, 2023",
+                "completedOn": ""
+            }
         ],
         "applianceList":[
             {
@@ -94,15 +128,49 @@
         "address": "1 First St.",
         "city": "St. John's",
         "province": "NL",
-        "outstandingTasks": [
-            "Fall is here! Time to declutter the gutters.",
-            "Tricky little things! Time to clean the oven again.",
-            "Stinky! Cat litter needs to be changed."
-        ],
-        "upcomingTasks": [
-            "Winter is coming! Make sure the snowblower is serviced!",
-            "Safety first! Check fire alarms and fire extinguishers.",
-            "Clean the house before NYE party."
+        "tasks": [
+            {
+                "taskName": "Fall is here! Time to declutter the gutters.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Oct 25, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Tricky little things! Time to clean the oven again.",
+                "recurring": true,
+                "frequency": "Bi-Monthly",
+                "completeBy": "Oct 15, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Stinky! Cat litter needs to be changed.",
+                "recurring": true,
+                "frequency": "Weekly",
+                "completeBy": "Nov 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Winter is coming! Make sure the snowblower is serviced!",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Nov 25, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Safety first! Check fire alarms and fire extinguishers.",
+                "recurring": true,
+                "frequency": "Semi-Annually",
+                "completeBy": "Nov 8, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Clean the house before NYE party.",
+                "recurring": true,
+                "frequency": "Once",
+                "completeBy": "Dec 28, 2023",
+                "completedOn": ""
+            }
         ],
         "applianceList":[
             {
