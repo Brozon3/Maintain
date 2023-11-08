@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Table, Button, Form } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
 import { useParams } from "react-router";
+import { ApplianceForm } from "./ApplianceForm";
 
 export const PropertyApplianceList = ({properties}) => {
 
@@ -17,12 +18,87 @@ export const PropertyApplianceList = ({properties}) => {
 
     const property = findProperty();
 
-    const warrantyCheck = () => {
-    
+    const warrantyCheck = (purchaseDate, warrantyLength) => {
+        if (purchaseDate === ""){
+            return "--";
+        }
+
+        const pDate = new Date(purchaseDate);
+        
+        const warrantyExpireDate = new Date(pDate);
+        warrantyExpireDate.setFullYear(warrantyExpireDate.getFullYear() + warrantyLength);
+        
+        const today = new Date();
+        
+        if (today < warrantyExpireDate) {
+            return "No";
+        } else {
+            return "Yes";
+        }
     }
 
     return (
-        <Container className="text-center main" >
+        <Container className="text-center main">
+
+            <h1 className="blue-header">{property.address}</h1>
+            <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
+
+            <PropertyDoubleButton current={"appliance"} id={id}/>
+
+            <Container className="blue-border my-3">
+                <Row className="my-2">
+                    <Col>
+                        <h6>Type</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Manufacturer</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Model</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Serial Number</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Purchase Date</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Warranty Length</h6>
+                    </Col>
+                    <Col>    
+                        <h6>Warranty Expired</h6>
+                    </Col>
+                    <Col>    
+                        <h6>#</h6>
+                    </Col>
+                </Row>
+                {property.applianceList.map((appliance, i) => {
+                    if (appliance.empty === false){
+                        return(
+                            <Row className="my-2" key={i}>
+                                <Col className="align-middle w-auto">{appliance.applianceType}</Col>
+                                <Col className="align-middle w-auto" >{appliance.manufacturer}</Col>
+                                <Col className="align-middle w-auto">{appliance.modelNumber}</Col>
+                                <Col className="align-middle w-auto">{appliance.serialNumber}</Col>
+                                <Col className="align-middle w-auto">{appliance.purchaseDate}</Col>
+                                <Col className="align-middle w-auto">{appliance.warrantyLength}</Col>
+                                <Col className="align-middle w-auto">{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</Col>
+                                <Col><a href="/" className="link">User Manual</a></Col>
+                            </Row>
+                        )
+                    } else {
+                        return(
+                            <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
+                        )
+                    }
+                })}
+            </Container>
+         
+        </Container>
+
+
+        
+        /** <Container className="text-center main" >
 
             <h1 className="blue-header">{property.address}</h1>
             <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
@@ -54,13 +130,14 @@ export const PropertyApplianceList = ({properties}) => {
                                     <td className="align-middle">{appliance.serialNumber}</td>
                                     <td className="align-middle">{appliance.purchaseDate}</td>
                                     <td className="align-middle">{appliance.warrantyLength}</td>
-                                    <td className="align-middle">--</td>
+                                    <td className="align-middle">{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</td>
                                     <td><a href="/" className="link">User Manual</a></td>
                                 </tr>
                             )
                         } else {
-                            return(
-                                    <tr key={i}>
+                            return(                                
+                                <tr key={i}>
+                                    <form>
                                         <td className="align-middle">{appliance.applianceType}</td>
                                         <td>
                                             <Form.Select style={{width: "100%"}} className="w-auto">
@@ -88,15 +165,16 @@ export const PropertyApplianceList = ({properties}) => {
                                             <Form.Control type="text" placeholder="ABCXYZ"/>
                                         </td>
                                         <td>
-                                            <Form.Control type="date" placeholder="ABCXYZ"/>
+                                            <Form.Control type="date"/>
                                         </td>
                                         <td>
-                                            <Form.Control type="number" placeholder="1"min={0} max={25} value={0}/>
+                                            <Form.Control type="number" placeholder="1"min={0} max={25} defaultValue={0}/>
                                         </td>
-                                        <td className="align-middle">--</td>
+                                        <td className="align-middle">{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</td>
                                         <td><Button className="green-button" type="submit">+</Button></td>
-                                    </tr>
-                                
+                                    </form>
+                                    
+                                </tr>
                             )
                         }
                     })}
@@ -104,6 +182,6 @@ export const PropertyApplianceList = ({properties}) => {
             </Table>
             </div> 
 
-        </Container>
+        </Container> **/
     )
 }
