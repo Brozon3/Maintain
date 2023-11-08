@@ -119,6 +119,7 @@ app.get("/properties/:id", async (req, res) => {
       .json({ message: err.message || "Something went wrong" });
   }
 });
+
 // Use postman to delete a single item by id
 app.delete("/properties/:id", async (req, res) => {
   let id = req.params.id;
@@ -137,10 +138,3 @@ app.delete("/properties/:id", async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-// getDbConnection(() => {
-//   console.log("Connected to Database");
-//   app.listen(8000, () => {
-//     console.log("Server is listening on port 8000");
-//   });
-// });
