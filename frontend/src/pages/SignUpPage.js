@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../auth/useToken.js";
 
-const SignUpPage = () => {
+export const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
