@@ -13,6 +13,11 @@ body {
     width: 95%;
 }
 
+.table-input {
+    margin: auto !important;
+    width: auto !important;
+}
+
 .link { 
     color: #2A4D6A; 
 } 
@@ -35,6 +40,12 @@ body {
     color: #2A4D6A; 
     text-align: center; 
     font-size: 40px;
+}
+
+.blue-button {
+    background-color: #2A4D6A !important; 
+    color: #F8F9FA !important; 
+    border-color: #17A589 !important;
 }
 
 .blue-secondary-header {
