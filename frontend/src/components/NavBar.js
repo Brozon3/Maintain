@@ -55,7 +55,7 @@ export const NavBar = ({ userState }) => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link className="green-text" href="#login">
+            <Nav.Link className="green-text" href="#login" onClick={logOutHandler}>
               <h4>Login</h4>
             </Nav.Link>
           </Nav>

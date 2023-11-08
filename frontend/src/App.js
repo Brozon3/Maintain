@@ -27,7 +27,7 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <NavBar userState={"loggedIn"} />
+      <NavBar userState={"loggedOut"} />
 
       <Footer />
       <Routes>
