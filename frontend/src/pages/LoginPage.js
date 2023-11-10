@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../auth/useToken";
 
@@ -26,16 +24,15 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
-      <Container
-        className="container w-75"
-        style={{ backgroundColor: "#F8F9FA", height: 800 }}
-      >
-        <h1> Log-in. </h1>
+    <Container className="container main">
+      <h1 className="mb-3 blue-header">Login</h1>
+      <Form className="container w-50 justify-content-center">
+            
         {errorMessage && <div className="fail">{errorMessage}</div>}
         <Form.Group className="mb-3">
-          <Form.Label>Your Email Address</Form.Label>
+          <Form.Label className="blue-text" htmlFor="email">Your Email Address: </Form.Label>
           <Form.Control
+            id="email"
             placeholder="email@example.com"
             value={emailValue}
             onChange={(e) => setEmailValue(e.target.value)}
@@ -43,8 +40,9 @@ export const LoginPage = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="blue-text" htmlFor="password">Password: </Form.Label>
           <Form.Control
+            id="password"
             type="password"
             placeholder="password"
             value={passwordValue}
@@ -52,33 +50,25 @@ export const LoginPage = () => {
           />
         </Form.Group>
         <hr></hr>
+        <Row>
+          <Col>
+            <Button disabled={!emailValue || !passwordValue} className="green-button mb-3" onClick={onLoginClicked}>
+              Log In
+            </Button>
+          </Col>
+          <Col>
+            <Button className="green-button mb-3" onClick={() => navigate("/signUpPage")}>
+              Sign Up
+            </Button>
+          </Col>
+        </Row>
 
-        <Button
-          disabled={!emailValue || !passwordValue}
-          className="green-button"
-          onClick={onLoginClicked}
-        >
-          {" "}
-          Log In{" "}
+        <Button className="green-button mb-3" onClick={() => navigate("/forgotPassword")}>
+          Forgot Password
         </Button>
-
-        <Button
-          className="green-button"
-          onClick={() => navigate("/forgotPassword")}
-        >
-          {" "}
-          Forgot Password?{" "}
-        </Button>
-
-        <Button
-          className="green-button"
-          onClick={() => navigate("/signUpPage")}
-        >
-          {" "}
-          Don't have an account? Sign Up!{" "}
-        </Button>
-      </Container>
-    </>
+      
+      </Form>
+     </Container>   
   );
 };
 
