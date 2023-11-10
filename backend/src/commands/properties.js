@@ -11,6 +11,14 @@ AWS.config.update({
 export const DocumentClient = new AWS.DynamoDB.DocumentClient();
 export const TABLE_NAME = "properties";
 
+export const getAllProperties = async () => {
+  const params = {
+    TableName: TABLE_NAME,
+  };
+  const items = await DocumentClient.scan(params).promise();
+  console.log(items);
+  return items;
+};
 
 export const getSinglePropertyByID = async (TABLE_NAME, id) => {
   const params = {
@@ -22,15 +30,6 @@ export const getSinglePropertyByID = async (TABLE_NAME, id) => {
   const item = await DocumentClient.get(params).promise();
   console.log(item);
   return item;
-};
-
-export const getAllProperties = async () => {
-  const params = {
-    TableName: TABLE_NAME,
-  };
-  const items = await DocumentClient.scan(params).promise();
-  console.log(items);
-  return items;
 };
 
 export const insertProperty = async (TABLE_NAME, itemObject) => {
