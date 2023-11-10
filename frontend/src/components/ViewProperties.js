@@ -1,54 +1,67 @@
-import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export function DisplayProperties(){
+const maxProperties = 3;
+
+export function DisplayProperties({properties}){
     
     const navigate = useNavigate();
     const addProperty = () => navigate('/addProperty');
-    const viewProperty = () => navigate('/taskList');
+    const viewProperty = (id) => navigate('/taskList/' + id);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
     
     return(
-        <Container className="container w-75 main">
+        <Container className="container main">
             <Row xs={1} md={2} className="g-4">
-                <Col>
-                    <Card className="m-5 text-center blue-border">
-                        <Card.Body className="align-items-center">
-                            <Card.Title className="blue-header">1 First St.</Card.Title>
-                            <Card.Text className="blue-header">
-                                St. John's, NL
-                            </Card.Text>
-                            <Button type="submit" className="mx-2 green-button" onClick={viewProperty}>
-                                View Property
-                            </Button>
-                            <Button type="submit" className="mx-2 green-button">
-                                Delete Property
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col>
-                    <Card className="m-5 text-center blue-border">
-                        <Card.Body>
-                            <Card.Title className="blue-header">21 Jump St.</Card.Title>
-                            <Card.Text className="blue-header">
-                                Torbay, NL
-                            </Card.Text>
-                            <Button type="submit" className="mx-2 green-button">
-                                View Property
-                            </Button>
-                            <Button type="submit" className="mx-2 green-button">
-                                Delete Property
-                            </Button>
-                        </Card.Body>
-                    </Card>               
-                </Col>
+                {properties.map(property => {
+                    return(
+                        <Col key={property.id}>
+                            <Card className="m-5 text-center blue-border">
+                                <Card.Body className="align-items-center">
+                                    <Card.Title className="blue-header">{property.address}</Card.Title>
+                                    <Card.Text className="blue-secondary-header">
+                                        {property.city}
+                                    </Card.Text>
+                                    <Card.Text className="blue-secondary-header">
+                                        {property.province}
+                                    </Card.Text>
+                                    <Button type="submit" className="mx-2 green-button" onClick={() => viewProperty(property.id)}>
+                                        View Property
+                                    </Button>
+                                    <Button type="submit" className="mx-2 green-button" onClick={handleOpen} >
+                                        Delete Property
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title className="blue-text">Delete Property</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body className="blue-text">Are you sure you want to delete this property?</Modal.Body>
+                                <Modal.Footer>
+                                <Button className="blue-button"  onClick={handleClose}>
+                                    Cancel
+                                </Button>
+                                <Button className="green-button" onClick={handleClose}>
+                                    Delete Property
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </Col>
+                    )
+                })}
                 <Col>
                     <Card className="m-5 text-center green-border">
-                        <Card.Body>
-                            <Card.Title className="blue-header">2 Properties Available</Card.Title>
-                            <Button type="submit" className="green-button" onClick={addProperty}>
-                                Add a property
+                        <Card.Body className="align-items-center">
+                            <Card.Title className="blue-header">{(maxProperties - properties.length) + " Properties Remaining"}</Card.Title>
+                            <Button type="submit" className="mx-2 green-button" onClick={addProperty} >
+                                Add a Property
                             </Button>
                         </Card.Body>
                     </Card>

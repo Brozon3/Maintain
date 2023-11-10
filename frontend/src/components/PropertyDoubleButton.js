@@ -1,20 +1,20 @@
 import { Button } from "react-bootstrap"
 import { useNavigate } from "react-router";
 
-export const PropertyDoubleButton = ({current}) => {
+export const PropertyDoubleButton = ({current, id}) => {
 
     const navigate = useNavigate();
-    const taskList = () => navigate('/taskList');
-    const applianceList = () => navigate('/applianceList');
+    const taskList = () => navigate('/taskList/' + id);
+    const applianceList = () => navigate('/applianceList/' + id);
 
     if (current === "task"){
         return(
             <>
-                <Button type="submit" className="my-2 green-button" onClick={taskList} style={{width: "18rem", height: "3rem"}} disabled>
+                <Button type="submit" className="my-2 green-button non-card-button" disabled>
                     View Tasks
                 </Button>
             
-                <Button type="submit" className="my-2 green-button" onClick={applianceList} style={{width: "18rem", height: "3rem"}} >
+                <Button type="submit" className="my-2 green-button non-card-button" onClick={applianceList}>
                     View Appliances
                 </Button>
             </>
@@ -22,11 +22,11 @@ export const PropertyDoubleButton = ({current}) => {
     } else {
         return (
             <>
-                <Button type="submit" className="my-2 green-button" onClick={taskList} style={{width: "18rem", height: "3rem"}} >
+                <Button type="submit" className="my-2 green-button non-card-button" onClick={taskList}>
                     View Tasks
                 </Button>
             
-                <Button type="submit" className="my-2 green-button" onClick={applianceList} style={{width: "18rem", height: "3rem"}} disabled>
+                <Button type="submit" className="my-2 green-button non-card-button" disabled>
                     View Appliances
                 </Button>
             </>

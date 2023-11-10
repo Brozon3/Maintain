@@ -1,0 +1,250 @@
+[
+    {
+        "id": 1, 
+        "address": "21 Jump St.", 
+        "city": "Torbay", 
+        "province": "NL",
+        "tasks": [
+            {
+                "taskName": "Fall is here! Time to declutter the gutters.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Oct 29, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "It's been one year already! Time to clean the dryer vent again.",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Oct 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Vacuum time! Those pesky carpets are always dirty.",
+                "recurring": true,
+                "frequency": "Weekly",
+                "completeBy": "Nov 5, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Winter is coming! Time to bring in the patio furniture.",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Dec 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Safety first! Check fire alarms and fire extinguishers.",
+                "recurring": true,
+                "frequency": "Semi-Annually",
+                "completeBy": "Nov 15, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "They help us stay clean but get dirty in the process. Time to scrub the tub.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Nov 19, 2023",
+                "completedOn": ""
+            }
+        ],
+        "applianceList":[
+            {
+                "applianceType": "Washer",
+                "empty": false,
+                "manufacturer": "LG",
+                "modelNumber": "LT43A3AWW",
+                "serialNumber": "57G43031",
+                "purchaseDate": "May 24, 2022",
+                "warrantyLength": 2 
+            },
+            {
+                "applianceType": "Dryer",
+                "empty": false,
+                "manufacturer": "LG",
+                "modelNumber": "LLE43A3AWW",
+                "serialNumber": "23G65484",
+                "purchaseDate": "May 24, 2022",
+                "warrantyLength": 2 
+            },
+            {
+                "applianceType": "Refrigerator",
+                "empty": false,
+                "manufacturer": "Samsung",
+                "modelNumber": "RF18A5101SR/AA",
+                "serialNumber": "23J8494",
+                "purchaseDate": "Sept 15, 2021",
+                "warrantyLength": 2 
+            },
+            {
+                "applianceType": "Range",
+                "empty": false,
+                "manufacturer": "GE",
+                "modelNumber": "JCAS300DMWW",
+                "serialNumber": "12K1234",
+                "purchaseDate": "Oct 15, 2023",
+                "warrantyLength": 5
+            },
+            {
+                "applianceType": "Dishwasher",
+                "empty": false,
+                "manufacturer": "Bosch",
+                "modelNumber": "SHE3AEM5N",
+                "serialNumber": "09X0909",
+                "purchaseDate": "Dec 15, 2022",
+                "warrantyLength": 1
+            },
+            {
+                "applianceType": "Freezer",
+                "empty": false,
+                "manufacturer": "Frigidaire",
+                "modelNumber": "FPFU10F8WF",
+                "serialNumber": "84K2921",
+                "purchaseDate": "Feb 21, 2019",
+                "warrantyLength": 2
+            },
+            {
+                "applianceType": "Water Heater",
+                "empty": false,
+                "manufacturer": "GE",
+                "modelNumber": "XE40M06ST45U1",
+                "serialNumber": "1001301831",
+                "purchaseDate": "Aug 14, 2017",
+                "warrantyLength": 3
+            },
+            {
+                "applianceType": "Air Purifier",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 2
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "address": "1 First St.",
+        "city": "St. John's",
+        "province": "NL",
+        "tasks": [
+            {
+                "taskName": "Fall is here! Time to declutter the gutters.",
+                "recurring": true,
+                "frequency": "Monthly",
+                "completeBy": "Oct 25, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Tricky little things! Time to clean the oven again.",
+                "recurring": true,
+                "frequency": "Bi-Monthly",
+                "completeBy": "Oct 15, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Stinky! Cat litter needs to be changed.",
+                "recurring": true,
+                "frequency": "Weekly",
+                "completeBy": "Nov 1, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Winter is coming! Make sure the snowblower is serviced!",
+                "recurring": true,
+                "frequency": "Annually",
+                "completeBy": "Nov 25, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Safety first! Check fire alarms and fire extinguishers.",
+                "recurring": true,
+                "frequency": "Semi-Annually",
+                "completeBy": "Nov 8, 2023",
+                "completedOn": ""
+            },
+            {
+                "taskName": "Clean the house before NYE party.",
+                "recurring": true,
+                "frequency": "Once",
+                "completeBy": "Dec 28, 2023",
+                "completedOn": ""
+            }
+        ],
+        "applianceList":[
+            {
+                "applianceType": "Washer",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Dryer",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Refrigerator",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0 
+            },
+            {
+                "applianceType": "Range",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Dishwasher",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Freezer",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Water Heater",
+                "empty": true,
+                "manufacturer": "",
+                "modelNumber": "",
+                "serialNumber": "",
+                "purchaseDate": "",
+                "warrantyLength": 0
+            },
+            {
+                "applianceType": "Air Purifier",
+                "empty": false,
+                "manufacturer": "Dyson",
+                "modelNumber": "BP03",
+                "serialNumber": "123247192A",
+                "purchaseDate": "March 3, 2023",
+                "warrantyLength": 2
+            }
+        ]
+    }
+]
