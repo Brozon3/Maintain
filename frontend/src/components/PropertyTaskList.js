@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Form, Button, Modal } from "react-bootstrap";
+import { Container, Row, Form, Button } from "react-bootstrap";
 import { PropertyDoubleButton } from "./PropertyDoubleButton";
 import { useNavigate, useParams } from "react-router";
+import { SwitchModal } from "./SwitchModal";
 
 export const PropertyTaskList = ({properties}) => {
 
@@ -22,62 +23,11 @@ export const PropertyTaskList = ({properties}) => {
     const [tasks, setTasks] = useState(property.tasks);
 
     useEffect (() => {
-        document.querySelectorAll('input[type=checkbox]').forEach(element => element.checked = false);
+        console.log(tasks);
     }, [tasks])
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => {
-        setShow(false);
-        document.querySelectorAll('input[type=checkbox]').forEach(element => element.checked = false);
-    };
-    const handleOpen = () => setShow(true);
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + id);
-
-    const nextDate = (task, tasks) => {
-        const completedDate = new Date();
-        task.completedOn = completedDate.toDateString();
-        console.log(task.completedOn);
-
-        let nextCompleteDate = new Date(completedDate);
-        
-        
-        if (task.frequency === "Annually"){
-            nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 1);
-        } else if (task.frequency === "Bi-Annually"){
-            nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 2);
-        } else if (task.frequency === "Weekly"){
-            nextCompleteDate.setDate(nextCompleteDate.getDate() + 7);
-        } else if (task.frequency === "Bi-Weekly"){
-            nextCompleteDate.setDate(nextCompleteDate.getDate() + 14);
-        } else if (task.frequency === "Monthly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 1);
-        } else if (task.frequency === "Bi-Monthly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 2);
-        } else if (task.frequency === "Quarterly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 3);
-        } else if (task.frequency === "Semi-Annually"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 6);
-        } else {
-            nextCompleteDate = "";
-        }
-        
-        task.completeBy = nextCompleteDate.toDateString();
-
-        setTasks(()=> {
-            const updatedTasks = [];
-            for (let i=0; i<tasks.length; i++){
-                if (tasks[i].taskName !== task.taskName){
-                    updatedTasks.push(tasks[i]);
-                }
-            }
-            updatedTasks.push(task);
-            return updatedTasks;
-        });
-        
-    }
 
     return (
         <Container className="text-center main" >
@@ -94,32 +44,10 @@ export const PropertyTaskList = ({properties}) => {
                     {tasks.map((task, i) => {
                         if (new Date(task.completeBy) <= today){
                             return(
-                                <>
-                                <Form.Group className="mb-3" key={i}>
-                                    <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} inline/>
-                                    <Form.Check.Label>
-                                        {task.taskName}
-                                    </Form.Check.Label>
-                                </Form.Group>
-                                <Modal show={show} onHide={handleClose}>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title className="blue-text">Complete Task</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body className="blue-text">Are you sure you want to complete this task?</Modal.Body>
-                                    <Modal.Footer>
-                                    <Button className="blue-button"  onClick={handleClose}>
-                                        Cancel
-                                    </Button>
-                                    <Button className="green-button" onClick={() => { nextDate(task, tasks); handleClose()}}>
-                                        Complete Task
-                                    </Button>
-                                    </Modal.Footer>
-                                </Modal>
-                                </>
-                            
+                                <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"out" + i} i={i}/>
                             )
                         } else {
-                            return("")
+                            return(null);
                         }
                     })}
                     
@@ -133,31 +61,10 @@ export const PropertyTaskList = ({properties}) => {
                     {tasks.map((task, i) => {
                         if (new Date(task.completeBy) > today){
                             return(
-                                <>
-                                    <Form.Group className="mb-3" key={i}>
-                                        <Form.Check type={"switch"} onClick={handleOpen} inline/>
-                                        <Form.Check.Label>
-                                            {task.taskName}
-                                        </Form.Check.Label>
-                                    </Form.Group>
-                                    <Modal show={show} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title className="blue-text">Complete Task</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body className="blue-text">Are you sure you want to complete this task?</Modal.Body>
-                                        <Modal.Footer>
-                                        <Button className="blue-button"  onClick={handleClose}>
-                                            Cancel
-                                        </Button>
-                                        <Button className="green-button" onClick={() => { nextDate(task, tasks); handleClose()}}>
-                                            Complete Task
-                                        </Button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                </>
+                                <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"up" + i} i={i}/>
                             )
                         } else {
-                            return("")
+                            return(null);
                         }
                     })}
 

@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../auth/useToken";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
@@ -81,5 +81,3 @@ const LoginPage = () => {
     </>
   );
 };
-
-export default LoginPage;
