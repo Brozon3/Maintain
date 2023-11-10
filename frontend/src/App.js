@@ -13,9 +13,9 @@ import { PrivateRoute } from "./auth/PrivateRoute";
 import { EmailVerificationFail } from "./pages/EmailVerificationFail";
 import { EmailVerificationSuccess } from "./pages/EmailVerificationSuccess";
 import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
-import LoginPage from "./pages/LoginPage";
-import PleaseVerifyEmailPage from "./pages/PleaseVerifyEmailPage";
-import SignUpPage from "./pages/SignUpPage";
+import { LoginPage } from "./pages/LoginPage";
+import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
+import { SignUpPage } from "./pages/SignUpPage";
 import { HomePage } from "./pages/HomePage";
 
 export function App() {

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PleaseVerifyEmailPage = () => {
+export const PleaseVerifyEmailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,5 +20,3 @@ const PleaseVerifyEmailPage = () => {
     </div>
   );
 };
-
-export default PleaseVerifyEmailPage;

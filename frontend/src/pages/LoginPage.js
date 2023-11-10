@@ -71,5 +71,3 @@ export const LoginPage = () => {
      </Container>   
   );
 };
-
-export default LoginPage;
