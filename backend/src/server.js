@@ -1,10 +1,27 @@
 import express from "express";
 import { routes } from "./routes/index.js";
 const app = express();
-import { } from "./commands/features.js";
-import { } from "./commands/properties.js";
-import { } from "./commands/tasks.js";
-import { } from "./commands/users.js";
+import { 
+  getAllFeatures, 
+  insertFeature,
+  deleteSingleFeatureById
+} from "./commands/features.js";
+import { 
+  getAllProperties, 
+  getSinglePropertyByID, 
+  insertProperty, 
+  deleteSinglePropertyById 
+} from "./commands/properties.js";
+import { 
+  getAllTasks, 
+  insertTask, 
+  deleteSingleTaskById 
+} from "./commands/tasks.js";
+import { getAllUsers, 
+  getUserByEmail, 
+  insertUser, 
+  deleteSingleUserById 
+} from "./commands/users.js";
 
 const port = 8000;
 
