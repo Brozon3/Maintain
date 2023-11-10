@@ -29,7 +29,6 @@ export const getUserByEmail = async (email) => {
       ":email": email,
     },
   };
-  console.log("Query params:", params);
   try {
     const result = await DocumentClient.query(params).promise();
     console.log("Query result:", result);
@@ -43,6 +42,27 @@ export const getUserByEmail = async (email) => {
     console.error("Error querying DynamoDB:", error);
     throw error;
   }
+};
+
+export const forgotPasswordCode = async (email, passwordResetCode) => {
+  const params = {
+    TableName: "users",
+    Key: {
+      email: email,
+    },
+    UpdateExpression: "SET passwordResetCode = :newValue",
+    ExpressionAttributeValues: {
+      ":newValue": passwordResetCode,
+    },
+    IndexName: "email-index",
+  };
+  const response = await DocumentClient.update(params, (err, data) => {
+    if (err) {
+      console.err("User update failed. Error: ", Json.stringify(err));
+    } else {
+      console.log("Password reset updated.");
+    }
+  });
 };
 
 export const insertUser = async (itemObject) => {
