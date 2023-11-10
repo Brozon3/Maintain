@@ -1,15 +1,10 @@
 import express from "express";
 import { routes } from "./routes/index.js";
 const app = express();
-import {
-  getAllProperties,
-  getSinglePropertyByID,
-  insertProperty,
-  deleteSinglePropertyById,
-  getAllUsers,
-  insertUser,
-  getUserByEmail,
-} from "./Commands.js";
+import { } from "./commands/features.js";
+import { } from "./commands/properties.js";
+import { } from "./commands/tasks.js";
+import { } from "./commands/users.js";
 
 const port = 8000;
 
