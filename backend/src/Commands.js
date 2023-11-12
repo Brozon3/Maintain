@@ -44,6 +44,7 @@ export const getUserByEmail = async (email) => {
   }
 };
 
+// Likely to be outsourced.
 export const forgotPasswordCode = async (email, passwordResetCode) => {
   const params = {
     TableName: "users",

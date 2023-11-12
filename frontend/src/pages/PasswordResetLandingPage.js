@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-route-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PasswordResetSuccess } from "./PasswordResetSuccess";
 import { PasswordResetFail } from "./PasswordResetFail";
@@ -10,7 +10,7 @@ export const PasswordResetLandingPage = () => {
   const [isFailure, setIsFailure] = useState(false);
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
-  const { passwordResetCode } = useParams();
+  // const { passwordResetCode } = useParams();
 
   const onResetClicked = async () => {
     try {

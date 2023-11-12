@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -12,6 +12,20 @@ export const LoginPage = () => {
   const [token, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+
+  useEffect(() => {
+    const loadOauthUrl = async () => {
+      try {
+        const response = await axios.get("/auth/google/url");
+        const { url } = response.data;
+        setGoogleOauthUrl(url);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    loadOauthUrl();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -76,6 +90,15 @@ export const LoginPage = () => {
         >
           {" "}
           Don't have an account? Sign Up!{" "}
+        </Button>
+        <Button
+          className="green-button"
+          disabled={!googleOauthUrl}
+          onClick={() => {
+            window.location.href = googleOauthUrl;
+          }}
+        >
+          Log in with Google
         </Button>
       </Container>
     </>

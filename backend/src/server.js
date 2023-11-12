@@ -13,6 +13,14 @@ import {
 
 const port = 8000;
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Cross-Origin-Opener-Policy",
+    "same-origin; same-origin-allow-popups"
+  );
+  next();
+});
+
 app.use(express.json());
 
 // Add the routes stores in the routes/index.js folder
