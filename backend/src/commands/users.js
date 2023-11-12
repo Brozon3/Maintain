@@ -22,7 +22,7 @@ export const getAllUsers = async () => {
 
 export const getUserByEmail = async (email) => {
   const params = {
-    TableName: "users",
+    TableName: TABLE_NAME,
     IndexName: "email-index",
     KeyConditionExpression: "email = :email",
     ExpressionAttributeValues: {
@@ -47,42 +47,13 @@ export const getUserByEmail = async (email) => {
 
 export const insertUser = async (itemObject) => {
   const params = {
-    TableName: "users",
-    Item: itemObject,
-  };
-  return await DocumentClient.put(params).promise();
-};
-
-export const getSinglePropertyByID = async (TABLE_NAME, id) => {
-  const params = {
-    TableName: TABLE_NAME,
-    Key: {
-      id,
-    },
-  };
-  const item = await DocumentClient.get(params).promise();
-  console.log(item);
-  return item;
-};
-
-export const getAllProperties = async () => {
-  const params = {
-    TableName: TABLE_NAME,
-  };
-  const items = await DocumentClient.scan(params).promise();
-  console.log(items);
-  return items;
-};
-
-export const insertProperty = async (TABLE_NAME, itemObject) => {
-  const params = {
     TableName: TABLE_NAME,
     Item: itemObject,
   };
   return await DocumentClient.put(params).promise();
 };
 
-export const deleteSinglePropertyById = async (TABLE_NAME, id) => {
+export const deleteSingleUserById = async (TABLE_NAME, id) => {
   const params = {
     TableName: TABLE_NAME,
     Key: {
