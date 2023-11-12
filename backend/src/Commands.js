@@ -44,6 +44,22 @@ export const getUserByEmail = async (email) => {
   }
 };
 
+export const updateUser = async (itemObject) => {
+  const params = {
+    TableName: "users",
+    Item: ItemObject,
+  };
+  return await DocumentClient.put(params).promise();
+};
+
+export const insertUser = async (itemObject) => {
+  const params = {
+    TableName: "users",
+    Item: itemObject,
+  };
+  return await DocumentClient.put(params).promise();
+};
+
 // Likely to be outsourced.
 export const forgotPasswordCode = async (email, passwordResetCode) => {
   const params = {
@@ -64,14 +80,6 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
       console.log("Password reset updated.");
     }
   });
-};
-
-export const insertUser = async (itemObject) => {
-  const params = {
-    TableName: "users",
-    Item: itemObject,
-  };
-  return await DocumentClient.put(params).promise();
 };
 
 export const getSinglePropertyByID = async (TABLE_NAME, id) => {
