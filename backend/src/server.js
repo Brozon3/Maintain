@@ -117,7 +117,7 @@ app.get("/users/:email", async (req, res) => {
 });
 
 // Add a new user
-app.post("/users", async (req, res) => {
+app.post("/users/", async (req, res) => {
   const body = req.body;
   try {
     const newUser = await insertUser(body);
@@ -148,7 +148,7 @@ app.delete("/users/:id", async (req, res) => {
 
 // Properties Section
 //Get all the properties
-app.get("/properties", async (req, res) => {
+app.get("/properties/", async (req, res) => {
   try {
     const properties = await getAllProperties();
     res.status(200).json(properties);
@@ -161,7 +161,7 @@ app.get("/properties", async (req, res) => {
 });
 
 // use postman to add a new property
-app.post("/properties", async (req, res) => {
+app.post("/properties/", async (req, res) => {
   const body = req.body;
   try {
     const newProperty = await insertProperty(body);
