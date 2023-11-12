@@ -7,6 +7,8 @@ import { Button, Container } from "react-bootstrap";
 // import { client } from "../client";
 import { jwtDecode } from "jwt-decode";
 
+// FROM A SEPERATE TUTORIAL> PROBABLY FOR DELETION
+
 export const GoogleLoginPage = () => {
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ export const GoogleLoginPage = () => {
     <>
       <Container>
         <div className>
-          <GoogleOAuthProvider clientIf={process.env.GOOGLE_CLIENT_ID}>
+          <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
             <GoogleLogin
               render={(renderProps) => {
                 <Button
