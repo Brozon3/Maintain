@@ -1,12 +1,12 @@
 import { NavBar } from "./components/NavBar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DisplayProperties } from "./components/ViewProperties";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { DisplayProperties } from "./pages/ViewProperties";
 import { Footer } from "./components/Footer";
-import { AddProperty } from "./components/AddProperty";
-import { PropertyApplianceList } from "./components/PropertyApplianceList";
-import { PropertyTaskList } from "./components/PropertyTaskList";
+import { AddProperty } from "./pages/AddProperty";
+import { PropertyApplianceList } from "./pages/PropertyApplianceList";
+import { PropertyTaskList } from "./pages/PropertyTaskList";
 import "./index.css";
-import { AddTask } from "./components/AddTask";
+import { AddTask } from "./pages/AddTask";
 import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
 import { PrivateRoute } from "./auth/PrivateRoute";
