@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
+import { RoofField } from "../components/RoofField";
 
 export const AddProperty = () => {
   // Below is related to auth for updating the user. Will implement later. Review 'Adding JWTs to the User Info Page.'
@@ -10,6 +12,8 @@ export const AddProperty = () => {
   // const { id, email, info } = user;
 
   const { register, handleSubmit } = useForm();
+
+  const [propertyType, setPropertyType] = useState("Apartment");
 
   const onSubmit = (data) => {
     console.log(data);
@@ -70,47 +74,47 @@ export const AddProperty = () => {
           <Form.Label className="blue-text" htmlFor="type">
             Property Type:{" "}
           </Form.Label>
-          <Form.Select id="type" {...register("type", { required: true })}>
-            <option value={"Apartment"}>Apartment</option>
-            <option value={"Cabin"}>Cabin</option>
-            <option value={"Commercial"}>Commercial</option>
-            <option value={"Condo"}>Condo</option>
-            <option value={"Home"}>Home</option>
-          </Form.Select>
+          <Form.Control as={"select"} value={propertyType} onChange={(e) => setPropertyType(e.target.event)} id="type" {...register("type", { required: true })}>
+            <option value="Apartment">Apartment</option>
+            <option value="Cabin">Cabin</option>
+            <option value="Condo">Condo</option>
+            <option value="Home">Home</option>
+          </Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="carpet">
-            Carpet:{" "}
+              Carpet:{" "}
           </Form.Label>
           <Form.Select id="carpet" {...register("carpet", { required: true })}>
-            <option value={"No"}>No</option>
-            <option value={"Yes"}>Yes</option>
+              <option value={"No"}>No</option>
+              <option value={"Yes"}>Yes</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="pets">
-            Pets:{" "}
+              Pets:{" "}
           </Form.Label>
           <Form.Select id="pets" {...register("pets", { required: true })}>
-            <option value={"No"}>No</option>
-            <option value={"Yes"}>Yes</option>
+              <option value={"No"}>No</option>
+              <option value={"Yes"}>Yes</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="heating">
-            Heating Type:{" "}
+              Heating Type:{" "}
           </Form.Label>
           <Form.Select
-            id="heating"
-            {...register("heating", { required: true })}
+              id="heating"
+              {...register("heating", { required: true })}
           >
-            <option value={"Electric"}>Electric</option>
-            <option value={"Oil"}>Oil</option>
+              <option value={"Electric"}>Electric</option>
+              <option value={"Oil"}>Oil</option>
           </Form.Select>
         </Form.Group>
+
         <hr></hr>
 
         <Button type="submit" className="green-button">

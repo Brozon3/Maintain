@@ -17,7 +17,7 @@ export function HomePage() {
                 </Col>
                 
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <Col>
                 <p className="my-2 blue-secondary-header">Maintain keeps you up-to-date on all of the maintenance tasks a property needs. 
                     We store the important data about your property's features, including the appliances 

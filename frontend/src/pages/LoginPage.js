@@ -50,18 +50,16 @@ export const LoginPage = () => {
           />
         </Form.Group>
         <hr></hr>
-        <Row>
-          <Col>
-            <Button disabled={!emailValue || !passwordValue} className="green-button mb-3" onClick={onLoginClicked}>
-              Log In
-            </Button>
-          </Col>
-          <Col>
-            <Button className="green-button mb-3" onClick={() => navigate("/signUpPage")}>
-              Sign Up
-            </Button>
-          </Col>
-        </Row>
+
+        <Button disabled={!emailValue || !passwordValue} className="green-button mb-3" onClick={onLoginClicked}>
+          Log In
+        </Button>
+        <br></br>
+        
+        <Button className="green-button mb-3" onClick={() => navigate("/signUpPage")}>
+          Sign Up
+        </Button>
+        <br></br>
 
         <Button className="green-button mb-3" onClick={() => navigate("/forgotPassword")}>
           Forgot Password
