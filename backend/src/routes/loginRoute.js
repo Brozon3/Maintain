@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "../Commands.js";
+import { getUserByEmail } from "../commands/users.js";
 
 export const loginRoute = {
   path: "/api/login",
