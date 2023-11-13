@@ -4,7 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../auth/useToken";
-import { useQueryParams } from "../util/useQueryParams";
+import { GoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -100,6 +102,17 @@ export const LoginPage = () => {
             </Col>
           </Row>
 
+          <div class="g-signin2" data-onsuccess="onSignIn">
+            <Button
+              disabled={!googleOauthUrl}
+              onClick={() => {
+                window.location.href = googleOauthUrl;
+              }}
+            >
+              Log in with Google
+            </Button>
+          </div>
+
           <Button
             className="green-button mb-3"
             onClick={() => navigate("/forgotPassword")}
@@ -113,15 +126,6 @@ export const LoginPage = () => {
           >
             {" "}
             Don't have an account? Sign Up!{" "}
-          </Button>
-          <Button
-            className="green-button"
-            disabled={!googleOauthUrl}
-            onClick={() => {
-              window.location.href = googleOauthUrl;
-            }}
-          >
-            Log in with Google
           </Button>
         </Form>
       </Container>
