@@ -65,7 +65,6 @@ export const signUpRoute = {
         id: insertedId,
         email,
         // info: startingInfo,
-        //TODO Change back to false
         isVerified: false,
       },
       process.env.JWT_SECRET,

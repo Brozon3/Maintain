@@ -4,13 +4,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../auth/useToken";
+import { useQueryParams } from "../util/useQueryParams";
 
 export const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [token, setToken] = useToken();
+  const [, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+  const { token: oauthToken } = useQueryParams;
+
+  useEffect(() => {
+    if (oauthToken) {
+      setToken(oauthToken);
+      navigate("/displayProperties");
+    }
+  });
 
   useEffect(() => {
     const loadOauthUrl = async () => {

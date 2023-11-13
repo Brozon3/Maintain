@@ -1,5 +1,5 @@
 import axios from "axios";
-import { oauthClient } from "./oauthClient";
+import { oauthClient } from "./oauthClient.js";
 
 const getAccessAndBearerTokenUrl = ({ accessToken }) =>
   `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`;

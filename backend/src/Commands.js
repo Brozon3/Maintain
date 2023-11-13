@@ -44,12 +44,33 @@ export const getUserByEmail = async (email) => {
   }
 };
 
-export const updateUser = async (itemObject) => {
+export const updateGoogleUser = async (itemObject) => {
+  const { email, ...updatedUserData } = itemObject;
   const params = {
     TableName: "users",
-    Item: ItemObject,
+    indexName: "email_index",
+    Key: {
+      email: email,
+    },
+    UpdateExpression:
+      "set #googleId = :valGoogleId, #isVerified = :valIsVerified",
+    ExpressionAttributeNames: {
+      "#googleId": "googleId",
+      "#isVerified": "isVerified",
+    },
+    ExpressionAttributeValues: {
+      ":valGoogleId": updatedUserData.googleId,
+      ":valIsVerified": updatedUserData.isVerified,
+    },
+    // ReturnValues: "ALL_NEW",
   };
-  return await DocumentClient.put(params).promise();
+  try {
+    const result = await DocumentClient.update(params).promise();
+    return result.Attributes;
+  } catch (e) {
+    console.error("Update user failed", e);
+  }
+  return;
 };
 
 export const insertUser = async (itemObject) => {
