@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 AWS.config.update({
@@ -50,7 +51,9 @@ export const insertUser = async (itemObject) => {
     TableName: TABLE_NAME,
     Item: itemObject,
   };
-  return await DocumentClient.put(params).promise();
+  const result = await DocumentClient.put(params).promise();
+  console.log(result);
+  return result;
 };
 
 export const deleteSingleUserById = async (TABLE_NAME, id) => {
@@ -61,4 +64,56 @@ export const deleteSingleUserById = async (TABLE_NAME, id) => {
     },
   };
   return await DocumentClient.delete(params).promise();
+};
+
+export const updateGoogleUser = async (itemObject) => {
+  const { userID, email, id, verified_email: isVerified } = itemObject;
+  const params = {
+    TableName: "users",
+    Item: {
+      userID: userID,
+      email: email,
+      isVerified: isVerified,
+    },
+    // UpdateExpression:
+    //   "set #googleId = :valGoogleId, #isVerified = :valIsVerified",
+    // ExpressionAttributeNames: {
+    //   "#googleId": "googleId",
+    //   "#isVerified": "isVerified",
+    // },
+    // ExpressionAttributeValues: {
+    //   ":valGoogleId": updatedUserData.googleId,
+    //   ":valIsVerified": updatedUserData.isVerified,
+    // },
+    ReturnValues: "ALL_OLD",
+  };
+  try {
+    const result = await DocumentClient.put(params).promise();
+    return result.Attributes;
+  } catch (e) {
+    console.error("Update user failed", e);
+    throw e;
+  }
+};
+
+// Likely to be outsourced & removed.
+export const forgotPasswordCode = async (email, passwordResetCode) => {
+  const params = {
+    TableName: "users",
+    Key: {
+      email: email,
+    },
+    UpdateExpression: "SET passwordResetCode = :newValue",
+    ExpressionAttributeValues: {
+      ":newValue": passwordResetCode,
+    },
+    IndexName: "email-index",
+  };
+  const response = await DocumentClient.update(params, (err, data) => {
+    if (err) {
+      console.err("User update failed. Error: ", Json.stringify(err));
+    } else {
+      console.log("Password reset updated.");
+    }
+  });
 };

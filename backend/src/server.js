@@ -1,26 +1,27 @@
 import express from "express";
 import { routes } from "./routes/index.js";
 const app = express();
-import { 
-  getAllFeatures, 
+import {
+  getAllFeatures,
   insertFeature,
-  deleteSingleFeatureById
+  deleteSingleFeatureById,
 } from "./commands/features.js";
-import { 
-  getAllProperties, 
-  getSinglePropertyByID, 
-  insertProperty, 
-  deleteSinglePropertyById 
+import {
+  getAllProperties,
+  getSinglePropertyByID,
+  insertProperty,
+  deleteSinglePropertyById,
 } from "./commands/properties.js";
-import { 
-  getAllTasks, 
-  insertTask, 
-  deleteSingleTaskById 
+import {
+  getAllTasks,
+  insertTask,
+  deleteSingleTaskById,
 } from "./commands/tasks.js";
-import { getAllUsers, 
-  getUserByEmail, 
-  insertUser, 
-  deleteSingleUserById 
+import {
+  getAllUsers,
+  getUserByEmail,
+  insertUser,
+  deleteSingleUserById,
   updateGoogleUser,
 } from "./commands/users.js";
 
@@ -93,7 +94,6 @@ app.delete("/features/:id", async (req, res) => {
   }
 });
 
-
 //Users Section
 //Get all the users
 app.get("/users/", async (req, res) => {
@@ -153,7 +153,6 @@ app.delete("/users/:id", async (req, res) => {
       .json({ message: err.message || "Something went wrong" });
   }
 });
-
 
 // Properties Section
 //Get all the properties
@@ -262,4 +261,3 @@ app.delete("/tasks/:id", async (req, res) => {
       .json({ message: err.message || "Something went wrong" });
   }
 });
-

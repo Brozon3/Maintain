@@ -10,14 +10,14 @@ export const googleOauthCallbackRoute = {
     const oauthUserInfo = await getGoogleUser({ code });
     const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo });
     //  _id likely is invalid here....we will see.
-    const { id, isVerified, email, info } = updatedUser;
+    const { id: userID, isVerified, email, info } = updatedUser;
 
     jwt.sign(
-      { id, isVerified, email, info },
+      { userID, isVerified, email, info },
       process.env.JWT_SECRET,
       (err, token) => {
         if (err) return res.sendStatus(500);
-        res.redirect(`http://localhost:3000/login?token=${token}`);
+        res.redirect(`http://localhost:3000/loginPage?token=${token}`);
       }
     );
   },

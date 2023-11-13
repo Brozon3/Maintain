@@ -12,14 +12,19 @@ export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
-  const { token: oauthToken } = useQueryParams;
+  // const {token: oauthToken } = useQueryParams;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const oauthToken = urlParams.get("token");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (oauthToken) {
       setToken(oauthToken);
       navigate("/displayProperties");
     }
-  });
+  }, [oauthToken, setToken, navigate]);
 
   useEffect(() => {
     const loadOauthUrl = async () => {
@@ -33,8 +38,6 @@ export const LoginPage = () => {
     };
     loadOauthUrl();
   }, []);
-
-  const navigate = useNavigate();
 
   const onLoginClicked = async () => {
     const response = await axios.post("/api/login", {
