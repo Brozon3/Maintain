@@ -7,7 +7,7 @@ import { Button, Container } from "react-bootstrap";
 // import { client } from "../client";
 import { jwtDecode } from "jwt-decode";
 
-// FROM A SEPERATE TUTORIAL> PROBABLY FOR DELETION
+// FROM A SEPERATE TUTORIAL> PROBABLY FOR DELETION. KEEPING FOR GOOGLE BUTTON CREATION.
 
 export const GoogleLoginPage = () => {
   const navigate = useNavigate();
