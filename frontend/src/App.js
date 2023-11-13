@@ -17,6 +17,8 @@ import { LoginPage } from "./pages/LoginPage";
 import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
 import { SignUpPage } from "./pages/SignUpPage";
 import { HomePage } from "./pages/HomePage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { PasswordResetLandingPage } from "./pages/PasswordResetLandingPage";
 
 export function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +36,11 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
+        <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
+        <Route
+          path="/reset-password/:passwordResetCode"
+          element={<PasswordResetLandingPage />}
+        />
         <Route element={<PrivateRoute user={user} />}>
           <Route
             path="/verifyEmail/:verificationString"

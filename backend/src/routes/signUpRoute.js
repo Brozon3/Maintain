@@ -45,28 +45,27 @@ export const signUpRoute = {
 
     const { insertedId } = result;
 
-    // try {
-    //   await sendEmail({
-    //     to: email,
-    //     from: "saxdevchris@gmail.com",
-    //     subject: "Please verify your email",
-    //     text: `
-    //   Thanks for signingup! To verify your mail, click here:
-    //   http://localhost:3000/verify-email/${verificationString}
-    // `,
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-    //   res.sendStatus(500);
-    // }
+    try {
+      await sendEmail({
+        to: email,
+        from: "saxdevchris@gmail.com",
+        subject: "Please verify your email",
+        text: `
+      Thanks for signingup! To verify your mail, click here:
+      http://localhost:3000/verify-email/${verificationString}
+    `,
+      });
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(500);
+    }
 
     jwt.sign(
       {
         id: insertedId,
         email,
         // info: startingInfo,
-        //TODO Change back to false
-        isVerified: true,
+        isVerified: false,
       },
       process.env.JWT_SECRET,
       {
