@@ -10,7 +10,7 @@ body {
 .main {
     background-color: #F8F9FA !important;
     min-height: 100vh !important;
-    width: 95% !important;
+    justify-content: center;
 }
 
 .table-input {

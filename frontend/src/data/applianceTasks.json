@@ -1,0 +1,127 @@
+[
+    {
+        "type": "washer",
+        "tasks": [
+            {
+                "description": "Clean the lint filter",
+                "duration": "10 minutes",
+                "frequency": "Bi-Weekly"
+            },
+            {
+                "description": "Inspect the washer hoses",
+                "duration": "10 minutes",
+                "frequency": "Annually"
+            },
+            {
+                "description": "Change the washer hoses",
+                "duration": "1 hour",
+                "frequency": "3-5 Years"
+            }
+        ]
+    },
+    {
+        "type": "dryer",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    }, 
+    {
+        "type": "fridge",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    },
+    {
+        "type": "range",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    },
+    {
+        "type": "dishwasher",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    },
+    {
+        "type": "freezer",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    },
+    {
+        "type": "water heater",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    },
+    {
+        "type": "purifier",
+        "tasks": [
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            },
+            {
+                "description": "",
+                "duration": "",
+                "frequency": ""
+            }
+        ]
+    }
+]
