@@ -12,7 +12,7 @@ export const AddTask = () => {
 
   return (
     <Container className="container main">
-      <h1 className="mb-3 blue-header">Add a Task</h1>
+      <h1 className="mb-3 p-3 blue-header">Add a Task</h1>
       <Form
         onSubmit={handleSubmit(onSubmit)}
         className="container w-50 justify-content-center"
@@ -62,7 +62,7 @@ export const AddTask = () => {
 
         <hr></hr>
 
-        <Button type="submit" className="green-button">
+        <Button type="submit" className="green-button mx-3">
           Submit
         </Button>
       </Form>

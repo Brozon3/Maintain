@@ -12,8 +12,16 @@ export function DisplayProperties({ properties }) {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleOpen = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const handlePlural = (properties, maxProperties) => {
+        if (maxProperties - properties.length === 1){
+            return (" Free Property Remaining")
+        } else {
+            return (" Free Properties Remaining")
+        }
+    }
 
   //Get user info from token
   const user = UseUser();

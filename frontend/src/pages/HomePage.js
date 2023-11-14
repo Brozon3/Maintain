@@ -4,7 +4,7 @@ import { BackgroundImage } from "../components/BackgroundImage";
 
 export function HomePage() {
   return (
-    <Container className="main text-center">
+    <Container className="main text-center p-3">
       <BackgroundImage />
       <Row className="justify-content-md-center">
         <Col>
@@ -13,14 +13,14 @@ export function HomePage() {
       </Row>
       <Row className="justify-content-md-center">
         <Col>
-          <p className="my-2 blue-secondary-header">
+          <p className="mx-2 blue-secondary-header">
             For homeowners, landlords, tenants or property managers
           </p>
         </Col>
       </Row>
       <Row className="justify-content-md-center">
         <Col>
-          <p className="my-2 blue-secondary-header">
+          <p className="mx-5 px-5 blue-secondary-header">
             Maintain keeps you up-to-date on all of the maintenance tasks a
             property needs. We store the important data about your property's
             features, including the appliances stored within, to generate a
