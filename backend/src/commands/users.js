@@ -66,19 +66,20 @@ export const deleteSingleUserById = async (TABLE_NAME, id) => {
   return await DocumentClient.delete(params).promise();
 };
 
-export const updateUser = async (itemObject) => {
-  const { userID, email, id, verified_email: isVerified } = itemObject;
+export const verifyUser = async (userID) => {
   const params = {
     TableName: "users",
-    Item: {
+    Key: {
       userID: userID,
-      email: email,
-      isVerified: isVerified,
     },
-    ReturnValues: "ALL_NEW",
+    UpdateExpression: "set isVerified = :val",
+    ExpressionAttributeValues: {
+      ":val": true,
+    },
+    ReturnValues: "NONE",
   };
   try {
-    const result = await DocumentClient.put(params).promise();
+    const result = await DocumentClient.update(params).promise();
     return result.Attributes;
   } catch (e) {
     console.error("Update user failed", e);

@@ -23,6 +23,7 @@ import {
   insertUser,
   deleteSingleUserById,
   updateGoogleUser,
+  verifyUser,
 } from "./commands/users.js";
 
 const port = 8000;

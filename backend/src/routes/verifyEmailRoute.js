@@ -16,6 +16,18 @@ export const verifyEmailRoute = {
           return res
             .status(401)
             .json({ message: "The verification code is incorrect." });
+        const result = await verifyUser(email);
+        const { userID, info } = result;
+
+        jwt.sign(
+          { id, email, isVerified: true, info },
+          process.env.JWT_SECRET,
+          { expiresIn: "2d" },
+          (err, token) => {
+            if (err) return res.sendStatus(500);
+            res.status(200).json({ token });
+          }
+        );
       }
     );
   },

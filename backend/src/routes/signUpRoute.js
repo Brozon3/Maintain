@@ -13,8 +13,10 @@ export const signUpRoute = {
       new CognitoUserAttribute({ Name: "email", Value: email }),
     ];
 
+    //MAY NEED TO ADD PASSWORD VALIDATION??
+
     awsUserPool.signUp(
-      email,
+      "username",
       password,
       attributes,
       null,
@@ -31,7 +33,7 @@ export const signUpRoute = {
         //   bio: "",
         // };
 
-        // Insert data of new user into database
+        // Insert data of new user into database.
         const result = await insertUser({
           email,
         });
