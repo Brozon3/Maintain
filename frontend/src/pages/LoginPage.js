@@ -102,7 +102,7 @@ export const LoginPage = () => {
             </Col>
           </Row>
 
-          <div class="g-signin2" data-onsuccess="onSignIn">
+          <div className="g-signin2" data-onsuccess="onSignIn">
             <Button
               disabled={!googleOauthUrl}
               onClick={() => {

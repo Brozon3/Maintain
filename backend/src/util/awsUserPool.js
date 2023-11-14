@@ -1,6 +1,8 @@
 import { CognitoUserPool } from "amazon-cognito-identity-js";
-import AWS, { CognitoIdentityCredentials } from "aws-sdk";
+import AWS from "aws-sdk";
 import nodeFetch from "node-fetch";
+import pkg from "aws-sdk";
+const { CognitoIdentityCredentials } = pkg;
 
 //Allows in-built global fetch from front end.
 global.fetch = nodeFetch;

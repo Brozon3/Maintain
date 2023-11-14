@@ -19,6 +19,7 @@ import { SignUpPage } from "./pages/SignUpPage";
 import { HomePage } from "./pages/HomePage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { PasswordResetLandingPage } from "./pages/PasswordResetLandingPage";
+import { EmailVerificationCodePage } from "./pages/EmailVerificationCodePage";
 
 export function App() {
   const [user, setUser] = useState(null);
@@ -42,10 +43,7 @@ export function App() {
           element={<PasswordResetLandingPage />}
         />
         <Route element={<PrivateRoute user={user} />}>
-          <Route
-            path="/verifyEmail/:verificationString"
-            element={<PleaseVerifyEmailPage />}
-          />
+          <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
           <Route
             path="/displayProperties"
             element={<DisplayProperties properties={properties} />}

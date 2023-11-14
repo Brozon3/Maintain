@@ -26,7 +26,7 @@ export const SignUpPage = () => {
     setToken(token);
     // navigate("/displayProperties");
     // navigate(`/please-verify?email=${encodeURIComponent(emailValue)}`);
-    navigate(`/please-verify`);
+    navigate(`/pleaseVerify?email=${encodeURIComponent(emailValue)}`);
   };
 
   return (
@@ -35,7 +35,9 @@ export const SignUpPage = () => {
       <Form className="container w-50 justify-content-center">
         {errorMessage && <div className="fail">{errorMessage}</div>}
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="email">Your Email Address: </Form.Label>
+          <Form.Label className="blue-text" htmlFor="email">
+            Your Email Address:{" "}
+          </Form.Label>
           <Form.Control
             id="email"
             placeholder="email@example.com"
@@ -45,7 +47,9 @@ export const SignUpPage = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="password">Password: </Form.Label>
+          <Form.Label className="blue-text" htmlFor="password">
+            Password:{" "}
+          </Form.Label>
           <Form.Control
             id="password"
             type="password"
@@ -56,7 +60,9 @@ export const SignUpPage = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="confirm">Confirm Password: </Form.Label>
+          <Form.Label className="blue-text" htmlFor="confirm">
+            Confirm Password:{" "}
+          </Form.Label>
           <Form.Control
             id="confirm"
             type="password"
@@ -67,15 +73,25 @@ export const SignUpPage = () => {
         </Form.Group>
         <hr></hr>
 
-        <Button disabled={ !emailValue || !passwordValue || passwordValue !== confirmPasswordValue } className="green-button mb-3" onClick={onSignUpClicked}>
+        <Button
+          disabled={
+            !emailValue ||
+            !passwordValue ||
+            passwordValue !== confirmPasswordValue
+          }
+          className="green-button mb-3"
+          onClick={onSignUpClicked}
+        >
           Sign Up
         </Button>
         <br></br>
-        <Button className="green-button mb-3" onClick={() => navigate("/loginPage")}>
+        <Button
+          className="green-button mb-3"
+          onClick={() => navigate("/loginPage")}
+        >
           Have an account? Log in!
         </Button>
       </Form>
-        
-      </Container>
+    </Container>
   );
 };

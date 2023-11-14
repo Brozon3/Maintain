@@ -1,9 +1,6 @@
 import jwt from "jsonwebtoken";
-import { v4 as uuid } from "uuid";
-import { sendEmail } from "../util/sendEmail.js";
-// import { awsUserPool } from "../util/awsUserPool.js";
-import bcrypt from "bcrypt";
-import { insertUser, getUserByEmail } from "../commands/users.js";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { awsUserPool } from "../util/awsUserPool.js";
 
 export const signUpRoute = {
   path: "/api/signup",
@@ -11,71 +8,52 @@ export const signUpRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await getUserByEmail(email);
+    const attributes = [
+      // Can add more attributes later. Must also be set up in Cognito
+      new CognitoUserAttribute({ Name: "email", Value: email }),
+    ];
 
-    if (user) {
-      return res.status(409).json({ message: "User already exists." });
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const verificationString = uuid();
-
-    // Do we want to include any starting info with out users?
-
-    // const startingInfo = {
-    //   hairColor: "test",
-    //   favoriteFood: "test",
-    //   bio: "test",
-    // };
-
-    //Create a unique numeric ID
-    const standardUUID = uuid();
-    const numericRepresentation = BigInt("0x" + standardUUID.replace(/-/g, ""));
-    const userID = Number(numericRepresentation);
-
-    // info: startingInfo,
-    const result = await insertUser({
-      userID,
+    awsUserPool.signUp(
       email,
-      passwordHash,
-      isVerified: "false",
-      verificationString,
-    });
-
-    const { insertedId } = result;
-
-    try {
-      await sendEmail({
-        to: email,
-        from: "saxdevchris@gmail.com",
-        subject: "Please verify your email",
-        text: `
-      Thanks for signingup! To verify your mail, click here:
-      http://localhost:3000/verify-email/${verificationString}
-    `,
-      });
-    } catch (e) {
-      console.log(e);
-      res.sendStatus(500);
-    }
-
-    jwt.sign(
-      {
-        id: insertedId,
-        email,
-        // info: startingInfo,
-        isVerified: false,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "2d",
-      },
-      (err, token) => {
+      password,
+      attributes,
+      null,
+      async (err, awsResult) => {
         if (err) {
-          return res.status(500).send(err);
+          console.log(err);
+          return res.status(500).json({ message: "Unable to sign up user" });
         }
-        res.status(200).json({ token });
+
+        // Here's where we specify user starting info.
+        // const startingInfo = {
+        //   hairColor: "",
+        //   favoriteFood: "",
+        //   bio: "",
+        // };
+
+        // Insert data of new user into database
+        const result = await insertUser({
+          email,
+        });
+
+        const { insertedId } = result;
+
+        jwt.sign(
+          {
+            id: insertedId,
+            isVerified: false,
+            email,
+            info: startingInfo,
+          },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "2d",
+          },
+          (err, token) => {
+            if (err) return res.sendStatus(500);
+            res.status(200).json({ token });
+          }
+        );
       }
     );
   },
