@@ -15,9 +15,17 @@ export function DisplayProperties({properties}){
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
+    const handlePlural = (properties, maxProperties) => {
+        if (maxProperties - properties.length === 1){
+            return (" Free Property Remaining")
+        } else {
+            return (" Free Properties Remaining")
+        }
+    }
+
     
     return(
-        <Container className="container main">
+        <Container className="container main p-3">
             <Row xs={1} md={2} className="g-4">
                 {properties.map(property => {
                     return(
@@ -59,7 +67,7 @@ export function DisplayProperties({properties}){
                 <Col>
                     <Card className="m-5 text-center green-border">
                         <Card.Body className="align-items-center">
-                            <Card.Title className="blue-header">{(maxProperties - properties.length) + " Properties Remaining"}</Card.Title>
+                            <Card.Title className="blue-header">{(maxProperties - properties.length) + handlePlural(properties, maxProperties)}</Card.Title>
                             <Button type="submit" className="mx-2 green-button" onClick={addProperty} >
                                 Add a Property
                             </Button>

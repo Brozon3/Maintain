@@ -67,11 +67,11 @@ export const SignUpPage = () => {
         </Form.Group>
         <hr></hr>
 
-        <Button disabled={ !emailValue || !passwordValue || passwordValue !== confirmPasswordValue } className="green-button mb-3" onClick={onSignUpClicked}>
+        <Button disabled={ !emailValue || !passwordValue || passwordValue !== confirmPasswordValue } className="green-button mx-3" onClick={onSignUpClicked}>
           Sign Up
         </Button>
-        <br></br>
-        <Button className="green-button mb-3" onClick={() => navigate("/loginPage")}>
+
+        <Button className="green-button mx-3" onClick={() => navigate("/loginPage")}>
           Have an account? Log in!
         </Button>
       </Form>

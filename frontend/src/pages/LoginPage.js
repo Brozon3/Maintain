@@ -50,9 +50,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
       <Container className="container main">
-        <h1 className="mb-3 blue-header">Login</h1>
+        <h1 className="mb-3 p-3 blue-header ">Login</h1>
         <Form className="container w-50 justify-content-center">
           {errorMessage && <div className="fail">{errorMessage}</div>}
           <Form.Group className="mb-3">
@@ -80,42 +79,30 @@ export const LoginPage = () => {
             />
           </Form.Group>
           <hr></hr>
-          <Row>
-            <Col>
-              <Button
-                disabled={!emailValue || !passwordValue}
-                className="green-button mb-3"
-                onClick={onLoginClicked}
-              >
-                Log In
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                className="green-button mb-3"
-                onClick={() => navigate("/signUpPage")}
-              >
-                Sign Up
-              </Button>
-            </Col>
-          </Row>
+          <Button
+            disabled={!emailValue || !passwordValue}
+            className="green-button mx-3"
+            onClick={onLoginClicked}
+          >
+            Log In
+          </Button>
 
           <Button
-            className="green-button mb-3"
+            className="green-button mx-3"
+            onClick={() => navigate("/signUpPage")}
+          >
+            Sign Up
+          </Button>
+
+          <Button
+            className="green-button mx-3"
             onClick={() => navigate("/forgotPassword")}
           >
             Forgot Password
           </Button>
 
           <Button
-            className="green-button"
-            onClick={() => navigate("/signUpPage")}
-          >
-            {" "}
-            Don't have an account? Sign Up!{" "}
-          </Button>
-          <Button
-            className="green-button"
+            className="green-button mx-3"
             disabled={!googleOauthUrl}
             onClick={() => {
               window.location.href = googleOauthUrl;
@@ -125,6 +112,5 @@ export const LoginPage = () => {
           </Button>
         </Form>
       </Container>
-    </>
   );
 };

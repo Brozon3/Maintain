@@ -29,7 +29,7 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <NavBar userState={"loggedOut"} />
+      <NavBar user={user} />
 
       <Footer />
       <Routes>
