@@ -1,18 +1,27 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { UseUser } from "../auth/useUser";
 
 export const NavBar = ({ userState }) => {
+  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  const user = UseUser();
+
+  useEffect(() => {
+    if (user) setLoggedIn(true);
+    else setLoggedIn(false);
+  }, [user]);
 
   const logOutHandler = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-    // localStorage.removeItem("token");
     navigate("/loginPage");
   };
 
-  if (userState === "loggedIn") {
+  if (loggedIn) {
     return (
       <Navbar className="bg-body-tertiary border border-success" id="top">
         <Container>
