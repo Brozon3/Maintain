@@ -1,29 +1,29 @@
 import express from "express";
 import { routes } from "./routes/index.js";
 const app = express();
-import {
-  getAllFeatures,
-  insertFeature,
-  deleteSingleFeatureById,
-} from "./commands/features.js";
-import {
-  getAllProperties,
-  getSinglePropertyByID,
-  insertProperty,
-  deleteSinglePropertyById,
-} from "./commands/properties.js";
-import {
-  getAllTasks,
-  insertTask,
-  deleteSingleTaskById,
-} from "./commands/tasks.js";
-import {
-  getAllUsers,
-  getUserByEmail,
-  insertUser,
-  deleteSingleUserById,
-  updateGoogleUser,
-} from "./commands/users.js";
+// import {
+//   getAllFeatures,
+//   insertFeature,
+//   deleteSingleFeatureById,
+// } from "./commands/features.js";
+// import {
+//   getAllProperties,
+//   getSinglePropertyByID,
+//   insertProperty,
+//   deleteSinglePropertyById,
+// } from "./commands/properties.js";
+// import {
+//   getAllTasks,
+//   insertTask,
+//   deleteSingleTaskById,
+// } from "./commands/tasks.js";
+// import {
+//   getAllUsers,
+//   getUserByEmail,
+//   insertUser,
+//   deleteSingleUserById,
+//   updateGoogleUser,
+// } from "./commands/users.js";
 
 const port = 8000;
 
@@ -96,63 +96,63 @@ app.delete("/features/:id", async (req, res) => {
 
 //Users Section
 //Get all the users
-app.get("/users/", async (req, res) => {
-  console.log("hit");
-  try {
-    const users = await getAllUsers();
-    res.status(200).json(users);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.get("/users/", async (req, res) => {
+//   console.log("hit");
+//   try {
+//     const users = await getAllUsers();
+//     res.status(200).json(users);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 //Get user by email. Email is a global secondary index in AWS
-app.get("/users/:email", async (req, res) => {
-  let email = req.params.email;
+// app.get("/users/:email", async (req, res) => {
+//   let email = req.params.email;
 
-  try {
-    const user = await getUserByEmail(email);
-    res.status(200).json(user);
-  } catch (err) {
-    console.error(err);
-    console.log("Cannot find user.");
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+//   try {
+//     const user = await getUserByEmail(email);
+//     res.status(200).json(user);
+//   } catch (err) {
+//     console.error(err);
+//     console.log("Cannot find user.");
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
-// Add a new user
-app.post("/users/", async (req, res) => {
-  const body = req.body;
-  try {
-    const newUser = await insertUser(body);
-    console.log("newUser", newUser);
-    res.status(200).json(body);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// // Add a new user
+// app.post("/users/", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     const newUser = await insertUser(body);
+//     console.log("newUser", newUser);
+//     res.status(200).json(body);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
-app.delete("/users/:id", async (req, res) => {
-  let id = req.params.id;
-  id = parseInt(id);
-  try {
-    const user = await deleteSingleUserById(id);
-    res.status(200).json(user);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.delete("/users/:id", async (req, res) => {
+//   let id = req.params.id;
+//   id = parseInt(id);
+//   try {
+//     const user = await deleteSingleUserById(id);
+//     res.status(200).json(user);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 // Properties Section
 //Get all the properties
