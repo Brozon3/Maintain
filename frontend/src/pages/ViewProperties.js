@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../auth/useUser";
@@ -6,32 +6,38 @@ import { UseUser } from "../auth/useUser";
 const maxProperties = 3;
 
 export function DisplayProperties({ properties }) {
+  const [userEmail, setUserScreenName] = useState("");
+
   const navigate = useNavigate();
   const addProperty = () => navigate("/addProperty");
   const viewProperty = (id) => navigate("/taskList/" + id);
 
   const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
 
-    const handlePlural = (properties, maxProperties) => {
-        if (maxProperties - properties.length === 1){
-            return (" Free Property Remaining")
-        } else {
-            return (" Free Properties Remaining")
-        }
-    }
-
-  //Get user info from token
   const user = UseUser();
-  //destructure email from user.
-  const { email } = user;
+
+  const handlePlural = (properties, maxProperties) => {
+    if (maxProperties - properties.length === 1) {
+      return " Free Property Remaining";
+    } else {
+      return " Free Properties Remaining";
+    }
+  };
+
+  useEffect(() => {
+    const { email, name } = user;
+    if (name) {
+      setUserScreenName(name);
+    } else setUserScreenName(email);
+  }, [user]);
 
   return (
     <Container className="container main">
       {/* Only to show usage of useUser. */}
-      <h1>{email}'s Properties</h1>
+      <h1>{userEmail}'s Properties</h1>
       <Row xs={1} md={2} className="g-4">
         {properties.map((property) => {
           return (

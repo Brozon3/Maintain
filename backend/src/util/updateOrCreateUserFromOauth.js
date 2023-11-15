@@ -11,7 +11,7 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
 
   if (existingUser) {
     const { userID } = existingUser;
-    const result = await updateGoogleUser({ userID, oauthUserInfo });
+    const result = await updateGoogleUser({ oauthUserInfo });
     return result;
   } else {
     const userID = parseInt(id);
