@@ -85,4 +85,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
+}
+
+.red-text {
+    color:rgb(211, 0, 0) !important;
+}

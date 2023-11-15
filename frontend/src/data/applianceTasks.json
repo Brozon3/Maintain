@@ -4,17 +4,14 @@
         "tasks": [
             {
                 "description": "Clean the lint filter",
-                "duration": "10 minutes",
                 "frequency": "Bi-Weekly"
             },
             {
                 "description": "Inspect the washer hoses",
-                "duration": "10 minutes",
                 "frequency": "Annually"
             },
             {
                 "description": "Change the washer hoses",
-                "duration": "1 hour",
                 "frequency": "3-5 Years"
             }
         ]
@@ -24,12 +21,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -39,12 +34,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -54,12 +47,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -69,12 +60,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -84,12 +73,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -99,12 +86,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
@@ -114,12 +99,10 @@
         "tasks": [
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             },
             {
                 "description": "",
-                "duration": "",
                 "frequency": ""
             }
         ]
