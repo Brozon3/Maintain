@@ -29,9 +29,9 @@ export function DisplayProperties({ properties }) {
   const { email } = user;
 
   return (
-    <Container className="container main">
+    <Container className="container main p-3">
       {/* Only to show usage of useUser. */}
-      <h1>{email}'s Properties</h1>
+      <h1 className="mb-3 p-3 blue-header">{email}'s Properties</h1>
       <Row xs={1} md={2} className="g-4">
         {properties.map((property) => {
           return (
@@ -87,8 +87,8 @@ export function DisplayProperties({ properties }) {
         <Col>
           <Card className="m-5 text-center green-border">
             <Card.Body className="align-items-center">
-              <Card.Title className="blue-header">
-                {maxProperties - properties.length + " Properties Remaining"}
+              <Card.Title className="blue-header p-1">
+                {(maxProperties - properties.length) + handlePlural(properties, maxProperties)}
               </Card.Title>
               <Button
                 type="submit"
