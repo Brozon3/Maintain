@@ -40,7 +40,7 @@ export const PropertyApplianceList = ({properties}) => {
     return (
         <Container className="text-center main">
 
-            <h1 className="pt-5 blue-header">{property.address}</h1>
+            <h1 className="p-3 blue-header">{property.address}</h1>
             <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
 
             <PropertyDoubleButton current={"appliance"} id={id}/>

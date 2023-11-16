@@ -32,32 +32,24 @@ export const PropertyTaskList = ({properties}) => {
     return (
         <Container className="text-center main" >
 
-            <h1 className="pt-5 blue-header">{property.address}</h1>
+            <h1 className="p-3 blue-header">{property.address}</h1>
             <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
 
             <PropertyDoubleButton current={"task"} id={id}/>
-            
-            <Row className="justify-content-md-center">
-                <Form className="my-3 w-50 blue-border" style={{textAlign: "left"}}>
-
-                    <h1 className='mb-3 blue-header'>Outstanding Tasks</h1>
+                <Form className="container w-75 blue-border my-3">
+                    <h1 className='mb-3 blue-header p-3'>Outstanding Tasks</h1>
                     {tasks.map((task, i) => {
                         if (new Date(task.completeBy) <= today){
                             return(
-                                <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"out" + i} i={i}/>
+                                <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"out" + i} i={i} color={"red"}/>
                             )
                         } else {
                             return(null);
                         }
                     })}
-                    
                 </Form>
-            </Row>
-
-            <Row className="justify-content-md-center">
-                <Form className="my-3 w-50 justify-content-left blue-border" style={{textAlign: "left"}}>
-
-                    <h1 className='mb-3 blue-header'>Upcoming Tasks</h1>
+                <Form className="container w-75 justify-content-center blue-border my-3">
+                    <h1 className='mb-3 blue-header p-3'>Upcoming Tasks</h1>
                     {tasks.map((task, i) => {
                         if (new Date(task.completeBy) > today){
                             return(
@@ -67,14 +59,10 @@ export const PropertyTaskList = ({properties}) => {
                             return(null);
                         }
                     })}
-
                 </Form>
-                <Row className="justify-content-md-center">
-                    <Button className="my-3 green-button non-card-button" type="submit" onClick={addTask}>
-                        Add Custom Task 
-                    </Button>
-                </Row>
-            </Row>
+                <Button className="my-3 green-button non-card-button" type="submit" onClick={addTask}>
+                    Add Custom Task 
+                </Button>
         </Container>
     )
 }

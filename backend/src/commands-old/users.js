@@ -66,27 +66,6 @@ export const deleteSingleUserById = async (TABLE_NAME, id) => {
   return await DocumentClient.delete(params).promise();
 };
 
-export const verifyUser = async (userID) => {
-  const params = {
-    TableName: "users",
-    Key: {
-      userID: userID,
-    },
-    UpdateExpression: "set isVerified = :val",
-    ExpressionAttributeValues: {
-      ":val": true,
-    },
-    ReturnValues: "NONE",
-  };
-  try {
-    const result = await DocumentClient.update(params).promise();
-    return result.Attributes;
-  } catch (e) {
-    console.error("Update user failed", e);
-    throw e;
-  }
-};
-
 export const updateGoogleUser = async (itemObject) => {
   const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;
   const params = {
@@ -107,7 +86,6 @@ export const updateGoogleUser = async (itemObject) => {
     //   ":valGoogleId": updatedUserData.googleId,
     //   ":valIsVerified": updatedUserData.isVerified,
     // },
-    ReturnValues: "ALL_OLD",
   };
   try {
     const result = await DocumentClient.put(params).promise();

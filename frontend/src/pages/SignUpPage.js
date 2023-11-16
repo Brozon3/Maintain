@@ -31,7 +31,7 @@ export const SignUpPage = () => {
 
   return (
     <Container className="container main">
-      <h1 className="mb-3 blue-header"> Sign Up </h1>
+      <h1 className="mb-3 blue-header p-3"> Sign Up </h1>
       <Form className="container w-50 justify-content-center">
         {errorMessage && <div className="fail">{errorMessage}</div>}
         <Form.Group className="mb-3">
