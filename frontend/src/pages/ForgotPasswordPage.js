@@ -26,31 +26,44 @@ export const ForgotPasswordPage = () => {
 
   return success ? (
     <>
-      <h1 className="mb-3 p-3 blue-header">Success</h1>
-      <p className="my-2 blue-secondary-header">A reset link has been sent to you email.</p>
+      <Container className="main">
+        <h1 className="mb-3 p-3 blue-header">Success</h1>
+        <p className="my-2 blue-secondary-header">
+          A reset link has been sent to you email.
+        </p>
+      </Container>
     </>
   ) : (
-      <Container className="main">
-        <h1 className="mb-3 p-3 blue-header">Forgot Password</h1>
-        <p className="my-2 blue-secondary-header">Enter email and we'll send a reset link.</p>
-        {errorMessage && <div className="fail">{errorMessage}</div>}
-        <Form onSubmit={handleSubmitClicked} className="container w-50 justify-content-center">
-          <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="emailValue">
-              Email:{" "}
-            </Form.Label>
-            <Form.Control
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
-              placeholder="email@email.com"
-            />
-          </Form.Group>
-          <hr></hr>
-        
-          <Button type="submit" className="green-button mx-3" disabled={!emailValue}>
-            Submit
-          </Button>
-        </Form>
-      </Container>
+    <Container className="main">
+      <h1 className="mb-3 p-3 blue-header">Forgot Password</h1>
+      <p className="my-2 blue-secondary-header">
+        Enter email and we'll send a reset link.
+      </p>
+      {errorMessage && <div className="fail">{errorMessage}</div>}
+      <Form
+        onSubmit={handleSubmitClicked}
+        className="container w-50 justify-content-center"
+      >
+        <Form.Group className="mb-3">
+          <Form.Label className="blue-text" htmlFor="emailValue">
+            Email:{" "}
+          </Form.Label>
+          <Form.Control
+            value={emailValue}
+            onChange={(e) => setEmailValue(e.target.value)}
+            placeholder="email@email.com"
+          />
+        </Form.Group>
+        <hr></hr>
+
+        <Button
+          type="submit"
+          className="green-button mx-3"
+          disabled={!emailValue}
+        >
+          Submit
+        </Button>
+      </Form>
+    </Container>
   );
 };
