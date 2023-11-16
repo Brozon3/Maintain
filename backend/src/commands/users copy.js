@@ -1,13 +1,7 @@
-import mysql from "mysql";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
-dotenv.config();
 
-const conn = mysql.createConnection({
-  host: process.env.AWS_RDS_HOST,
-  user: process.env.AWS_RDS_USER,
-  password: process.env.AWS_RDS_PASSWORD,
-});
+dotenv.config();
 
 AWS.config.update({
   region: process.env.AWS_DEFAULT_REGION,
@@ -17,53 +11,6 @@ AWS.config.update({
 
 export const DocumentClient = new AWS.DynamoDB.DocumentClient();
 export const TABLE_NAME = "users";
-
-export const testGetUsers = {
-  path: "/api/users",
-  method: "get",
-  handler: (req, res) => {
-    conn.connect(function (err) {
-      conn.query(
-        `SELECT * FROM Maintain_Database.users`,
-        function (err, result, fields) {
-          if (err) res.send(err);
-          if (result) res.send(result);
-        }
-      );
-    });
-  },
-};
-
-export const insertNewUser = {
-  path: "/api/users",
-  method: "post",
-  handler: (req, res) => {
-    const { email, isVerified, passwordHash } = req.body;
-
-    conn.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return res.status(500).json({ error: "Database connection error" });
-      }
-      const sql =
-        "INSERT INTO users (email, is_verified, password_hash) VALUES (?, ?, ?)";
-      conn.query(
-        sql,
-        [email, isVerified, passwordHash],
-        function (err, result) {
-          conn.end();
-
-          if (err) {
-            console.error("Error inserting user:", err);
-            return res.status(500).json({ error: "Database query error" });
-          }
-
-          return res.status(201).json({ message: "User added." });
-        }
-      );
-    });
-  },
-};
 
 export const getAllUsers = async () => {
   const params = {
@@ -97,6 +44,16 @@ export const getUserByEmail = async (email) => {
     console.error("Error querying DynamoDB:", error);
     throw error;
   }
+};
+
+export const insertUser = async (itemObject) => {
+  const params = {
+    TableName: TABLE_NAME,
+    Item: itemObject,
+  };
+  const result = await DocumentClient.put(params).promise();
+  console.log(result);
+  return result;
 };
 
 export const deleteSingleUserById = async (TABLE_NAME, id) => {

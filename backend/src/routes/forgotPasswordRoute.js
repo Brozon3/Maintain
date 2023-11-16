@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 // import { sendEmail } from "../util/sendEmail";
-import { forgotPasswordCode } from "../Commands/users.js";
+import { forgotPasswordCode } from "../commands/users.js";
 
 export const forgotPasswordRoute = {
   path: "/api/forgotPassword/:email",
