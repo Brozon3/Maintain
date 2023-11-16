@@ -34,6 +34,27 @@ export const testGetUsers = {
   },
 };
 
+export const getUserByEmail = async (email) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
+
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error inserting user:", err);
+          reject(err);
+        } else {
+          console.log("User inserted successfully");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
 export const insertNewUser = async (userObject) => {
   const { email } = userObject;
   return new Promise((resolve, reject) => {
@@ -126,31 +147,6 @@ export const getAllUsers = async () => {
   const items = await DocumentClient.scan(params).promise();
   console.log(items);
   return items;
-};
-
-export const getUserByEmail = async (email) => {
-  const params = {
-    TableName: TABLE_NAME,
-    IndexName: "email-index",
-    KeyConditionExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": email,
-    },
-  };
-  console.log("Query params:", params);
-  try {
-    const result = await DocumentClient.query(params).promise();
-    console.log("Query result:", result);
-
-    if (result.Count > 0) {
-      return result.Items[0]; // Match the first user found in the query.
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error querying DynamoDB:", error);
-    throw error;
-  }
 };
 
 export const deleteSingleUserById = async (TABLE_NAME, id) => {
