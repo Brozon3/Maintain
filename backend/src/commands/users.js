@@ -56,6 +56,38 @@ export const insertNewUser = async (userObject) => {
   });
 };
 
+export const verifyUser = async (email) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "UPDATE Maintain_Database.users SET is_verified = 1 WHERE email = ?";
+
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error updating user:", err);
+          reject(err);
+        } else {
+          console.log("User verified successfully");
+
+          const selectSql =
+            "SELECT * FROM Maintain_Database.users WHERE email = ?";
+          conn.query(selectSql, [email], function (err, selectResult) {
+            if (err) {
+              console.error("Error retrieving updated user data:", err);
+              reject(err);
+            } else {
+              resolve(selectResult || []);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
 export const insertUser = async (itemObject) => {
   const params = {
     TableName: TABLE_NAME,
@@ -64,6 +96,27 @@ export const insertUser = async (itemObject) => {
   const result = await DocumentClient.put(params).promise();
   console.log(result);
   return result;
+};
+
+export const addProperty = {
+  path: "/api/addProperty",
+  method: "post",
+  handler: (req, res) => {
+    const { address, city, prov, type, roof, carpet, pets, heating } = req.body;
+    conn.connect(function (err) {
+      const sql = `INSERT INTO Maintain_Database.properties(address, city, prov, type, roof, carpet, pets, heating)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      conn.query(
+        sql,
+        [address, city, prov, type, roof, carpet, pets, heating],
+        function (err, result, fields) {
+          if (err) console.log(err);
+          if (result) res.send(req.body);
+          if (fields) console.log(fields);
+        }
+      );
+    });
+  },
 };
 
 export const getAllUsers = async () => {
@@ -108,27 +161,6 @@ export const deleteSingleUserById = async (TABLE_NAME, id) => {
     },
   };
   return await DocumentClient.delete(params).promise();
-};
-
-export const verifyUser = async (userID) => {
-  const params = {
-    TableName: "users",
-    Key: {
-      userID: userID,
-    },
-    UpdateExpression: "set isVerified = :val",
-    ExpressionAttributeValues: {
-      ":val": true,
-    },
-    ReturnValues: "NONE",
-  };
-  try {
-    const result = await DocumentClient.update(params).promise();
-    return result.Attributes;
-  } catch (e) {
-    console.error("Update user failed", e);
-    throw e;
-  }
 };
 
 export const updateGoogleUser = async (itemObject) => {

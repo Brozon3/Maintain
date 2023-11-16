@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../util/awsUserPool.js";
-import { insertNewUser } from "../commands/users.js";
-import axios from "axios";
+import { insertNewUser, verifyUser } from "../commands/users.js";
 
 export const signUpRoute = {
   path: "/api/signup",
