@@ -34,35 +34,36 @@ export const testGetUsers = {
   },
 };
 
-export const insertNewUser = {
-  path: "/api/users",
-  method: "post",
-  handler: (req, res) => {
-    const { email, isVerified, passwordHash } = req.body;
+export const insertNewUser = async (userObject) => {
+  const { email } = userObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "INSERT INTO Maintain_Database.users (email) VALUES (?)";
 
-    conn.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return res.status(500).json({ error: "Database connection error" });
-      }
-      const sql =
-        "INSERT INTO users (email, is_verified, password_hash) VALUES (?, ?, ?)";
-      conn.query(
-        sql,
-        [email, isVerified, passwordHash],
-        function (err, result) {
-          conn.end();
-
-          if (err) {
-            console.error("Error inserting user:", err);
-            return res.status(500).json({ error: "Database query error" });
-          }
-
-          return res.status(201).json({ message: "User added." });
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error inserting user:", err);
+          reject(err);
+        } else {
+          console.log("User inserted successfully");
+          resolve(result);
         }
-      );
-    });
-  },
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+export const insertUser = async (itemObject) => {
+  const params = {
+    TableName: TABLE_NAME,
+    Item: itemObject,
+  };
+  const result = await DocumentClient.put(params).promise();
+  console.log(result);
+  return result;
 };
 
 export const getAllUsers = async () => {

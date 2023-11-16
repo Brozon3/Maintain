@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../util/awsUserPool.js";
-import { insertUser } from "../commands/users.js";
+import { insertNewUser } from "../commands/users.js";
 import axios from "axios";
 
 export const signUpRoute = {
@@ -36,28 +36,31 @@ export const signUpRoute = {
         // };
 
         // Insert data of new user into database.
-        const result = await insertUser({
-          email,
-        });
-
-        const { insertedId } = result;
-
-        jwt.sign(
-          {
-            id: insertedId,
-            isVerified: false,
+        try {
+          const result = await insertNewUser({
             email,
-            info: startingInfo,
-          },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: "2d",
-          },
-          (err, token) => {
-            if (err) return res.sendStatus(500);
-            res.status(200).json({ token });
-          }
-        );
+          });
+          console.log("Insert Result: ", result);
+          const { insertId } = result;
+
+          jwt.sign(
+            {
+              id: insertId,
+              isVerified: false,
+              email,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "2d",
+            },
+            (err, token) => {
+              if (err) return res.sendStatus(500);
+              res.status(200).json({ token });
+            }
+          );
+        } catch (error) {
+          console.error("Error: ", error);
+        }
       }
     );
   },
