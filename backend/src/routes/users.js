@@ -9,7 +9,7 @@ const conn = mysql.createConnection({
 })
 
 
-export const testGetUsers = {
+export const getAllUsers = {
   path: "/api/users",
   method: "get",
   handler: (req, res) => {
@@ -23,7 +23,7 @@ export const testGetUsers = {
 };
 
 
-export const testPutUsers = {
+export const insertOneUser = {
   path: "/api/users",
   method: "post",
   handler: (req, res) => {
