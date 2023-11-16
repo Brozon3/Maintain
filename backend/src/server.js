@@ -23,3 +23,7 @@ app.get("/api/hello/:name", (req, res) => {
   const { name } = req.params;
   res.send(`Hello ${name}!!`);
 });
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
