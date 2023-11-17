@@ -29,12 +29,13 @@ export const getAllProperties = async () => {
   });
 }
 
-export const getPropertyByID = async () => {
+export const getPropertyByID = async (propertyID) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = `SELECT * FROM Maintain_Database.properties WHERE (propertyID) = ?`;
+      const sql = `SELECT * FROM Maintain_Database.properties WHERE 
+      propertyID = ?`;
 
-      conn.query(sql, function (err, result) {
+      conn.query(sql, [propertyID], function (err, result) {
         if (err) {
           console.error("Error getting Property: ", err);
           reject(err);
