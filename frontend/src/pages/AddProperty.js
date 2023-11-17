@@ -29,6 +29,7 @@ export const AddProperty = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    // /api/addProperty is addPropertyRoute. addPropertyRoute calls 2 commands, insertProperty and associateProperty.
     await axios.post("/api/addProperty", {
       user: user,
       data: data,

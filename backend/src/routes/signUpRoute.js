@@ -36,7 +36,6 @@ export const signUpRoute = {
 
     // info: startingInfo,
     const result = await insertUser({
-      userID,
       email,
       passwordHash,
       isVerified: "false",
