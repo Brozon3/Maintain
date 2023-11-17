@@ -7,7 +7,6 @@ import { verifyEmailRoute } from "./verifyEmailRoute.js";
 import { forgotPasswordRoute } from "./forgotPasswordRoute.js";
 import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
 import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
-import { getAllUsers, insertOneUser } from "./users.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
 
@@ -21,8 +20,7 @@ export const routes = [
   forgotPasswordRoute,
   getGoogleOauthUrlRoute,
   googleOauthCallbackRoute,
-  getAllUsers,
-  insertOneUser,
-  getAllFeatures,
+
+  getAllFeatures, 
   insertFeatures,
 ];

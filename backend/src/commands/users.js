@@ -1,6 +1,5 @@
-import AWS from "aws-sdk";
-import dotenv from "dotenv";
 import mysql from "mysql";
+import dotenv from "dotenv";
 dotenv.config();
 
 const conn = mysql.createConnection({
@@ -19,15 +18,62 @@ export const DocumentClient = new AWS.DynamoDB.DocumentClient();
 export const TABLE_NAME = "users";
 
 export const getAllUsers = async () => {
-  const params = {
-    TableName: TABLE_NAME,
-  };
-  const items = await DocumentClient.scan(params).promise();
-  console.log(items);
-  return items;
-};
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.users`;
+
+      conn.query(sql, function (err, result) {
+        if (err) {
+          console.error("Error getting user: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got all users.")
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+}
+
+export const deleteUser = async (userObject) => {
+  const { userID } = userObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `DELETE FROM Maintain_Database.users WHERE (userID) = ?`;
+
+      conn.query(sql, [userID], function (err, result) {
+        if (err) {
+          console.error("Error deleting user: ", err);
+          reject(err);
+        } else {
+          console.log("User deleted successfully.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+}
 
 export const getUserByEmail = async (email) => {
+  const params = {
+    TableName: TABLE_NAME,
+    IndexName: "email-index",
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: {
+      ":email": email,
+    },
+  };
+}
+
+
+// Likely to be outsourced & removed.
+export const forgotPasswordCode = async (email, passwordResetCode) => {
   return new Promise((resolve, reject) => {
     try {
       const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
@@ -75,15 +121,7 @@ export const insertUser = async (userObject) => {
   });
 };
 
-export const deleteSingleUserById = async (TABLE_NAME, id) => {
-  const params = {
-    TableName: TABLE_NAME,
-    Key: {
-      id,
-    },
-  };
-  return await DocumentClient.delete(params).promise();
-};
+
 
 export const updateGoogleUser = async (itemObject) => {
   const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;
@@ -113,26 +151,4 @@ export const updateGoogleUser = async (itemObject) => {
     console.error("Update user failed", e);
     throw e;
   }
-};
-
-// Likely to be outsourced & removed.
-export const forgotPasswordCode = async (email, passwordResetCode) => {
-  const params = {
-    TableName: "users",
-    Key: {
-      email: email,
-    },
-    UpdateExpression: "SET passwordResetCode = :newValue",
-    ExpressionAttributeValues: {
-      ":newValue": passwordResetCode,
-    },
-    IndexName: "email-index",
-  };
-  const response = await DocumentClient.update(params, (err, data) => {
-    if (err) {
-      console.err("User update failed. Error: ", Json.stringify(err));
-    } else {
-      console.log("Password reset updated.");
-    }
-  });
 };
