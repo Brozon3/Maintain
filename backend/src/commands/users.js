@@ -11,7 +11,7 @@ const conn = mysql.createConnection({
 export const getAllUsers = async () => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = "SELECT * FROM Maintain_Database.users";
+      const sql = `SELECT * FROM Maintain_Database.users`;
 
       conn.query(sql, function (err, result) {
         if (err) {
@@ -34,7 +34,7 @@ export const insertNewUser = async (userObject) => {
   const { email } = userObject;
   return new Promise((resolve, reject) => {
     try {
-      const sql = "INSERT INTO Maintain_Database.users (email) Values (?)";
+      const sql = `INSERT INTO Maintain_Database.users (email) Values (?)`;
 
       conn.query(sql, [email], function (err, result) {
         if (err) {
@@ -51,6 +51,29 @@ export const insertNewUser = async (userObject) => {
     }
   });
 }
+
+export const deleteUser = async (userObject) => {
+  const { userID } = userObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `DELETE FROM Maintain_Database.users WHERE (userID) = ?`;
+
+      conn.query(sql, [userID], function (err, result) {
+        if (err) {
+          console.error("Error deleting user: ", err);
+          reject(err);
+        } else {
+          console.log("User deleted successfully.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+}
+
 
 export const getUserByEmail = async (email) => {
   const params = {
