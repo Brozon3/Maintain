@@ -1,7 +1,13 @@
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
-
+import mysql from "mysql";
 dotenv.config();
+
+const conn = mysql.createConnection({
+  host: process.env.AWS_RDS_HOST,
+  user: process.env.AWS_RDS_USER,
+  password: process.env.AWS_RDS_PASSWORD,
+});
 
 AWS.config.update({
   region: process.env.AWS_DEFAULT_REGION,
@@ -46,14 +52,32 @@ export const getUserByEmail = async (email) => {
   }
 };
 
-export const insertUser = async (itemObject) => {
-  const params = {
-    TableName: TABLE_NAME,
-    Item: itemObject,
-  };
-  const result = await DocumentClient.put(params).promise();
-  console.log(result);
-  return result;
+export const insertUser = async (userObject) => {
+  const { email, passwordHash, isVerified, verificationString } = userObject;
+  // hard coded for now.
+  const maxProperties = 3;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, max_properties, is_verified, password_hash) VALUES (?,?,?,?)";
+      conn.query(
+        sql,
+        [email, maxProperties, passwordHash, isVerified],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve(result);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
 };
 
 export const deleteSingleUserById = async (TABLE_NAME, id) => {

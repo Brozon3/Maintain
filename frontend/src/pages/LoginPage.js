@@ -18,8 +18,12 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const addNewGoogleUser = async () => {
+      const response = await axios.post("/user");
+    };
     if (oauthToken) {
       setToken(oauthToken);
+      addNewGoogleUser();
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);
@@ -48,67 +52,67 @@ export const LoginPage = () => {
   };
 
   return (
-      <Container className="container main">
-        <h1 className="mb-3 p-3 blue-header ">Login</h1>
-        <Form className="container w-50 justify-content-center">
-          {errorMessage && <div className="fail">{errorMessage}</div>}
-          <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="email">
-              Your Email Address:{" "}
-            </Form.Label>
-            <Form.Control
-              id="email"
-              placeholder="email@example.com"
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
-            />
-          </Form.Group>
+    <Container className="container main">
+      <h1 className="mb-3 p-3 blue-header ">Login</h1>
+      <Form className="container w-50 justify-content-center">
+        {errorMessage && <div className="fail">{errorMessage}</div>}
+        <Form.Group className="mb-3">
+          <Form.Label className="blue-text" htmlFor="email">
+            Your Email Address:{" "}
+          </Form.Label>
+          <Form.Control
+            id="email"
+            placeholder="email@example.com"
+            value={emailValue}
+            onChange={(e) => setEmailValue(e.target.value)}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="password">
-              Password:{" "}
-            </Form.Label>
-            <Form.Control
-              id="password"
-              type="password"
-              placeholder="password"
-              value={passwordValue}
-              onChange={(e) => setPasswordValue(e.target.value)}
-            />
-          </Form.Group>
-          <hr></hr>
-          <Button
-            disabled={!emailValue || !passwordValue}
-            className="green-button mx-3"
-            onClick={onLoginClicked}
-          >
-            Log In
-          </Button>
+        <Form.Group className="mb-3">
+          <Form.Label className="blue-text" htmlFor="password">
+            Password:{" "}
+          </Form.Label>
+          <Form.Control
+            id="password"
+            type="password"
+            placeholder="password"
+            value={passwordValue}
+            onChange={(e) => setPasswordValue(e.target.value)}
+          />
+        </Form.Group>
+        <hr></hr>
+        <Button
+          disabled={!emailValue || !passwordValue}
+          className="green-button mx-3"
+          onClick={onLoginClicked}
+        >
+          Log In
+        </Button>
 
-          <Button
-            className="green-button mx-3"
-            onClick={() => navigate("/signUpPage")}
-          >
-            Sign Up
-          </Button>
+        <Button
+          className="green-button mx-3"
+          onClick={() => navigate("/signUpPage")}
+        >
+          Sign Up
+        </Button>
 
-          <Button
-            className="green-button mx-3"
-            onClick={() => navigate("/forgotPassword")}
-          >
-            Forgot Password
-          </Button>
+        <Button
+          className="green-button mx-3"
+          onClick={() => navigate("/forgotPassword")}
+        >
+          Forgot Password
+        </Button>
 
-          <Button
-            className="green-button mx-3"
-            disabled={!googleOauthUrl}
-            onClick={() => {
-              window.location.href = googleOauthUrl;
-            }}
-          >
-            Log in with Google
-          </Button>
-        </Form>
-      </Container>
+        <Button
+          className="green-button mx-3"
+          disabled={!googleOauthUrl}
+          onClick={() => {
+            window.location.href = googleOauthUrl;
+          }}
+        >
+          Log in with Google
+        </Button>
+      </Form>
+    </Container>
   );
 };
