@@ -45,7 +45,7 @@ export const signUpRoute = {
 
     jwt.sign(
       {
-        id: insertId,
+        userID: insertId,
         email,
         // info: startingInfo,
         isVerified: false,
