@@ -62,14 +62,23 @@ export const deleteUser = async (userObject) => {
 };
 
 export const getUserByEmail = async (email) => {
-  const params = {
-    TableName: TABLE_NAME,
-    IndexName: "email-index",
-    KeyConditionExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": email,
-    },
-  };
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error:", err);
+          reject(err);
+        } else {
+          console.log(result);
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
 };
 
 // Likely to be outsourced & removed.
