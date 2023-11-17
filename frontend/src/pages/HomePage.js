@@ -32,6 +32,11 @@ export function HomePage() {
           </p>
         </Col>
       </Row>
+      <Row className="justify-content-md-center">
+        <Col>
+          <p className="mx-5 px-5 blue-secondary-header">Login or register to get started.</p>
+        </Col>
+      </Row>
     </Container>
   );
 }

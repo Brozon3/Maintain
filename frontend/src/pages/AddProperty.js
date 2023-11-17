@@ -4,14 +4,15 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { RoofField } from "../components/RoofField";
-
+import axios from 'axios'
+;
 export const AddProperty = () => {
   // Below is related to auth for updating the user. Will implement later. Review 'Adding JWTs to the User Info Page.'
   // const user = useUser();
   // const[,setToken] = useToken();
   // const { id, email, info } = user;
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const [propertyType, setPropertyType] = useState("");
   const [roofFieldVisibile, setRoofFieldVisibile] = useState(false);
@@ -24,8 +25,14 @@ export const AddProperty = () => {
     }
   }, [propertyType])
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async data => {
+    try {
+      const response = await axios.post("/api/addproperty", data);
+    } catch (error) {
+      console.error(error.response.data);
+    }
+    alert("Property added succesfully");
+    reset();
   };
 
   return (
@@ -57,12 +64,12 @@ export const AddProperty = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="province">
+          <Form.Label className="blue-text" htmlFor="prov">
             Property Province:{" "}
           </Form.Label>
           <Form.Select
-            id="province"
-            {...register("province", { required: true })}
+            id="prov"
+            {...register("prov", { required: true })}
           >
             <option value={"AB"}>AB</option>
             <option value={"BC"}>BC</option>
