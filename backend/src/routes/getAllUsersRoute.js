@@ -6,7 +6,7 @@ export const getAllUsersRoute = {
   path: "/api/users/",
   method: "get",
   handler: async (req, res) => {
-    const propertyResult = await getAllUsers();
-    res.status(200).json({ propertyResult });
+    const userResult = await getAllUsers();
+    res.status(200).json({ userResult });
   },
 };
