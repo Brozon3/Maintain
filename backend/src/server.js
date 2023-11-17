@@ -19,6 +19,9 @@ import {
   insertAppliance,
   deleteAppliance, 
 } from "./commands/appliances.js";
+import { 
+  updateTask, 
+} from "./commands/tasks.js";
 
 const port = 8000;
 
@@ -75,7 +78,6 @@ app.delete("/api/users", async (req, res) => {
   }
 });
 
-
 //Properties section
 app.get("/api/properties", async (req, res) => {
   console.log("hit");
@@ -90,11 +92,42 @@ app.get("/api/properties", async (req, res) => {
   }
 });
 
+app.get("/api/properties/:id", async (req, res) => {
+  let id = req.params.id;
+  console.log(id)
+  id = parseInt(id);
+
+  try {
+    const property = await getPropertyByID(id);
+    res.status(200).json(property);
+  } catch (err) {
+    console.error(err);
+    console.log("Is this an int: " + id);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
+
 app.post("/api/properties", async (req, res) => {
   const body = req.body;
   try {
     const newProperty = await insertProperty(body);
     console.log("newProperty", newProperty);
+    res.status(200).json(body);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
+
+app.delete("/api/properties", async (req, res) => {
+  const body = req.body;
+  try {
+    const property = await deleteProperty(body);
+    console.log("property", property);
     res.status(200).json(body);
   } catch (err) {
     console.error(err);
@@ -117,6 +150,22 @@ app.get("/api/appliances/", async (req, res) => {
       .json({ message: err.message || "Something went wrong" });
   }
 });
+
+//Tasks
+app.put("/api/tasks", async (req, res) => {
+  const body = req.body;
+  try {
+    const task = await updateTask(body);
+    console.log("task", task);
+    res.status(200).json(body);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
+
 
 // Add the routes stores in the routes/index.js folder
 routes.forEach((route) => {
