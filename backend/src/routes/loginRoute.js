@@ -41,6 +41,10 @@ export const loginRoute = {
           console.log("Auth Fail", err);
           res.sendStatus(401);
         },
+        // This logic will need to be implemented later. Build a page for the user to create a new password (may not be necessary with hosted UI)
+        newPasswordRequired: (userAttributes, requiredAttributes) => {
+          console.log(userAttributes);
+        },
       }
     );
   },
