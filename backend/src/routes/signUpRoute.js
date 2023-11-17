@@ -40,11 +40,11 @@ export const signUpRoute = {
             email,
           });
           console.log("Insert Result: ", result);
-          const { insertId } = result;
+          const { userId } = result;
 
           jwt.sign(
             {
-              id: insertId,
+              id: userId,
               isVerified: false,
               email,
             },

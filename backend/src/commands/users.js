@@ -67,7 +67,16 @@ export const insertNewUser = async (userObject) => {
           reject(err);
         } else {
           console.log("User inserted successfully");
-          resolve(result);
+          const selectSql =
+            "SELECT userID FROM Maintain_Database.users WHERE email = ?";
+          conn.query(selectSql, [email], function (err, selectResult) {
+            if (err) {
+              console.error("Error retrieving updated user data:", err);
+              reject(err);
+            } else {
+              resolve(selectResult || []);
+            }
+          });
         }
       });
     } catch (error) {
