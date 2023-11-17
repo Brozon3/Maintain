@@ -29,7 +29,6 @@ export const getAllUsers = async () => {
   });
 }
 
-
 export const insertNewUser = async (userObject) => {
   const { email } = userObject;
   return new Promise((resolve, reject) => {
@@ -73,7 +72,6 @@ export const deleteUser = async (userObject) => {
     }
   });
 }
-
 
 export const getUserByEmail = async (email) => {
   const params = {
