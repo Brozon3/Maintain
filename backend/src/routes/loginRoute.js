@@ -17,16 +17,17 @@ export const loginRoute = {
     new CognitoUser({ Username: email, Pool: awsUserPool }).authenticateUser(
       new AuthenticationDetails({ Username: email, Password: password }),
       {
-        onSuccess: async (session) => {
+        onSuccess: async (result) => {
           console.log("Auth Success");
-          const idToken = session.getIdToken().getJwtToken();
 
-          const user = await getUserByEmail(email);
+          const idToken = result.getIdToken().getJwtToken();
 
-          const { _id: id, isVerified } = user;
+          const userData = await getUserByEmail(email);
+
+          const { userID: userID, isVerified, max_properties } = userData[0];
 
           jwt.sign(
-            { idToken, id, isVerified, email },
+            { idToken, id: userID, isVerified, email },
             process.env.JWT_SECRET,
             { expiresIn: "2d" },
             (err, token) => {
