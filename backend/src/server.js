@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Users Section
+
 // Get all the users
 // app.get("/api/users/", async (req, res) => {
 //   console.log("hit");
@@ -138,18 +138,18 @@ app.delete("/api/properties", async (req, res) => {
 });
 
 //Appliances
-app.get("/api/appliances/", async (req, res) => {
-  console.log("hit");
-  try {
-    const users = await getAllAppliances();
-    res.status(200).json(users);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.get("/api/appliances/", async (req, res) => {
+//   console.log("hit");
+//   try {
+//     const users = await getAllAppliances();
+//     res.status(200).json(users);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 //Tasks
 app.put("/api/tasks", async (req, res) => {
