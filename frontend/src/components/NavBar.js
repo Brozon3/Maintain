@@ -35,7 +35,7 @@ export const NavBar = ({ userState }) => {
             />
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link className="green-text" href="/">
+            <Nav.Link className="green-text" href="/displayProperties">
               <h4>Properties</h4>
             </Nav.Link>
           </Nav>
@@ -59,11 +59,6 @@ export const NavBar = ({ userState }) => {
               alt="Maintain logo"
             />
           </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link className="green-text" href="/displayProperties">
-              <h4>Properties</h4>
-            </Nav.Link>
-          </Nav>
           <Nav>
             <Nav.Link
               className="green-text"

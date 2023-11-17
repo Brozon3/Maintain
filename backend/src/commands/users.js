@@ -39,13 +39,12 @@ export const getUserByEmail = async (email) => {
   return new Promise((resolve, reject) => {
     try {
       const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
-
       conn.query(sql, [email], function (err, result) {
         if (err) {
-          console.error("Error inserting user:", err);
+          console.error("Error:", err);
           reject(err);
         } else {
-          console.log("User inserted successfully");
+          console.log(result);
           resolve(result);
         }
       });

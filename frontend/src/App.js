@@ -20,12 +20,20 @@ import { HomePage } from "./pages/HomePage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { PasswordResetLandingPage } from "./pages/PasswordResetLandingPage";
 import { EmailVerificationCodePage } from "./pages/EmailVerificationCodePage";
+import axios from "axios";
 
 export function App() {
   const [user, setUser] = useState(null);
 
-  const [properties, setProperties] = useState(data);
+  const getProperties = async (email) => {
+    try {
+      const response = await axios.get(`/api/getProperties/${email}`, {});
+    } catch (error) {
+      console.error(error.response.data);
+    }
+  };
 
+  const [properties, setProperties] = useState(data);
   useEffect(() => {}, [user, properties]);
 
   return (

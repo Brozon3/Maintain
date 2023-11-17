@@ -19,6 +19,9 @@ export const loginRoute = {
       {
         onSuccess: async (result) => {
           console.log("Auth Success");
+          const result = await getUserByEmail(email);
+
+          const user = result[0];
 
           const idToken = result.getIdToken().getJwtToken();
 

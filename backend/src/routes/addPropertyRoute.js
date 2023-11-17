@@ -8,8 +8,6 @@ export const addProperty = {
   method: "post",
   handler: async (req, res) => {
     const { user, data } = req.body;
-    const { address, city, province, type, roof, carpet, pets, heatingType } =
-      data;
 
     const propertyResult = await insertProperty(data);
     const { insertId } = propertyResult;
