@@ -28,28 +28,23 @@ export const getAllUsers = async () => {
 };
 
 export const getUserByEmail = async (email) => {
-  const params = {
-    TableName: TABLE_NAME,
-    IndexName: "email-index",
-    KeyConditionExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": email,
-    },
-  };
-  console.log("Query params:", params);
-  try {
-    const result = await DocumentClient.query(params).promise();
-    console.log("Query result:", result);
-
-    if (result.Count > 0) {
-      return result.Items[0]; // Match the first user found in the query.
-    } else {
-      return null;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error:", err);
+          reject(err);
+        } else {
+          console.log(result);
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
     }
-  } catch (error) {
-    console.error("Error querying DynamoDB:", error);
-    throw error;
-  }
+  });
 };
 
 export const insertUser = async (userObject) => {

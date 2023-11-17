@@ -8,11 +8,13 @@ export const loginRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await getUserByEmail(email);
+    const result = await getUserByEmail(email);
+
+    const user = result[0];
 
     if (!user) return res.sendStatus(401);
 
-    const { _id: id, isVerified, passwordHash, info } = user;
+    const { userID, is_verified, passwordHash, max_properties } = user;
 
     const isCorrect = await bcrypt.compare(password, passwordHash);
 
