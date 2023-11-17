@@ -24,10 +24,10 @@ export const loginRoute = {
 
           const userData = await getUserByEmail(email);
 
-          const { userID: userID, isVerified, max_properties } = userData[0];
+          const { userID, is_verified, max_properties } = userData[0];
 
           jwt.sign(
-            { idToken, id: userID, isVerified, email },
+            { idToken, userID, is_verified, email },
             process.env.JWT_SECRET,
             { expiresIn: "2d" },
             (err, token) => {
