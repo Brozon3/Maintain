@@ -5,8 +5,17 @@ dotenv.config();
 const conn = mysql.createConnection({
   host: process.env.AWS_RDS_HOST,
   user: process.env.AWS_RDS_USER,
-  password: process.env.AWS_RDS_PASSWORD
-})
+  password: process.env.AWS_RDS_PASSWORD,
+});
+
+AWS.config.update({
+  region: process.env.AWS_DEFAULT_REGION,
+  accesKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+export const DocumentClient = new AWS.DynamoDB.DocumentClient();
+export const TABLE_NAME = "users";
 
 export const getAllUsers = async () => {
   return new Promise((resolve, reject) => {
@@ -19,28 +28,6 @@ export const getAllUsers = async () => {
           reject(err);
         } else {
           console.log("Successfully got all users.")
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
-export const insertNewUser = async (userObject) => {
-  const { email } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `INSERT INTO Maintain_Database.users (email) Values (?)`;
-
-      conn.query(sql, [email], function (err, result) {
-        if (err) {
-          console.error("Error inserting user: ", err);
-          reject(err);
-        } else {
-          console.log("User inserted successfully.");
           resolve(result);
         }
       });
@@ -87,25 +74,54 @@ export const getUserByEmail = async (email) => {
 
 // Likely to be outsourced & removed.
 export const forgotPasswordCode = async (email, passwordResetCode) => {
-  const params = {
-    TableName: "users",
-    Key: {
-      email: email,
-    },
-    UpdateExpression: "SET passwordResetCode = :newValue",
-    ExpressionAttributeValues: {
-      ":newValue": passwordResetCode,
-    },
-    IndexName: "email-index",
-  };
-  const response = await DocumentClient.update(params, (err, data) => {
-    if (err) {
-      console.err("User update failed. Error: ", Json.stringify(err));
-    } else {
-      console.log("Password reset updated.");
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT * FROM Maintain_Database.users WHERE email = ?";
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error:", err);
+          reject(err);
+        } else {
+          console.log(result);
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
     }
   });
 };
+
+export const insertUser = async (userObject) => {
+  const { email, passwordHash, isVerified, verificationString } = userObject;
+  // hard coded for now.
+  const maxProperties = 3;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, max_properties, is_verified, password_hash) VALUES (?,?,?,?)";
+      conn.query(
+        sql,
+        [email, maxProperties, passwordHash, isVerified],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve(result);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+
 
 export const updateGoogleUser = async (itemObject) => {
   const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;

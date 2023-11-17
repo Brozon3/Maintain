@@ -4,34 +4,47 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { RoofField } from "../components/RoofField";
+import { UseUser } from "../auth/useUser";
+import { useToken } from "../auth/useToken";
+import axios from "axios";
 
 export const AddProperty = () => {
   // Below is related to auth for updating the user. Will implement later. Review 'Adding JWTs to the User Info Page.'
-  // const user = useUser();
-  // const[,setToken] = useToken();
-  // const { id, email, info } = user;
+  const user = UseUser();
+  const [token, setToken] = useToken();
+  const { id, email, isVerified } = user;
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const [propertyType, setPropertyType] = useState("");
   const [roofFieldVisibile, setRoofFieldVisibile] = useState(false);
 
   useEffect(() => {
-    if (propertyType === "Cabin" || propertyType === "Home"){
+    if (propertyType === "Cabin" || propertyType === "Home") {
       setRoofFieldVisibile(true);
     } else {
       setRoofFieldVisibile(false);
     }
-  }, [propertyType])
+  }, [propertyType]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    // /api/addProperty is addPropertyRoute.
+    // /backend/src/routes/addPropertyRoute calls 2 commands,
+    // insertProperty and associateProperty (in commands.js).
+    await axios.post("/api/addProperty", {
+      user: user,
+      data: data,
+    });
   };
 
   return (
     <Container className="container main">
       <h1 className="mb-3 p-3 blue-header">Add a Property</h1>
-      <Form onSubmit={handleSubmit(onSubmit)} className="container w-50 justify-content-center">
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        className="container w-50 justify-content-center"
+      >
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="address">
             Property Address:{" "}
@@ -57,12 +70,12 @@ export const AddProperty = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="province">
+          <Form.Label className="blue-text" htmlFor="prov">
             Property Province:{" "}
           </Form.Label>
           <Form.Select
-            id="province"
-            {...register("province", { required: true })}
+            id="prov"
+            {...register("prov", { required: true })}
           >
             <option value={"AB"}>AB</option>
             <option value={"BC"}>BC</option>
@@ -83,7 +96,15 @@ export const AddProperty = () => {
           <Form.Label className="blue-text" htmlFor="type">
             Property Type:{" "}
           </Form.Label>
-          <Form.Control as={"select"} id="type" {...register("type", { required: true, onChange: (e) => setPropertyType(e.target.options[e.target.selectedIndex].text) })}>
+          <Form.Control
+            as={"select"}
+            id="type"
+            {...register("type", {
+              required: true,
+              onChange: (e) =>
+                setPropertyType(e.target.options[e.target.selectedIndex].text),
+            })}
+          >
             <option value={"Apartment"}>Apartment</option>
             <option value={"Cabin"}>Cabin</option>
             <option value={"Condo"}>Condo</option>
@@ -95,34 +116,34 @@ export const AddProperty = () => {
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="carpet">
-              Carpet:{" "}
+            Carpet:{" "}
           </Form.Label>
           <Form.Select id="carpet" {...register("carpet", { required: true })}>
-              <option value={"No"}>No</option>
-              <option value={"Yes"}>Yes</option>
+            <option value={"No"}>No</option>
+            <option value={"Yes"}>Yes</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="pets">
-              Pets:{" "}
+            Pets:{" "}
           </Form.Label>
           <Form.Select id="pets" {...register("pets", { required: true })}>
-              <option value={"No"}>No</option>
-              <option value={"Yes"}>Yes</option>
+            <option value={"No"}>No</option>
+            <option value={"Yes"}>Yes</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="heating">
-              Heating Type:{" "}
+            Heating Type:{" "}
           </Form.Label>
           <Form.Select
-              id="heating"
-              {...register("heating", { required: true })}
+            id="heating"
+            {...register("heating", { required: true })}
           >
-              <option value={"Electric"}>Electric</option>
-              <option value={"Oil"}>Oil</option>
+            <option value={"Electric"}>Electric</option>
+            <option value={"Oil"}>Oil</option>
           </Form.Select>
         </Form.Group>
 

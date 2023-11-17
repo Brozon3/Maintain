@@ -51,30 +51,6 @@ export const getPropertyByID = async (propertyID) => {
   });
 }
 
-export const insertProperty = async (userObject) => {
-  const { address, city, prov, type, roof, carpet, pets, heating } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `INSERT INTO Maintain_Database.properties 
-      (address, city, prov, type, roof, carpet, pets, heating) 
-      Values (?, ?, ?, ?, ?, ?, ?, ?)`;
-
-      conn.query(sql, [address, city, prov, type, roof, carpet, pets, heating], function (err, result) {
-        if (err) {
-          console.error("Error inserting user: ", err);
-          reject(err);
-        } else {
-          console.log("User inserted successfully.");
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
 export const deleteProperty = async (userObject) => {
   const { propertyID } = userObject;
   return new Promise((resolve, reject) => {
@@ -87,6 +63,48 @@ export const deleteProperty = async (userObject) => {
           reject(err);
         } else {
           console.log("Property deleted successfully.");
+});
+
+export const insertProperty = async (propertyObject) => {
+  const { address, city, province, type, roof, carpet, pets, heatingType } =
+    propertyObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating) VALUES (?,?,?,?,?,?,?,?)";
+      conn.query(
+        sql,
+        [address, city, province, type, roof, carpet, pets, heatingType],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting property:", err);
+            reject(err);
+          } else {
+            console.log("Property inserted successfully");
+            resolve(result);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+export const associateProperty = async (propertyObject) => {
+  const { user, propertyId } = propertyObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.userProperty (userID, propertyID) VALUES (?,?)";
+
+      conn.query(sql, [user.id, propertyId], function (err, result) {
+        if (err) {
+          console.error("Error inserting property:", err);
+          reject(err);
+        } else {
+          console.log("Property inserted successfully");
           resolve(result);
         }
       });

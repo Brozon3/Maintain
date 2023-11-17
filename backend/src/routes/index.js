@@ -8,8 +8,10 @@ import { forgotPasswordRoute } from "./forgotPasswordRoute.js";
 import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
 import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
+import { addProperty } from "./addPropertyRoute.js";
 
 export const routes = [
+  addProperty,
   testRoute,
   signUpRoute,
   loginRoute,
@@ -18,7 +20,7 @@ export const routes = [
   forgotPasswordRoute,
   getGoogleOauthUrlRoute,
   googleOauthCallbackRoute,
-  
+
   getAllFeatures, 
   insertFeatures,
 ];
