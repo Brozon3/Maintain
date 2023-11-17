@@ -12,6 +12,8 @@ import { addProperty } from "./addPropertyRoute.js";
 import { getAllUsersRoute } from "./getAllUsersRoute.js";
 import { deleteUserRoute } from "./deleteUserRoute.js";
 import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
+import { getAllAppliancesRoute } from "./getAllAppliancesRoute.js";
+import { getAllTasksRoute } from "./getAllTasksRoute.js";
 
 export const routes = [
   addProperty,
@@ -28,4 +30,6 @@ export const routes = [
   getAllUsersRoute,
   deleteUserRoute,
   getAllPropertiesRoute,
+  getAllAppliancesRoute,
+  getAllTasksRoute,
 ];
