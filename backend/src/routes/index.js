@@ -9,6 +9,8 @@ import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
 import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
+import { getAllUsersRoute } from "./getAllUsersRoute.js";
+import { deleteUserRoute } from "./deleteUserRoute.js";
 
 export const routes = [
   addProperty,
@@ -20,7 +22,8 @@ export const routes = [
   forgotPasswordRoute,
   getGoogleOauthUrlRoute,
   googleOauthCallbackRoute,
-
   getAllFeatures, 
   insertFeatures,
+  getAllUsersRoute,
+  deleteUserRoute,
 ];

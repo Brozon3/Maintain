@@ -63,14 +63,15 @@ export const deleteProperty = async (userObject) => {
           reject(err);
         } else {
           console.log("Property deleted successfully.");
+          resolve(result);
         }
       });
     } catch (error) {
-      console.error("Error connecting to the database:", error);
+      console.error("Error connecting to the database: ", error);
       reject(error);
     }
   });
-};
+}
 
 export const insertProperty = async (propertyObject) => {
   const { address, city, prov, type, roof, carpet, pets, heatingType } =
