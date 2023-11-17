@@ -4,18 +4,28 @@ import axios from "axios";
 import { PasswordResetSuccess } from "./PasswordResetSuccess";
 import { PasswordResetFail } from "./PasswordResetFail";
 import Container from "react-bootstrap/Container";
+import { UseUser } from "../auth/useUser";
 
 export const PasswordResetLandingPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isFailure, setIsFailure] = useState(false);
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
-  // const { passwordResetCode } = useParams();
+  const [passwordResetCode, setPasswordResetCode] = useState("");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get("email");
 
   const onResetClicked = async () => {
     try {
-      await axios.put(``);
-    } catch {}
+      await axios.put(`/api/users/${passwordResetCode}/reset-password`, {
+        email,
+        newPassword: passwordValue,
+      });
+      setIsSuccess(true);
+    } catch (e) {
+      setIsFailure(true);
+    }
   };
 
   if (isFailure) return <PasswordResetFail />;
@@ -23,7 +33,35 @@ export const PasswordResetLandingPage = () => {
   return (
     <>
       <Container className="text-center main">
-        {/* Left empty as it will probably not be implemented. See 03_04 */}
+        <h1>Reset Password</h1>
+        <p>Please enter a new password</p>
+        <input
+          value={passwordResetCode}
+          onChange={(e) => setPasswordResetCode(e.target.value)}
+          placeholder="Password Reset Code"
+        />
+        <input
+          type="password"
+          value={passwordValue}
+          onChange={(e) => setPasswordValue(e.target.value)}
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          value={confirmPasswordValue}
+          onChange={(e) => setConfirmPasswordValue(e.target.value)}
+          placeholder="Confirm Password"
+        />
+        <button
+          disabled={
+            !passwordValue ||
+            !confirmPasswordValue ||
+            passwordValue !== confirmPasswordValue
+          }
+          onClick={onResetClicked}
+        >
+          Reset Password
+        </button>
       </Container>
     </>
   );

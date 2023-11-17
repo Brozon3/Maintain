@@ -14,10 +14,10 @@ export const ForgotPasswordPage = () => {
 
   const handleSubmitClicked = async () => {
     try {
-      await axios.put(`/api/forgot-password/${emailValue}`);
+      await axios.put(`/api/forgotPassword/${emailValue}`);
       setSuccess(true);
       setTimeout(() => {
-        navigate("/login");
+        navigate(`/reset-password?email=${encodeURIComponent(emailValue)}`);
       }, 3000);
     } catch (e) {
       setErrorMessage(e);

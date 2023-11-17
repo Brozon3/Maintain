@@ -46,10 +46,7 @@ export function App() {
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route
-          path="/reset-password/:passwordResetCode"
-          element={<PasswordResetLandingPage />}
-        />
+        <Route path="/reset-password" element={<PasswordResetLandingPage />} />
         <Route element={<PrivateRoute user={user} />}>
           <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
           <Route
