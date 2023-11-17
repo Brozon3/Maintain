@@ -73,7 +73,7 @@ export const deleteProperty = async (userObject) => {
 };
 
 export const insertProperty = async (propertyObject) => {
-  const { address, city, province, type, roof, carpet, pets, heatingType } =
+  const { address, city, prov, type, roof, carpet, pets, heatingType } =
     propertyObject;
   return new Promise((resolve, reject) => {
     try {
@@ -81,7 +81,7 @@ export const insertProperty = async (propertyObject) => {
         "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating) VALUES (?,?,?,?,?,?,?,?)";
       conn.query(
         sql,
-        [address, city, province, type, roof, carpet, pets, heatingType],
+        [address, city, prov, type, roof, carpet, pets, heatingType],
         function (err, result) {
           if (err) {
             console.error("Error inserting property:", err);
@@ -106,7 +106,7 @@ export const associateProperty = async (propertyObject) => {
       const sql =
         "INSERT INTO Maintain_Database.userProperty (userID, propertyID) VALUES (?,?)";
 
-      conn.query(sql, [user.id, propertyId], function (err, result) {
+      conn.query(sql, [user.userID, propertyId], function (err, result) {
         if (err) {
           console.error("Error inserting property:", err);
           reject(err);
