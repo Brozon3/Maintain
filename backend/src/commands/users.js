@@ -27,7 +27,7 @@ export const getAllUsers = async () => {
           console.error("Error getting user: ", err);
           reject(err);
         } else {
-          console.log("Successfully got all users.")
+          console.log("Successfully got all users.");
           resolve(result);
         }
       });
@@ -36,7 +36,7 @@ export const getAllUsers = async () => {
       reject(error);
     }
   });
-}
+};
 
 export const deleteUser = async (userObject) => {
   const { userID } = userObject;
@@ -58,7 +58,7 @@ export const deleteUser = async (userObject) => {
       reject(error);
     }
   });
-}
+};
 
 export const getUserByEmail = async (email) => {
   const params = {
@@ -69,8 +69,7 @@ export const getUserByEmail = async (email) => {
       ":email": email,
     },
   };
-}
-
+};
 
 // Likely to be outsourced & removed.
 export const forgotPasswordCode = async (email, passwordResetCode) => {
@@ -121,7 +120,36 @@ export const insertUser = async (userObject) => {
   });
 };
 
+export const insertNewUser = async (userObject) => {
+  const { email } = userObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "INSERT INTO Maintain_Database.users (email) VALUES (?)";
 
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error inserting user:", err);
+          reject(err);
+        } else {
+          console.log("User inserted successfully");
+          const selectSql =
+            "SELECT userID FROM Maintain_Database.users WHERE email = ?";
+          conn.query(selectSql, [email], function (err, selectResult) {
+            if (err) {
+              console.error("Error retrieving updated user data:", err);
+              reject(err);
+            } else {
+              resolve(selectResult || []);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
 
 export const updateGoogleUser = async (itemObject) => {
   const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;
