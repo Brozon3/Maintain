@@ -30,38 +30,37 @@ export const signUpRoute = {
     // };
 
     //Create a unique numeric ID
-    const standardUUID = uuid();
-    const numericRepresentation = BigInt("0x" + standardUUID.replace(/-/g, ""));
-    const userID = Number(numericRepresentation);
+    // const standardUUID = uuid();
+    // const numericRepresentation = BigInt("0x" + standardUUID.replace(/-/g, ""));
+    // const userID = Number(numericRepresentation);
 
     // info: startingInfo,
     const result = await insertUser({
       email,
       passwordHash,
       isVerified: "false",
-      verificationString,
     });
 
-    const { insertedId } = result;
+    const { insertId } = result;
 
-    try {
-      await sendEmail({
-        to: email,
-        from: "saxdevchris@gmail.com",
-        subject: "Please verify your email",
-        text: `
-      Thanks for signingup! To verify your mail, click here:
-      http://localhost:3000/verify-email/${verificationString}
-    `,
-      });
-    } catch (e) {
-      console.log(e);
-      res.sendStatus(500);
-    }
+    // try {
+    //   await sendEmail({
+    //     to: email,
+    //     from: "saxdevchris@gmail.com",
+    //     subject: "Please verify your email",
+    //     text: `
+    //   Thanks for signingup! To verify your mail, click here:
+    //   http://localhost:3000/verify-email/${verificationString}
+    // `,
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    //   res.sendStatus(500);
+    // }
 
     jwt.sign(
       {
-        id: insertedId,
+        id: insertId,
         email,
         // info: startingInfo,
         isVerified: false,

@@ -12,12 +12,13 @@ export const addProperty = {
       data;
 
     const propertyResult = await insertProperty(data);
+    const { insertId } = propertyResult;
 
     const userPropertyResult = await associateProperty({
       user: user,
-      propertyId: propertyResult.insertId,
+      propertyId: insertId,
     });
 
-    res.status(200).json({ propertyId });
+    res.status(200).json({ insertId });
   },
 };
