@@ -9,8 +9,10 @@ import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
 import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { getAllUsers, insertOneUser } from "./users.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
+import { addProperty } from "./addProperty.js";
 
 export const routes = [
+  addProperty,
   testRoute,
   signUpRoute,
   loginRoute,
@@ -21,6 +23,6 @@ export const routes = [
   googleOauthCallbackRoute,
   getAllUsers,
   insertOneUser,
-  getAllFeatures, 
+  getAllFeatures,
   insertFeatures,
 ];

@@ -12,6 +12,11 @@ export function DisplayProperties({ properties }) {
   const addProperty = () => navigate("/addProperty");
   const viewProperty = (id) => navigate("/taskList/" + id);
 
+  // Get the user
+  // Query the database for properties belonging to the user
+  // add them to a state variable.
+  //map over that list
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -94,7 +99,9 @@ export function DisplayProperties({ properties }) {
           <Card className="m-5 text-center green-border">
             <Card.Body className="align-items-center">
               <Card.Title className="blue-header p-1">
-                {(maxProperties - properties.length) + handlePlural(properties, maxProperties)}
+                {maxProperties -
+                  properties.length +
+                  handlePlural(properties, maxProperties)}
               </Card.Title>
               <Button
                 type="submit"
