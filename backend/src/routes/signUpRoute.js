@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { sendEmail } from "../util/sendEmail.js";
 // import { awsUserPool } from "../util/awsUserPool.js";
 import bcrypt from "bcrypt";
-import { insertNewUser } from "../commands/users.js";
+import { insertUser, getUserByEmail } from "../commands/users.js";
 
 export const signUpRoute = {
   path: "/api/signup",
@@ -11,7 +11,7 @@ export const signUpRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await insertNewUser(email);
+    const user = await getUserByEmail(email);
 
     if (user) {
       return res.status(409).json({ message: "User already exists." });
@@ -42,21 +42,6 @@ export const signUpRoute = {
     });
 
     const { insertId } = result;
-
-    // try {
-    //   await sendEmail({
-    //     to: email,
-    //     from: "saxdevchris@gmail.com",
-    //     subject: "Please verify your email",
-    //     text: `
-    //   Thanks for signingup! To verify your mail, click here:
-    //   http://localhost:3000/verify-email/${verificationString}
-    // `,
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-    //   res.sendStatus(500);
-    // }
 
     jwt.sign(
       {
