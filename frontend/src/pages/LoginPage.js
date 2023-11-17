@@ -21,8 +21,12 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const addNewGoogleUser = async () => {
+      const response = await axios.post("/user");
+    };
     if (oauthToken) {
       setToken(oauthToken);
+      addNewGoogleUser();
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);
@@ -80,36 +84,20 @@ export const LoginPage = () => {
           />
         </Form.Group>
         <hr></hr>
-        <Row>
-          <Col>
-            <Button
-              disabled={!emailValue || !passwordValue}
-              className="green-button mb-3"
-              onClick={onLoginClicked}
-            >
-              Log In
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              className="green-button mb-3"
-              onClick={() => navigate("/signUpPage")}
-            >
-              Sign Up
-            </Button>
-          </Col>
-        </Row>
+        <Button
+          disabled={!emailValue || !passwordValue}
+          className="green-button mx-3"
+          onClick={onLoginClicked}
+        >
+          Log In
+        </Button>
 
-        <div className="g-signin2" data-onsuccess="onSignIn">
-          <Button
-            disabled={!googleOauthUrl}
-            onClick={() => {
-              window.location.href = googleOauthUrl;
-            }}
-          >
-            Log in with Google
-          </Button>
-        </div>
+        <Button
+          className="green-button mx-3"
+          onClick={() => navigate("/signUpPage")}
+        >
+          Sign Up
+        </Button>
 
         <Button
           className="green-button mx-3"
@@ -119,11 +107,13 @@ export const LoginPage = () => {
         </Button>
 
         <Button
-          className="green-button"
-          onClick={() => navigate("/signUpPage")}
+          className="green-button mx-3"
+          disabled={!googleOauthUrl}
+          onClick={() => {
+            window.location.href = googleOauthUrl;
+          }}
         >
-          {" "}
-          Don't have an account? Sign Up!{" "}
+          Log in with Google
         </Button>
       </Form>
     </Container>

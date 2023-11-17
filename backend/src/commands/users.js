@@ -1,6 +1,7 @@
 import mysql from "mysql";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
+import mysql from "mysql";
 dotenv.config();
 
 const conn = mysql.createConnection({
@@ -118,14 +119,115 @@ export const verifyUser = async (email) => {
   });
 };
 
-export const insertUser = async (itemObject) => {
+export const insertUser = async (userObject) => {
+  const { email, passwordHash, isVerified, verificationString } = userObject;
+  // hard coded for now.
+  const maxProperties = 3;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, max_properties, is_verified, password_hash) VALUES (?,?,?,?)";
+      conn.query(
+        sql,
+        [email, maxProperties, passwordHash, isVerified],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve(result);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+export const addProperty = {
+  path: "/api/addProperty",
+  method: "post",
+  handler: (req, res) => {
+    const { address, city, prov, type, roof, carpet, pets, heating } = req.body;
+    conn.connect(function (err) {
+      const sql = `INSERT INTO Maintain_Database.properties(address, city, prov, type, roof, carpet, pets, heating)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      conn.query(
+        sql,
+        [address, city, prov, type, roof, carpet, pets, heating],
+        function (err, result, fields) {
+          if (err) console.log(err);
+          if (result) res.send(req.body);
+          if (fields) console.log(fields);
+        }
+      );
+    });
+  },
+};
+
+export const getAllUsers = async () => {
   const params = {
     TableName: TABLE_NAME,
-    Item: itemObject,
   };
-  const result = await DocumentClient.put(params).promise();
-  console.log(result);
-  return result;
+  const items = await DocumentClient.scan(params).promise();
+  console.log(items);
+  return items;
+};
+
+export const getUserByEmail = async (email) => {
+  const params = {
+    TableName: TABLE_NAME,
+    IndexName: "email-index",
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: {
+      ":email": email,
+    },
+  };
+  console.log("Query params:", params);
+  try {
+    const result = await DocumentClient.query(params).promise();
+    console.log("Query result:", result);
+
+    if (result.Count > 0) {
+      return result.Items[0]; // Match the first user found in the query.
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error querying DynamoDB:", error);
+    throw error;
+  }
+};
+
+export const insertUser = async (userObject) => {
+  const { email, passwordHash, isVerified, verificationString } = userObject;
+  // hard coded for now.
+  const maxProperties = 3;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, max_properties, is_verified, password_hash) VALUES (?,?,?,?)";
+      conn.query(
+        sql,
+        [email, maxProperties, passwordHash, isVerified],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve(result);
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
 };
 
 export const addProperty = {
