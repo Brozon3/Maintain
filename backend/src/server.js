@@ -3,6 +3,7 @@ import { routes } from "./routes/index.js";
 const app = express();
 
 import {
+  deleteUser,
   getAllUsers,
   insertNewUser,
   updateGoogleUser,
@@ -10,7 +11,14 @@ import {
 import {
   getAllProperties,
   insertProperty,
+  getPropertyByID,
+  deleteProperty,
   } from "./commands/properties.js";
+import { 
+  getAllAppliances,
+  insertAppliance,
+  deleteAppliance, 
+} from "./commands/appliances.js";
 
 const port = 8000;
 
@@ -53,6 +61,19 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
+app.delete("/api/users", async (req, res) => {
+  const body = req.body;
+  try {
+    const user = await deleteUser(body);
+    console.log("user", user);
+    res.status(200).json(body);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
 
 
 //Properties section
@@ -83,6 +104,19 @@ app.post("/api/properties", async (req, res) => {
   }
 });
 
+//Appliances
+app.get("/api/appliances/", async (req, res) => {
+  console.log("hit");
+  try {
+    const users = await getAllAppliances();
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(err.statusCode || 500)
+      .json({ message: err.message || "Something went wrong" });
+  }
+});
 
 // Add the routes stores in the routes/index.js folder
 routes.forEach((route) => {
