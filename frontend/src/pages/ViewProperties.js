@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../auth/useUser";
-import { PropertyCard } from "../components/propertyCard";
+import { PropertyCard } from "../components/propertyCard.js";
 
 const maxProperties = 3;
 
@@ -48,7 +48,7 @@ export function DisplayProperties({ properties }) {
         {properties.map((property) => {
           return (
             <Col key={property.id}>
-              <PropertyCard property={property}/>
+              <PropertyCard property={property} />
             </Col>
           );
         })}
