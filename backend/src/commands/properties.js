@@ -5,7 +5,7 @@ dotenv.config();
 const conn = mysql.createConnection({
   host: process.env.AWS_RDS_HOST,
   user: process.env.AWS_RDS_USER,
-  password: process.env.AWS_RDS_PASSWORD
+  password: process.env.AWS_RDS_PASSWORD,
 });
 
 export const getAllProperties = async () => {
@@ -18,7 +18,7 @@ export const getAllProperties = async () => {
           console.error("Error getting user: ", err);
           reject(err);
         } else {
-          console.log("Successfully got all users.")
+          console.log("Successfully got all users.");
           resolve(result);
         }
       });
@@ -27,7 +27,7 @@ export const getAllProperties = async () => {
       reject(error);
     }
   });
-}
+};
 
 export const getPropertyByID = async (propertyID) => {
   return new Promise((resolve, reject) => {
@@ -40,7 +40,7 @@ export const getPropertyByID = async (propertyID) => {
           console.error("Error getting Property: ", err);
           reject(err);
         } else {
-          console.log("Successfully got property.")
+          console.log("Successfully got property.");
           resolve(result);
         }
       });
@@ -49,7 +49,7 @@ export const getPropertyByID = async (propertyID) => {
       reject(error);
     }
   });
-}
+};
 
 export const deleteProperty = async (userObject) => {
   const { propertyID } = userObject;
@@ -63,10 +63,17 @@ export const deleteProperty = async (userObject) => {
           reject(err);
         } else {
           console.log("Property deleted successfully.");
-});
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
 
 export const insertProperty = async (propertyObject) => {
-  const { address, city, province, type, roof, carpet, pets, heatingType } =
+  const { address, city, prov, type, roof, carpet, pets, heatingType } =
     propertyObject;
   return new Promise((resolve, reject) => {
     try {
@@ -74,7 +81,7 @@ export const insertProperty = async (propertyObject) => {
         "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating) VALUES (?,?,?,?,?,?,?,?)";
       conn.query(
         sql,
-        [address, city, province, type, roof, carpet, pets, heatingType],
+        [address, city, prov, type, roof, carpet, pets, heatingType],
         function (err, result) {
           if (err) {
             console.error("Error inserting property:", err);
@@ -99,7 +106,7 @@ export const associateProperty = async (propertyObject) => {
       const sql =
         "INSERT INTO Maintain_Database.userProperty (userID, propertyID) VALUES (?,?)";
 
-      conn.query(sql, [user.id, propertyId], function (err, result) {
+      conn.query(sql, [user.userID, propertyId], function (err, result) {
         if (err) {
           console.error("Error inserting property:", err);
           reject(err);
@@ -113,4 +120,4 @@ export const associateProperty = async (propertyObject) => {
       reject(error);
     }
   });
-}
+};
