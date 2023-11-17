@@ -19,18 +19,15 @@ export const loginRoute = {
       {
         onSuccess: async (result) => {
           console.log("Auth Success");
-          const result = await getUserByEmail(email);
 
-          const user = result[0];
-
+          const data = await getUserByEmail(email);
+          const user = data[0];
           const idToken = result.getIdToken().getJwtToken();
-
-          const userData = await getUserByEmail(email);
-
-          const { userID: userID, isVerified, max_properties } = userData[0];
+          // const userData = await getUserByEmail(email);
+          const { is_verified, max_properties, userID } = user;
 
           jwt.sign(
-            { idToken, id: userID, isVerified, email },
+            { idToken, userID, is_verified, max_properties, email },
             process.env.JWT_SECRET,
             { expiresIn: "2d" },
             (err, token) => {
