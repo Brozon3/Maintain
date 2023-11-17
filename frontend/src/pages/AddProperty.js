@@ -14,7 +14,7 @@ export const AddProperty = () => {
   const [token, setToken] = useToken();
   const { id, email, isVerified } = user;
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const [propertyType, setPropertyType] = useState("");
   const [roofFieldVisibile, setRoofFieldVisibile] = useState(false);
@@ -70,12 +70,12 @@ export const AddProperty = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="province">
+          <Form.Label className="blue-text" htmlFor="prov">
             Property Province:{" "}
           </Form.Label>
           <Form.Select
-            id="province"
-            {...register("province", { required: true })}
+            id="prov"
+            {...register("prov", { required: true })}
           >
             <option value={"AB"}>AB</option>
             <option value={"BC"}>BC</option>
