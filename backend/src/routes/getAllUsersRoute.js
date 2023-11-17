@@ -9,7 +9,7 @@ const conn = mysql.createConnection({
   password: process.env.AWS_RDS_PASSWORD,
 });
 
-export const getAllUsers = {
+export const getUsers = {
   path: "/api/users/",
   method: "get",
   handler: async (req, res) => {
