@@ -39,12 +39,12 @@ export const signUpRoute = {
           const result = await insertNewUser({
             email,
           });
-          console.log("Insert Result: ", result);
-          const { userId } = result;
+          console.log("Insert Result: ", result[0]);
+          const { userID } = result[0];
 
           jwt.sign(
             {
-              id: userId,
+              id: userID,
               isVerified: false,
               email,
             },

@@ -18,10 +18,15 @@ export const verifyEmailRoute = {
           .status(401)
           .json({ message: "The verification code is incorrect." });
       const result = await verifyUser(reqEmail);
-      const { userID, email: resEmail, isVerified, max_properties } = result;
+      const {
+        userID,
+        email: resEmail,
+        is_verified,
+        max_properties,
+      } = result[0];
 
       jwt.sign(
-        { userID, email: resEmail, isVerified, max_properties },
+        { userID, email: resEmail, is_verified, max_properties },
         process.env.JWT_SECRET,
         { expiresIn: "2d" },
         (err, token) => {
