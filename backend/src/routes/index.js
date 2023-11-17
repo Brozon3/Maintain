@@ -11,6 +11,7 @@ import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
 import { getAllUsersRoute } from "./getAllUsersRoute.js";
 import { deleteUserRoute } from "./deleteUserRoute.js";
+import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
 
 export const routes = [
   addProperty,
@@ -26,4 +27,5 @@ export const routes = [
   insertFeatures,
   getAllUsersRoute,
   deleteUserRoute,
+  getAllPropertiesRoute,
 ];
