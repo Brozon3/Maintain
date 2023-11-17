@@ -79,18 +79,18 @@ app.use(express.json());
 // });
 
 //Properties section
-app.get("/api/properties", async (req, res) => {
-  console.log("hit");
-  try {
-    const users = await getAllProperties();
-    res.status(200).json(users);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.get("/api/properties", async (req, res) => {
+//   console.log("hit");
+//   try {
+//     const users = await getAllProperties();
+//     res.status(200).json(users);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 app.get("/api/properties/:id", async (req, res) => {
   let id = req.params.id;
