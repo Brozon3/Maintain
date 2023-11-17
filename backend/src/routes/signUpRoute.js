@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { sendEmail } from "../util/sendEmail.js";
 // import { awsUserPool } from "../util/awsUserPool.js";
 import bcrypt from "bcrypt";
-import { insertNewUser } from "../commands/users.js";
+import { insertUser } from "../commands/users.js";
 
 export const signUpRoute = {
   path: "/api/signup",

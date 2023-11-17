@@ -1,5 +1,6 @@
 import mysql from "mysql";
 import dotenv from "dotenv";
+import AWS from "aws-sdk";
 dotenv.config();
 
 const conn = mysql.createConnection({
