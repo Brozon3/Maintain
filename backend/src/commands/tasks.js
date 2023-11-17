@@ -74,3 +74,25 @@ export const deleteTask = async (userObject) => {
     }
   });
 }
+
+export const updateTask = async (userObject) => {
+  const { completedOn, taskID } = userObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `Update Maintain_Database.tasks SET completedOn = ? WHERE taskID = ?`;
+
+      conn.query(sql, [completedOn, taskID ], function (err, result) {
+        if (err) {
+          console.error("Error deleting task: ", err);
+          reject(err);
+        } else {
+          console.log("Task deleted successfully.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+}
