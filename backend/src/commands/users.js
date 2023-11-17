@@ -71,7 +71,11 @@ export const getUserByEmail = async (email) => {
           reject(err);
         } else {
           console.log(result);
-          resolve(result);
+          if (result.length === 0) {
+            resolve(null);
+          } else {
+            resolve(result);
+          }
         }
       });
     } catch (error) {
@@ -130,8 +134,7 @@ export const insertUser = async (userObject) => {
   });
 };
 
-export const insertNewUser = async (userObject) => {
-  const { email } = userObject;
+export const insertNewUser = async (email) => {
   return new Promise((resolve, reject) => {
     try {
       const sql = "INSERT INTO Maintain_Database.users (email) VALUES (?)";
