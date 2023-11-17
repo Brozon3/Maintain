@@ -64,19 +64,19 @@ app.use(express.json());
 //   }
 // });
 
-app.delete("/api/users", async (req, res) => {
-  const body = req.body;
-  try {
-    const user = await deleteUser(body);
-    console.log("user", user);
-    res.status(200).json(body);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.delete("/api/users", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     const user = await deleteUser(body);
+//     console.log("user", user);
+//     res.status(200).json(body);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 //Properties section
 app.get("/api/properties", async (req, res) => {
