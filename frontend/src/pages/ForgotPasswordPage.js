@@ -12,7 +12,8 @@ export const ForgotPasswordPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmitClicked = async () => {
+  const handleSubmitClicked = async (e) => {
+    e.preventDefault();
     try {
       await axios.put(`/api/forgotPassword/${emailValue}`);
       setSuccess(true);
