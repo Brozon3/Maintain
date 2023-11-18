@@ -108,13 +108,13 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
 };
 
 export const insertNewUser = async (userData) => {
-  const { email, isVerified } = userData;
+  const { email, is_verified } = userData;
   return new Promise((resolve, reject) => {
     try {
       const sql =
         "INSERT INTO Maintain_Database.users (email, is_verified) VALUES (?, ?)";
 
-      conn.query(sql, [email, isVerified], function (err, result) {
+      conn.query(sql, [email, is_verified], function (err, result) {
         if (err) {
           console.error("Error inserting user:", err);
           reject(err);

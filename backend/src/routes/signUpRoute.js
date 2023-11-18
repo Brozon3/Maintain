@@ -34,18 +34,20 @@ export const signUpRoute = {
         //   bio: "",
         // };
 
+        const is_verified = false;
         // Insert data of new user into database.
         try {
           const result = await insertNewUser({
             email,
+            is_verified,
           });
           console.log("Insert Result: ", result[0]);
           const { userID } = result[0];
 
           jwt.sign(
             {
-              id: userID,
-              isVerified: false,
+              userID,
+              is_verified,
               email,
             },
             process.env.JWT_SECRET,
