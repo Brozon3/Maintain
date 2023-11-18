@@ -193,3 +193,23 @@ export const updateGoogleUser = async (itemObject) => {
     throw e;
   }
 };
+
+export const getPropertiesByUser = async (userID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT * FROM Maintain_Database.userProperty WHERE userID = ?";
+      conn.query(sql, [userID], function (err, result) {
+        if (err) {
+          console.error("Error:", err);
+          reject(err);
+        } else {
+          console.log(result);
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
