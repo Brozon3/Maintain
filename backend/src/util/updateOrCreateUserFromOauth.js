@@ -1,7 +1,7 @@
 import {
   getUserByEmail,
   updateGoogleUser,
-  insertNewUser,
+  insertUser,
 } from "../commands/users.js";
 
 export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {

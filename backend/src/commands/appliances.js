@@ -74,3 +74,26 @@ export const deleteAppliance = async (userObject) => {
     }
   });
 }
+
+export const associateAppliance = async (applianceObject) => {
+  const { propertyID, applianceID } = applianceObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.propertyAppliance (propertyID, applianceID) VALUES (?,?)";
+
+      conn.query(sql, [applianceID, propertyID], function (err, result) {
+        if (err) {
+          console.error("Error inserting property appliance association:", err);
+          reject(err);
+        } else {
+          console.log("Property appliance association inserted successfully");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};

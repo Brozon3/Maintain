@@ -9,6 +9,11 @@ import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
 import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
+import { getAllUsersRoute } from "./getAllUsersRoute.js";
+import { deleteUserRoute } from "./deleteUserRoute.js";
+import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
+import { getAllAppliancesRoute } from "./getAllAppliancesRoute.js";
+import { getAllTasksRoute } from "./getAllTasksRoute.js";
 import { resetPasswordRoute } from "./resetPasswordRoute.js";
 
 export const routes = [
@@ -24,4 +29,9 @@ export const routes = [
   getAllFeatures,
   insertFeatures,
   resetPasswordRoute,
+  getAllUsersRoute,
+  deleteUserRoute,
+  getAllPropertiesRoute,
+  getAllAppliancesRoute,
+  getAllTasksRoute,
 ];
