@@ -21,12 +21,8 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const addNewGoogleUser = async () => {
-      const response = await axios.post("/user");
-    };
     if (oauthToken) {
       setToken(oauthToken);
-      addNewGoogleUser();
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);

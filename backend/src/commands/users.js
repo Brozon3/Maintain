@@ -107,12 +107,14 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
   });
 };
 
-export const insertNewUser = async (email) => {
+export const insertNewUser = async (userData) => {
+  const { email, isVerified } = userData;
   return new Promise((resolve, reject) => {
     try {
-      const sql = "INSERT INTO Maintain_Database.users (email) VALUES (?)";
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, is_verified) VALUES (?, ?)";
 
-      conn.query(sql, [email], function (err, result) {
+      conn.query(sql, [email, isVerified], function (err, result) {
         if (err) {
           console.error("Error inserting user:", err);
           reject(err);
@@ -219,22 +221,27 @@ export const insertUser = async (userObject) => {
 // };
 
 export const updateGoogleUser = async (itemObject) => {
-  const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;
-  const params = {
-    TableName: "users",
-    Item: {
-      userID: parseInt(userID),
-      email: email,
-      name: name,
-      isVerified: verified_email,
-    },
-    ReturnValues: "ALL_OLD",
-  };
-  try {
-    const result = await DocumentClient.put(params).promise();
-    return params.Item;
-  } catch (e) {
-    console.error("Update user failed", e);
-    throw e;
-  }
+  const { userID, email, name, is_verified, max_properties } = itemObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "UPDATE Maintain_Database.users SET email = ?, name= ?, max_properties = ?, is_verified = ? WHERE userID = ?";
+      conn.query(
+        sql,
+        [email, name, max_properties, is_verified, userID],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve({ email, name, max_properties, is_verified, userID });
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
 };
