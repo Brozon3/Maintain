@@ -107,28 +107,25 @@ export const LoginPage = () => {
         >
           Forgot Password
         </Button>
-        <GoogleOAuthProvider clientId={config}>
-          <GoogleLogin
-            render={(renderProps) => (
-              <Button
-                className="green-button mx-3"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                <FcGoogle className="" />
-              </Button>
-            )}
-            onSuccess={(response) => {
-              // Handle successful login
-              console.log(response);
-            }}
-            onFailure={(error) => {
-              // Handle login failure
-              console.error(error);
-            }}
-            cookiePolicy="single_host_origin"
-          />
-        </GoogleOAuthProvider>
+
+        <Button
+          className="gsi-material-button mx-3"
+          disabled={!googleOauthUrl}
+          onClick={() => {
+            window.location.href = googleOauthUrl;
+          }}
+        >
+          <div className="gsi-material-button-state"></div>
+          <div className="gsi-material-button-content-wrapper">
+            <div className="gsi-material-button-icon">
+              <FcGoogle className="google-icon" />
+            </div>
+            <span className="gsi-material-button-contents">
+              Sign in with Google
+            </span>
+            <span style={{ display: "none" }}>Sign in with Google</span>
+          </div>
+        </Button>
       </Form>
     </Container>
   );
