@@ -5,15 +5,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { UseUser } from "../auth/useUser";
 
-export const NavBar = ({ userState }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+export const NavBar = ({ loggedIn, setLoggedIn }) => {
+
   const navigate = useNavigate();
 
   const user = UseUser();
 
   useEffect(() => {
-    if (user) setLoggedIn(true);
-    else setLoggedIn(false);
+    if (user) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false)
+    };
   }, [user]);
 
   const logOutHandler = () => {
@@ -22,7 +25,6 @@ export const NavBar = ({ userState }) => {
     navigate("/loginPage");
   };
 
-  if (loggedIn) {
     return (
       <Navbar className="bg-body-tertiary border border-success" id="top">
         <Container>
@@ -34,42 +36,32 @@ export const NavBar = ({ userState }) => {
               alt="Maintain logo"
             />
           </Navbar.Brand>
+          {loggedIn && 
           <Nav className="me-auto">
             <Nav.Link className="green-text" href="/displayProperties">
               <h4>Properties</h4>
             </Nav.Link>
           </Nav>
+          }
+          {loggedIn &&
           <Nav>
             <Nav.Link className="green-text" href="#" onClick={logOutHandler}>
               <h4>Logout</h4>
             </Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-    );
-  } else {
-    return (
-      <Navbar className="bg-body-tertiary border border-success">
-        <Container>
-          <Navbar.Brand href="/">
-            <img
-              src={require("../MaintainLogo.png")}
-              width="150"
-              height="95"
-              alt="Maintain logo"
-            />
-          </Navbar.Brand>
+          </Nav>  
+          }
+          {!loggedIn &&
           <Nav>
             <Nav.Link
               className="green-text"
               href="#login"
-              onClick={logOutHandler}
+              onClick={() => navigate("/loginPage")}
             >
               <h4>Login</h4>
             </Nav.Link>
           </Nav>
+          }
         </Container>
       </Navbar>
     );
-  }
-};
+  };

@@ -31,16 +31,17 @@ export function App() {
   };
 
   const [properties, setProperties] = useState(data);
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {}, [user, properties]);
 
   return (
     <BrowserRouter>
-      <NavBar user={user} />
+      <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
 
       <Footer />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/loginPage" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<PasswordResetLandingPage />} />

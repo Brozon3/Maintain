@@ -30,7 +30,7 @@ export const EmailVerificationLandingPage = () => {
     loadVerification();
   }, [setToken, verificationString]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p className="blue-header mb-3 p-3">Loading...</p>;
   if (!isSuccess) return <EmailVerificationFail />;
   return <EmailVerificationSuccess />;
 };
