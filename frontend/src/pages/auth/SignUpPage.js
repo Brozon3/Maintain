@@ -77,14 +77,14 @@ export const SignUpPage = () => {
             !passwordValue ||
             passwordValue !== confirmPasswordValue
           }
-          className="green-button mb-3"
+          className="green-button mx-3"
           onClick={onSignUpClicked}
         >
           Sign Up
         </Button>
-        <br></br>
+
         <Button
-          className="green-button mb-3"
+          className="green-button mx-3"
           onClick={() => navigate("/loginPage")}
         >
           Have an account? Log in!
