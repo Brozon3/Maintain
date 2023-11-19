@@ -10,8 +10,6 @@ export const loginRoute = {
   handler: async (req, res) => {
     const { email, password } = req.body;
 
-    const navigate = useNavigate();
-
     new CognitoUser({ Username: email, Pool: awsUserPool }).authenticateUser(
       new AuthenticationDetails({ Username: email, Password: password }),
       {
@@ -36,6 +34,7 @@ export const loginRoute = {
         onFailure: (err) => {
           console.log("Auth Fail", err);
           // res.sendStatus(401);
+          const navigate = useNavigate();
           navigate("/EmailOrUsernameLoginFail");
         },
       }
