@@ -71,7 +71,6 @@ export const getUserByEmail = async (email) => {
           console.error("Error:", err);
           reject(err);
         } else {
-          console.log(result);
           if (result.length === 0) {
             resolve(null);
           } else {
@@ -95,7 +94,6 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
           console.error("Error:", err);
           reject(err);
         } else {
-          console.log(result);
           resolve(result);
         }
       });
@@ -118,7 +116,6 @@ export const insertNewUser = async (userData) => {
           console.error("Error inserting user:", err);
           reject(err);
         } else {
-          console.log("User inserted successfully");
           const selectSql =
             "SELECT userID FROM Maintain_Database.users WHERE email = ?";
           conn.query(selectSql, [email], function (err, selectResult) {
@@ -149,8 +146,6 @@ export const verifyUser = async (email) => {
           console.error("Error updating user:", err);
           reject(err);
         } else {
-          console.log("User verified successfully");
-
           const selectSql =
             "SELECT * FROM Maintain_Database.users WHERE email = ?";
           conn.query(selectSql, [email], function (err, selectResult) {
@@ -186,7 +181,6 @@ export const insertUser = async (userObject) => {
             console.error("Error inserting user:", err);
             reject(err);
           } else {
-            console.log("User inserted successfully");
             resolve(result);
           }
         }
@@ -212,7 +206,6 @@ export const updateGoogleUser = async (itemObject) => {
             console.error("Error inserting user:", err);
             reject(err);
           } else {
-            console.log("User inserted successfully");
             resolve({ email, name, max_properties, is_verified, userID });
           }
         }

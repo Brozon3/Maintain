@@ -41,7 +41,6 @@ export const signUpRoute = {
             email,
             is_verified,
           });
-          console.log("Insert Result: ", result[0]);
           const { userID } = result[0];
 
           jwt.sign(

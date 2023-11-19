@@ -12,7 +12,6 @@ export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
-  const [config, setConfig] = useState({});
 
   const urlParams = new URLSearchParams(window.location.search);
   const oauthToken = urlParams.get("token");
@@ -25,14 +24,6 @@ export const LoginPage = () => {
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);
-
-  //Config oauth button
-  useEffect(() => {
-    axios
-      .get("/api/oAuthConfig")
-      .then((response) => setConfig(response.data))
-      .catch((error) => console.error("Error fetching config:", error));
-  }, []);
 
   useEffect(() => {
     const loadOauthUrl = async () => {
