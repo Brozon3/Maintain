@@ -1,6 +1,7 @@
 import mysql from "mysql";
 import dotenv from "dotenv";
 import AWS from "aws-sdk";
+
 dotenv.config();
 
 const conn = mysql.createConnection({
@@ -105,8 +106,72 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
   });
 };
 
+export const insertNewUser = async (userData) => {
+  const { email, is_verified } = userData;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "INSERT INTO Maintain_Database.users (email, is_verified) VALUES (?, ?)";
+
+      conn.query(sql, [email, is_verified], function (err, result) {
+        if (err) {
+          console.error("Error inserting user:", err);
+          reject(err);
+        } else {
+          console.log("User inserted successfully");
+          const selectSql =
+            "SELECT userID FROM Maintain_Database.users WHERE email = ?";
+          conn.query(selectSql, [email], function (err, selectResult) {
+            if (err) {
+              console.error("Error retrieving updated user data:", err);
+              reject(err);
+            } else {
+              resolve(selectResult || []);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+export const verifyUser = async (email) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "UPDATE Maintain_Database.users SET is_verified = 1 WHERE email = ?";
+
+      conn.query(sql, [email], function (err, result) {
+        if (err) {
+          console.error("Error updating user:", err);
+          reject(err);
+        } else {
+          console.log("User verified successfully");
+
+          const selectSql =
+            "SELECT * FROM Maintain_Database.users WHERE email = ?";
+          conn.query(selectSql, [email], function (err, selectResult) {
+            if (err) {
+              console.error("Error retrieving updated user data:", err);
+              reject(err);
+            } else {
+              resolve(selectResult || []);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
 export const insertUser = async (userObject) => {
-  const { email, passwordHash, isVerified, verificationString } = userObject;
+  const { email, passwordHash, isVerified } = userObject;
   // hard coded for now.
   const maxProperties = 3;
   return new Promise((resolve, reject) => {
@@ -133,64 +198,30 @@ export const insertUser = async (userObject) => {
   });
 };
 
-export const insertNewUser = async (email) => {
+export const updateGoogleUser = async (itemObject) => {
+  const { userID, email, name, is_verified, max_properties } = itemObject;
   return new Promise((resolve, reject) => {
     try {
-      const sql = "INSERT INTO Maintain_Database.users (email) VALUES (?)";
-
-      conn.query(sql, [email], function (err, result) {
-        if (err) {
-          console.error("Error inserting user:", err);
-          reject(err);
-        } else {
-          console.log("User inserted successfully");
-          const selectSql =
-            "SELECT userID FROM Maintain_Database.users WHERE email = ?";
-          conn.query(selectSql, [email], function (err, selectResult) {
-            if (err) {
-              console.error("Error retrieving updated user data:", err);
-              reject(err);
-            } else {
-              resolve(selectResult || []);
-            }
-          });
+      const sql =
+        "UPDATE Maintain_Database.users SET email = ?, name= ?, max_properties = ?, is_verified = ? WHERE userID = ?";
+      conn.query(
+        sql,
+        [email, name, max_properties, is_verified, userID],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            console.log("User inserted successfully");
+            resolve({ email, name, max_properties, is_verified, userID });
+          }
         }
-      });
+      );
     } catch (error) {
       console.error("Error connecting to the database:", error);
       reject(error);
     }
   });
-};
-
-export const updateGoogleUser = async (itemObject) => {
-  const { id: userID, email, name, verified_email } = itemObject.oauthUserInfo;
-  const params = {
-    TableName: "users",
-    Item: {
-      userID: parseInt(userID),
-      email: email,
-      name: name,
-      isVerified: verified_email,
-    },
-    // UpdateExpression:
-    //   "set #googleId = :valGoogleId, #isVerified = :valIsVerified",
-    // ExpressionAttributeNames: {
-    //   "#googleId": "googleId",
-    //   "#isVerified": "isVerified",
-    // },
-    // ExpressionAttributeValues: {
-    //   ":valGoogleId": updatedUserData.googleId,
-    //   ":valIsVerified": updatedUserData.isVerified,
-    // },
-  };
-  try {
-    const result = await DocumentClient.put(params).promise();
-    return params.Item;
-  } catch (e) {
-    console.error("Update user failed", e);
-    throw e;
-  }
 };
 
 export const getPropertiesByUser = async (userID) => {

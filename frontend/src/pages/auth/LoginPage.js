@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useToken } from "../auth/useToken";
+import { useToken } from "../../auth/useToken";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
 
 export const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -11,22 +14,27 @@ export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+  const [config, setConfig] = useState({});
 
   const urlParams = new URLSearchParams(window.location.search);
   const oauthToken = urlParams.get("token");
-
   const navigate = useNavigate();
 
+  //Check if there's a google user signed in.
   useEffect(() => {
-    const addNewGoogleUser = async () => {
-      const response = await axios.post("/user");
-    };
     if (oauthToken) {
       setToken(oauthToken);
-      addNewGoogleUser();
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);
+
+  //Config oauth button
+  useEffect(() => {
+    axios
+      .get("/api/oAuthConfig")
+      .then((response) => setConfig(response.data))
+      .catch((error) => console.error("Error fetching config:", error));
+  }, []);
 
   useEffect(() => {
     const loadOauthUrl = async () => {
@@ -67,7 +75,6 @@ export const LoginPage = () => {
             onChange={(e) => setEmailValue(e.target.value)}
           />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="password">
             Password:{" "}
@@ -88,14 +95,12 @@ export const LoginPage = () => {
         >
           Log In
         </Button>
-
         <Button
           className="green-button mx-3"
           onClick={() => navigate("/signUpPage")}
         >
           Sign Up
         </Button>
-
         <Button
           className="green-button mx-3"
           onClick={() => navigate("/forgotPassword")}
@@ -104,13 +109,22 @@ export const LoginPage = () => {
         </Button>
 
         <Button
-          className="green-button mx-3"
+          className="gsi-material-button mx-3"
           disabled={!googleOauthUrl}
           onClick={() => {
             window.location.href = googleOauthUrl;
           }}
         >
-          Log in with Google
+          <div className="gsi-material-button-state"></div>
+          <div className="gsi-material-button-content-wrapper">
+            <div className="gsi-material-button-icon">
+              <FcGoogle className="google-icon" />
+            </div>
+            <span className="gsi-material-button-contents">
+              Sign in with Google
+            </span>
+            <span style={{ display: "none" }}>Sign in with Google</span>
+          </div>
         </Button>
       </Form>
     </Container>

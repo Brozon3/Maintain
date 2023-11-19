@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "../commands/users.js";
+import { getUserByEmail } from "../../commands/users.js";
 import {
   AuthenticationDetails,
   CognitoUserPool,
   CognitoUserAttribute,
   CognitoUser,
 } from "amazon-cognito-identity-js";
-import { awsUserPool } from "../util/awsUserPool.js";
+import { awsUserPool } from "../../util/awsUserPool.js";
 
 export const loginRoute = {
   path: "/api/login",
@@ -20,14 +20,14 @@ export const loginRoute = {
         onSuccess: async (result) => {
           console.log("Auth Success");
 
+          const data = await getUserByEmail(email);
+          const user = data[0];
           const idToken = result.getIdToken().getJwtToken();
-
-          const userData = await getUserByEmail(email);
-
-          const { userID, is_verified, max_properties } = userData[0];
+          // const userData = await getUserByEmail(email);
+          const { is_verified, max_properties, userID } = user;
 
           jwt.sign(
-            { idToken, userID, is_verified, email },
+            { idToken, userID, is_verified, max_properties, email },
             process.env.JWT_SECRET,
             { expiresIn: "2d" },
             (err, token) => {

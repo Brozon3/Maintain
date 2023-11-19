@@ -10,15 +10,13 @@ import { AddTask } from "./pages/AddTask";
 import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
 import { PrivateRoute } from "./auth/PrivateRoute";
-import { EmailVerificationFail } from "./pages/EmailVerificationFail";
-import { EmailVerificationSuccess } from "./pages/EmailVerificationSuccess";
-import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
-import { LoginPage } from "./pages/LoginPage";
-import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
-import { SignUpPage } from "./pages/SignUpPage";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { PleaseVerifyEmailPage } from "./pages/auth/PleaseVerifyEmailPage";
+import { SignUpPage } from "./pages/auth/SignUpPage";
 import { HomePage } from "./pages/HomePage";
-import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
-import { PasswordResetLandingPage } from "./pages/PasswordResetLandingPage";
+import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
+import { PasswordResetLandingPage } from "./pages/auth/PasswordResetLandingPage";
+import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePage";
 import axios from "axios";
 
 export function App() {
@@ -30,8 +28,7 @@ export function App() {
     } catch (error) {
       console.error(error.response.data);
     }
-
-  }
+  };
 
   const [properties, setProperties] = useState(data);
   useEffect(() => {}, [user, properties]);
@@ -46,15 +43,9 @@ export function App() {
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route
-          path="/reset-password/:passwordResetCode"
-          element={<PasswordResetLandingPage />}
-        />
+        <Route path="/reset-password" element={<PasswordResetLandingPage />} />
         <Route element={<PrivateRoute user={user} />}>
-          <Route
-            path="/verifyEmail/:verificationString"
-            element={<PleaseVerifyEmailPage />}
-          />
+          <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
           <Route
             path="/displayProperties"
             element={<DisplayProperties properties={properties} />}
