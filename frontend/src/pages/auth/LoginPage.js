@@ -109,22 +109,15 @@ export const LoginPage = () => {
         </Button>
 
         <Button
-          className="gsi-material-button mx-3"
+          className="google-sign-in-button mx-3"
+          variant="custom"
           disabled={!googleOauthUrl}
           onClick={() => {
             window.location.href = googleOauthUrl;
           }}
         >
-          <div className="gsi-material-button-state"></div>
-          <div className="gsi-material-button-content-wrapper">
-            <div className="gsi-material-button-icon">
-              <FcGoogle className="google-icon" />
-            </div>
-            <span className="gsi-material-button-contents">
-              Sign in with Google
-            </span>
-            <span style={{ display: "none" }}>Sign in with Google</span>
-          </div>
+          <FcGoogle className="google-icon" />
+          Log in with Google
         </Button>
       </Form>
     </Container>
