@@ -16,8 +16,8 @@ export const PleaseVerifyEmailPage = () => {
 
   return (
     <Container className="container main">
-      <h1>Thanks for signing up!</h1>
-      <p>
+      <h1 className="blue-header mb-3 p-3">Thanks for signing up!</h1>
+      <p className="blue-secondary-header">
         A verification email has been sent to the email address provided. Please
         verify your email.
       </p>

@@ -103,11 +103,11 @@ export const LoginPage = () => {
           className="green-button mx-3"
           onClick={() => navigate("/forgotPassword")}
         >
-          Forgot Password
+          Forgot Password?
         </Button>
 
         <Button
-          className="google-sign-in-button mx-3"
+          className="google-sign-in-button m-3"
           variant="custom"
           disabled={!googleOauthUrl}
           onClick={() => {
