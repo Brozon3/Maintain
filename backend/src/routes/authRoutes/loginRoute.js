@@ -1,18 +1,16 @@
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "../../commands/users.js";
-import {
-  AuthenticationDetails,
-  CognitoUserPool,
-  CognitoUserAttribute,
-  CognitoUser,
-} from "amazon-cognito-identity-js";
+import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../../util/awsUserPool.js";
+import { useNavigate } from "react-router-dom";
 
 export const loginRoute = {
   path: "/api/login",
   method: "post",
   handler: async (req, res) => {
     const { email, password } = req.body;
+
+    const navigate = useNavigate();
 
     new CognitoUser({ Username: email, Pool: awsUserPool }).authenticateUser(
       new AuthenticationDetails({ Username: email, Password: password }),
@@ -21,7 +19,6 @@ export const loginRoute = {
           const data = await getUserByEmail(email);
           const user = data[0];
           const idToken = result.getIdToken().getJwtToken();
-          // const userData = await getUserByEmail(email);
           const { is_verified, max_properties, userID } = user;
 
           jwt.sign(
@@ -38,7 +35,8 @@ export const loginRoute = {
         },
         onFailure: (err) => {
           console.log("Auth Fail", err);
-          res.sendStatus(401);
+          // res.sendStatus(401);
+          navigate("/EmailOrUsernameLoginFail");
         },
       }
     );
