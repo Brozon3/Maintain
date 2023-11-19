@@ -86,7 +86,6 @@ export const getUserByEmail = async (email) => {
   });
 };
 
-// Likely to be outsourced & removed.
 export const forgotPasswordCode = async (email, passwordResetCode) => {
   return new Promise((resolve, reject) => {
     try {
@@ -218,6 +217,27 @@ export const updateGoogleUser = async (itemObject) => {
           }
         }
       );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
+export const getPropertiesByUser = async (userID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "SELECT * FROM Maintain_Database.userProperty WHERE userID = ?";
+      conn.query(sql, [userID], function (err, result) {
+        if (err) {
+          console.error("Error:", err);
+          reject(err);
+        } else {
+          console.log(result);
+          resolve(result);
+        }
+      });
     } catch (error) {
       console.error("Error connecting to the database:", error);
       reject(error);
