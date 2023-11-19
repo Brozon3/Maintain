@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { useToken } from "../auth/useToken.js";
+import { useToken } from "../../auth/useToken.js";
 
 export const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [token, setToken] = useToken();
+  const [, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
@@ -24,8 +24,6 @@ export const SignUpPage = () => {
 
     const { token } = response.data;
     setToken(token);
-    // navigate("/displayProperties");
-    // navigate(`/please-verify?email=${encodeURIComponent(emailValue)}`);
     navigate(`/pleaseVerify?email=${encodeURIComponent(emailValue)}`);
   };
 

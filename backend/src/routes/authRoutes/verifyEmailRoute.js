@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { CognitoUser } from "amazon-cognito-identity-js";
-import { awsUserPool } from "../util/awsUserPool.js";
-import { verifyUser } from "../commands/users.js";
+import { awsUserPool } from "../../util/awsUserPool.js";
+import { verifyUser } from "../../commands/users.js";
 
 export const verifyEmailRoute = {
   path: "/api/verifyEmail",

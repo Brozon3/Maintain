@@ -1,5 +1,5 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
-import { awsUserPool } from "../util/awsUserPool.js";
+import { awsUserPool } from "../../util/awsUserPool.js";
 
 export const resetPasswordRoute = {
   path: "/api/users/:passwordResetCode/reset-password",

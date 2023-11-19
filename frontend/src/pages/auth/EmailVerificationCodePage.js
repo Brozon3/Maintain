@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { EmailVerificationSuccess } from "./EmailVerificationSuccess";
 import { EmailVerificationFail } from "./EmailVerificationFail";
-import { useToken } from "../auth/useToken";
+import { useToken } from "../../auth/useToken";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 

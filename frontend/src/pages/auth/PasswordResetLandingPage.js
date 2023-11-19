@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PasswordResetSuccess } from "./PasswordResetSuccess";
 import { PasswordResetFail } from "./PasswordResetFail";
 import Container from "react-bootstrap/Container";
-import { UseUser } from "../auth/useUser";
 
 export const PasswordResetLandingPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useToken } from "../auth/useToken";
+import { useToken } from "../../auth/useToken";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -66,7 +66,6 @@ export const LoginPage = () => {
             onChange={(e) => setEmailValue(e.target.value)}
           />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="password">
             Password:{" "}
@@ -87,30 +86,40 @@ export const LoginPage = () => {
         >
           Log In
         </Button>
-
         <Button
           className="green-button mx-3"
           onClick={() => navigate("/signUpPage")}
         >
           Sign Up
         </Button>
-
         <Button
           className="green-button mx-3"
           onClick={() => navigate("/forgotPassword")}
         >
           Forgot Password
         </Button>
-
-        <Button
-          className="green-button mx-3"
-          disabled={!googleOauthUrl}
-          onClick={() => {
-            window.location.href = googleOauthUrl;
-          }}
-        >
-          Log in with Google
-        </Button>
+        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+          <GoogleLogin
+            render={(renderProps) => (
+              <Button
+                className="green-button mx-3"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                <FcGoogle className="" />
+              </Button>
+            )}
+            onSuccess={(response) => {
+              // Handle successful login
+              console.log(response);
+            }}
+            onFailure={(error) => {
+              // Handle login failure
+              console.error(error);
+            }}
+            cookiePolicy="single_host_origin"
+          />
+        </GoogleOAuthProvider>
       </Form>
     </Container>
   );

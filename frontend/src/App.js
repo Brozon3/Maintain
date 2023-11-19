@@ -10,16 +10,13 @@ import { AddTask } from "./pages/AddTask";
 import { useEffect, useState } from "react";
 import data from "./data/dummyProperties.json";
 import { PrivateRoute } from "./auth/PrivateRoute";
-import { EmailVerificationFail } from "./pages/EmailVerificationFail";
-import { EmailVerificationSuccess } from "./pages/EmailVerificationSuccess";
-import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
-import { LoginPage } from "./pages/LoginPage";
-import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
-import { SignUpPage } from "./pages/SignUpPage";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { PleaseVerifyEmailPage } from "./pages/auth/PleaseVerifyEmailPage";
+import { SignUpPage } from "./pages/auth/SignUpPage";
 import { HomePage } from "./pages/HomePage";
-import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
-import { PasswordResetLandingPage } from "./pages/PasswordResetLandingPage";
-import { EmailVerificationCodePage } from "./pages/EmailVerificationCodePage";
+import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
+import { PasswordResetLandingPage } from "./pages/auth/PasswordResetLandingPage";
+import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePage";
 import axios from "axios";
 
 export function App() {

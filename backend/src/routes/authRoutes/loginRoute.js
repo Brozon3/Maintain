@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "../commands/users.js";
+import { getUserByEmail } from "../../commands/users.js";
 import {
   AuthenticationDetails,
   CognitoUserPool,
   CognitoUserAttribute,
   CognitoUser,
 } from "amazon-cognito-identity-js";
-import { awsUserPool } from "../util/awsUserPool.js";
+import { awsUserPool } from "../../util/awsUserPool.js";
 
 export const loginRoute = {
   path: "/api/login",
