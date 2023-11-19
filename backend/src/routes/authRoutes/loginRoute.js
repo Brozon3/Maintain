@@ -18,8 +18,6 @@ export const loginRoute = {
       new AuthenticationDetails({ Username: email, Password: password }),
       {
         onSuccess: async (result) => {
-          console.log("Auth Success");
-
           const data = await getUserByEmail(email);
           const user = data[0];
           const idToken = result.getIdToken().getJwtToken();
@@ -41,10 +39,6 @@ export const loginRoute = {
         onFailure: (err) => {
           console.log("Auth Fail", err);
           res.sendStatus(401);
-        },
-        // This logic will need to be implemented later. Build a page for the user to create a new password (may not be necessary with hosted UI)
-        newPasswordRequired: (userAttributes, requiredAttributes) => {
-          console.log(userAttributes);
         },
       }
     );

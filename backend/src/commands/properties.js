@@ -71,7 +71,7 @@ export const deleteProperty = async (userObject) => {
       reject(error);
     }
   });
-}
+};
 
 export const insertProperty = async (propertyObject) => {
   const { address, city, prov, type, roof, carpet, pets, heatingType } =
@@ -112,7 +112,6 @@ export const associateProperty = async (propertyObject) => {
           console.error("Error inserting property:", err);
           reject(err);
         } else {
-          console.log("Property inserted successfully");
           resolve(result);
         }
       });
