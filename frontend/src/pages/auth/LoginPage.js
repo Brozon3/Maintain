@@ -4,8 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 
 export const LoginPage = () => {
@@ -109,22 +107,15 @@ export const LoginPage = () => {
         </Button>
 
         <Button
-          className="gsi-material-button mx-3"
+          className="google-sign-in-button mx-3"
+          variant="custom"
           disabled={!googleOauthUrl}
           onClick={() => {
             window.location.href = googleOauthUrl;
           }}
         >
-          <div className="gsi-material-button-state"></div>
-          <div className="gsi-material-button-content-wrapper">
-            <div className="gsi-material-button-icon">
-              <FcGoogle className="google-icon" />
-            </div>
-            <span className="gsi-material-button-contents">
-              Sign in with Google
-            </span>
-            <span style={{ display: "none" }}>Sign in with Google</span>
-          </div>
+          <FcGoogle className="google-icon" />
+          Log in with Google
         </Button>
       </Form>
     </Container>
