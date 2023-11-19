@@ -199,27 +199,6 @@ export const insertUser = async (userObject) => {
   });
 };
 
-// export const addProperty = {
-//   path: "/api/addProperty",
-//   method: "post",
-//   handler: (req, res) => {
-//     const { address, city, prov, type, roof, carpet, pets, heating } = req.body;
-//     conn.connect(function (err) {
-//       const sql = `INSERT INTO Maintain_Database.properties(address, city, prov, type, roof, carpet, pets, heating)
-//       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-//       conn.query(
-//         sql,
-//         [address, city, prov, type, roof, carpet, pets, heating],
-//         function (err, result, fields) {
-//           if (err) console.log(err);
-//           if (result) res.send(req.body);
-//           if (fields) console.log(fields);
-//         }
-//       );
-//     });
-//   },
-// };
-
 export const updateGoogleUser = async (itemObject) => {
   const { userID, email, name, is_verified, max_properties } = itemObject;
   return new Promise((resolve, reject) => {

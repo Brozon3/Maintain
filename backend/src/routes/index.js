@@ -7,7 +7,6 @@ import { getGoogleOauthUrlRoute } from "./authRoutes/getGoogleOauthUrlRoute.js";
 import { googleOauthCallbackRoute } from "./authRoutes/googleOauthCallbackRoute.js";
 import { testRoute } from "./testRoute.js";
 import { updateUserInfoRoute } from "./updateUserInfoRoute.js";
-import { testEmailRoute } from "./testEmailRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
 import { getAllUsersRoute } from "./getAllUsersRoute.js";
