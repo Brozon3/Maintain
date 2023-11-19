@@ -14,18 +14,27 @@ export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+  const [config, setConfig] = useState({});
 
   const urlParams = new URLSearchParams(window.location.search);
   const oauthToken = urlParams.get("token");
-
   const navigate = useNavigate();
 
+  //Check if there's a google user signed in.
   useEffect(() => {
     if (oauthToken) {
       setToken(oauthToken);
       navigate("/displayProperties");
     }
   }, [oauthToken, setToken, navigate]);
+
+  //Config oauth button
+  useEffect(() => {
+    axios
+      .get("/api/oAuthConfig")
+      .then((response) => setConfig(response.data))
+      .catch((error) => console.error("Error fetching config:", error));
+  }, []);
 
   useEffect(() => {
     const loadOauthUrl = async () => {
@@ -98,7 +107,7 @@ export const LoginPage = () => {
         >
           Forgot Password
         </Button>
-        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId={config}>
           <GoogleLogin
             render={(renderProps) => (
               <Button

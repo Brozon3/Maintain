@@ -1,4 +1,5 @@
 import { signUpRoute } from "./authRoutes/signUpRoute.js";
+import { oAuthConfig } from "./authRoutes/oAuthConfigRoute.js";
 import { resetPasswordRoute } from "./authRoutes/resetPasswordRoute.js";
 import { loginRoute } from "./authRoutes/loginRoute.js";
 import { verifyEmailRoute } from "./authRoutes/verifyEmailRoute.js";
@@ -35,4 +36,5 @@ export const routes = [
   getAllAppliancesRoute,
   getAllTasksRoute,
   getPropertiesByUserRoute,
+  oAuthConfig,
 ];
