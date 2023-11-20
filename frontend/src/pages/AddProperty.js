@@ -7,6 +7,8 @@ import { RoofField } from "../components/RoofField";
 import { UseUser } from "../auth/useUser";
 import { useToken } from "../auth/useToken";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { Modal } from "react-bootstrap";
 
 export const AddProperty = () => {
   // Below is related to auth for updating the user. Will implement later. Review 'Adding JWTs to the User Info Page.'
@@ -15,9 +17,14 @@ export const AddProperty = () => {
   const { id, email, isVerified } = user;
 
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
 
   const [propertyType, setPropertyType] = useState("");
   const [roofFieldVisibile, setRoofFieldVisibile] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
 
   useEffect(() => {
     if (propertyType === "Cabin" || propertyType === "Home") {
@@ -36,9 +43,12 @@ export const AddProperty = () => {
       user: user,
       data: data,
     });
+    reset();
+    handleOpen();
   };
 
   return (
+  <>
     <Container className="container main">
       <h1 className="mb-3 p-3 blue-header">Add a Property</h1>
       <Form
@@ -154,5 +164,25 @@ export const AddProperty = () => {
         </Button>
       </Form>
     </Container>
+
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+          <Modal.Title className="blue-text">
+              Property Added
+          </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="blue-text">
+          That property was successfully added to your profile.
+      </Modal.Body>
+      <Modal.Footer>
+          <Button className="blue-button" onClick={() => navigate("/displayProperties")}>
+              View Properties
+          </Button>
+          <Button className="green-button" onClick={handleClose}>
+              Add Another Property
+          </Button>
+      </Modal.Footer>
+    </Modal>
+  </>
   );
 };
