@@ -29,7 +29,7 @@ export function HomePage() {
       </Row>
       <Row className="justify-content-md-center">
         <Col>
-          <p className="mx-5 px-5 blue-secondary-header">Login or register to get started.</p>
+          <p className="mx-5 px-5 blue-secondary-header"><a href="/loginPage" className="green-text">Login</a> or <a href="/signUpPage" className="green-text">register</a> to get started.</p>
         </Col>
       </Row>
     </Container>
