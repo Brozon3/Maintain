@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { UseUser } from "../auth/useUser";
 
@@ -17,7 +17,7 @@ export const NavBar = ({ loggedIn, setLoggedIn }) => {
     } else {
       setLoggedIn(false)
     };
-  }, [user]);
+  }, [user, setLoggedIn]);
 
   const logOutHandler = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken";
 import { FcGoogle } from "react-icons/fc";
@@ -24,7 +24,7 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
       setLoggedIn(true);
       navigate("/displayProperties");
     }
-  }, [oauthToken, setToken, navigate]);
+  }, [oauthToken, setToken, navigate, setLoggedIn]);
 
   useEffect(() => {
     const loadOauthUrl = async () => {
