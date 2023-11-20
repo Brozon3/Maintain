@@ -1,15 +1,15 @@
 html{
-    height: 100vh;
+    height: 80vh;
 }
 
 body {
-    min-height: 100vh;
+    min-height: 80vh;
     background-color: #17A589 !important;
 }
 
 .main {
     background-color: #F8F9FA !important;
-    min-height: 100vh !important;
+    min-height: 85vh !important;
     justify-content: center;
 }
 
@@ -56,6 +56,7 @@ body {
 
 .green-text {
     color:#17A589 !important;
+    text-decoration: none !important;
 }
 
 .green-border {
