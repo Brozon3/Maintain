@@ -51,23 +51,17 @@ export const getPropertyByID = async (propertyID) => {
   });
 };
 
+//Get properties by list of property IDs. Part of DisplayProperties page.
 export const getPropertiesByIDs = async (propertyIDs) => {
   return new Promise((resolve, reject) => {
     try {
-      // Create an array of placeholders based on the number of property IDs
-      const placeholders = Array.from(
-        { length: propertyIDs.length },
-        () => "?"
-      ).join(", ");
-
-      const sql = `SELECT * FROM Maintain_Database.properties WHERE propertyID IN (${placeholders})`;
+      const sql = `SELECT * FROM Maintain_Database.properties WHERE propertyID IN (${propertyIDs})`;
 
       conn.query(sql, propertyIDs, function (err, result) {
         if (err) {
           console.error("Error getting Properties: ", err);
           reject(err);
         } else {
-          console.log("Successfully got properties.");
           resolve(result);
         }
       });
@@ -78,6 +72,7 @@ export const getPropertiesByIDs = async (propertyIDs) => {
   });
 };
 
+// Should we delete the Property from the DB of just remove the association with a user? Either way, the association should also be deleted in the flow (either here or in the route)./
 export const deleteProperty = async (userObject) => {
   const { propertyID } = userObject;
   return new Promise((resolve, reject) => {

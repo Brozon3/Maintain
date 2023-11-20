@@ -227,7 +227,6 @@ export const getPropertyIdsByUser = async (userID) => {
           console.error("Error:", err);
           reject(err);
         } else {
-          console.log(result);
           resolve(result);
         }
       });
