@@ -24,18 +24,15 @@ export const signUpRoute = {
       async (err, awsResult) => {
         if (err) {
           console.log(err);
-          return res.status(500).json({ message: "Unable to sign up user" });
+          if (err.code === "UsernameExistsException") {
+            const error = err.code;
+            return res.status(500).json({ error });
+          } else {
+            return res.status(500).json({ message: "Unable to sign up user" });
+          }
         }
 
-        // Here's where we specify user starting info.
-        // const startingInfo = {
-        //   hairColor: "",
-        //   favoriteFood: "",
-        //   bio: "",
-        // };
-
         const is_verified = false;
-        // Insert data of new user into database.
         try {
           const result = await insertNewUser({
             email,

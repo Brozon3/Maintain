@@ -17,14 +17,22 @@ export const SignUpPage = () => {
   const navigate = useNavigate();
 
   const onSignUpClicked = async () => {
-    const response = await axios.post("/api/signup", {
-      email: emailValue,
-      password: passwordValue,
-    });
+    try {
+      const response = await axios.post("/api/signup", {
+        email: emailValue,
+        password: passwordValue,
+      });
 
-    const { token } = response.data;
-    setToken(token);
-    navigate(`/pleaseVerify?email=${encodeURIComponent(emailValue)}`);
+      const { token } = response.data;
+      setToken(token);
+      navigate(`/pleaseVerify?email=${encodeURIComponent(emailValue)}`);
+    } catch (error) {
+      if (error.response.data.error === "UsernameExistsException") {
+        navigate("/usernameExistsSignUpFail");
+      } else {
+        console.error("Login error:", error);
+      }
+    }
   };
 
   return (
