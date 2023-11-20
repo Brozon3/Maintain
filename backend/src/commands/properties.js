@@ -54,13 +54,7 @@ export const getPropertyByID = async (propertyID) => {
 export const getPropertiesByIDs = async (propertyIDs) => {
   return new Promise((resolve, reject) => {
     try {
-      // Create an array of placeholders based on the number of property IDs
-      const placeholders = Array.from(
-        { length: propertyIDs.length },
-        () => "?"
-      ).join(", ");
-
-      const sql = `SELECT * FROM Maintain_Database.properties WHERE propertyID IN (${placeholders})`;
+      const sql = `SELECT * FROM Maintain_Database.properties WHERE propertyID IN (${propertyIDs})`;
 
       conn.query(sql, propertyIDs, function (err, result) {
         if (err) {
