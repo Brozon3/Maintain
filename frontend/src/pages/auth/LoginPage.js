@@ -52,6 +52,8 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         navigate("/EmailOrUsernameLoginFail");
+      } else {
+        console.error("Login error:", error);
       }
     }
   };
