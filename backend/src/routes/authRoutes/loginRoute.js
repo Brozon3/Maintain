@@ -4,6 +4,11 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../../util/awsUserPool.js";
 import { useNavigate } from "react-router-dom";
 
+const loginFail = () => {
+  const navigate = useNavigate();
+  navigate("/EmailOrUsernameLoginFail");
+};
+
 export const loginRoute = {
   path: "/api/login",
   method: "post",
@@ -34,8 +39,7 @@ export const loginRoute = {
         onFailure: (err) => {
           console.log("Auth Fail", err);
           // res.sendStatus(401);
-          const navigate = useNavigate();
-          navigate("/EmailOrUsernameLoginFail");
+          loginFail();
         },
       }
     );

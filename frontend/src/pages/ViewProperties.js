@@ -3,11 +3,13 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../auth/useUser";
 import { PropertyCard } from "../components/propertyCard.js";
+import axios from "axios";
 
 const maxProperties = 3;
 
-export function DisplayProperties({ properties }) {
+export function DisplayProperties() {
   const [userEmail, setUserScreenName] = useState("");
+  const [properties, setProperties] = useState([]);
 
   const navigate = useNavigate();
   const addProperty = () => navigate("/addProperty");
@@ -24,6 +26,15 @@ export function DisplayProperties({ properties }) {
   const handleOpen = () => setShow(true);
 
   const user = UseUser();
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const { userID } = user;
+      const result = await axios.get(`/api/users/${userID}`);
+      setProperties(result.data.userProperties);
+    };
+    fetchProperties();
+  }, [user]);
 
   const handlePlural = (properties, maxProperties) => {
     if (maxProperties - properties.length === 1) {

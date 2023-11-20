@@ -51,6 +51,33 @@ export const getPropertyByID = async (propertyID) => {
   });
 };
 
+export const getPropertiesByIDs = async (propertyIDs) => {
+  return new Promise((resolve, reject) => {
+    try {
+      // Create an array of placeholders based on the number of property IDs
+      const placeholders = Array.from(
+        { length: propertyIDs.length },
+        () => "?"
+      ).join(", ");
+
+      const sql = `SELECT * FROM Maintain_Database.properties WHERE propertyID IN (${placeholders})`;
+
+      conn.query(sql, propertyIDs, function (err, result) {
+        if (err) {
+          console.error("Error getting Properties: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got properties.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
+
 export const deleteProperty = async (userObject) => {
   const { propertyID } = userObject;
   return new Promise((resolve, reject) => {

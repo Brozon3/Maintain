@@ -217,7 +217,7 @@ export const updateGoogleUser = async (itemObject) => {
   });
 };
 
-export const getPropertiesByUser = async (userID) => {
+export const getPropertyIdsByUser = async (userID) => {
   return new Promise((resolve, reject) => {
     try {
       const sql =
