@@ -17,6 +17,7 @@ import { HomePage } from "./pages/HomePage";
 import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { PasswordResetLandingPage } from "./pages/auth/PasswordResetLandingPage";
 import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePage";
+import { EmailOrUsernameLoginFail } from "./pages/auth/EmailOrUsernameLoginFail";
 import axios from "axios";
 
 export function App() {
@@ -36,15 +37,22 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+      <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
       <Footer />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/loginPage" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+        <Route
+          path="/loginPage"
+          element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+        />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<PasswordResetLandingPage />} />
+        <Route
+          path="/emailOrUsernameLoginFail"
+          element={<EmailOrUsernameLoginFail />}
+        />
         <Route element={<PrivateRoute user={user} />}>
           <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
           <Route

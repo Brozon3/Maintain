@@ -40,14 +40,20 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
   }, []);
 
   const onLoginClicked = async () => {
-    const response = await axios.post("/api/login", {
-      email: emailValue,
-      password: passwordValue,
-    });
-    const { token } = response.data;
-    setToken(token);
-    setLoggedIn(true);
-    navigate("/displayProperties");
+    try {
+      const response = await axios.post("/api/login", {
+        email: emailValue,
+        password: passwordValue,
+      });
+      const { token } = response.data;
+      setToken(token);
+      setLoggedIn(true);
+      navigate("/displayProperties");
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        navigate("/EmailOrUsernameLoginFail");
+      }
+    }
   };
 
   return (
