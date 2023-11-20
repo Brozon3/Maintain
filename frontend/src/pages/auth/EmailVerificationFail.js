@@ -7,9 +7,13 @@ export const EmailVerificationFail = () => {
 
   return (
     <Container className="container main">
-      <h1 className="p-3 blue-header">Uh Oh!</h1>
+      <h1 className="p-3 mb-3 blue-header">Uh Oh!</h1>
       <p className="blue-secondary-header">Something went wrong when verifying your email.</p>
-      <Button className="green-button" onClick={() => navigate("/loginPage")}>Try Again</Button>
+      <Container className="w-50 d-flex justify-content-center">
+        <Button className="green-button my-2" onClick={() => navigate(-1)}>
+          Try Again
+        </Button>
+      </Container>
     </Container>
   );
 };

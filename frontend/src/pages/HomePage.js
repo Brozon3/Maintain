@@ -4,16 +4,11 @@ import { BackgroundImage } from "../components/BackgroundImage";
 
 export function HomePage() {
   return (
-    <Container className="main text-center p-3">
+    <Container className="main text-center">
       <BackgroundImage />
       <Row className="justify-content-md-center">
         <Col>
-          <h1 className="my-2 blue-header">Maintain</h1>
-        </Col>
-      </Row>
-      <Row className="justify-content-md-center">
-        <Col>
-          <p className="mx-2 blue-secondary-header">
+          <p className="m-2 blue-secondary-header">
             For homeowners, landlords, tenants or property managers
           </p>
         </Col>

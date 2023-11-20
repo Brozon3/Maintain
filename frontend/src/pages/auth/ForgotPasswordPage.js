@@ -27,7 +27,7 @@ export const ForgotPasswordPage = () => {
 
   return success ? (
     <>
-      <Container className="main">
+      <Container className="container main">
         <h1 className="mb-3 p-3 blue-header">Success</h1>
         <p className="my-2 blue-secondary-header">
           A reset link has been sent to you email.
@@ -35,7 +35,7 @@ export const ForgotPasswordPage = () => {
       </Container>
     </>
   ) : (
-    <Container className="main">
+    <Container className="container main">
       <h1 className="mb-3 p-3 blue-header">Forgot Password</h1>
       <p className="my-2 blue-secondary-header">
         Enter email and we'll send a reset link.

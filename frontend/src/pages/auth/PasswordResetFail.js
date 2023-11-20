@@ -9,9 +9,11 @@ export const PasswordResetFail = () => {
     <Container className="container main">
       <h1 className="blue-header mb-3 p-3">Uh Oh!</h1>
       <p className="blue-secondary-header">Something went wrong. Please reset your password</p>
-      <Button className="green-button mx-3" onClick={() => navigate("/loginPage")}>
-        Reset your password.
-      </Button>
+      <Container className="w-50 d-flex justify-content-center">
+        <Button className="green-button my-2" onClick={() => navigate(-1)}>
+          Try Again
+        </Button>
+      </Container>
     </Container>
   );
 };
