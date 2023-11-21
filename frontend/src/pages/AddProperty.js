@@ -11,7 +11,6 @@ import { useNavigate } from "react-router";
 import { Modal } from "react-bootstrap";
 
 export const AddProperty = () => {
-  // Below is related to auth for updating the user. Will implement later. Review 'Adding JWTs to the User Info Page.'
   const user = UseUser();
   const [token, setToken] = useToken();
   const { id, email, isVerified } = user;
@@ -35,16 +34,14 @@ export const AddProperty = () => {
   }, [propertyType]);
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // /api/addProperty is addPropertyRoute.
-    // /backend/src/routes/addPropertyRoute calls 2 commands,
-    // insertProperty and associateProperty (in commands.js).
-    await axios.post("/api/addProperty", {
+    const response = await axios.post("/api/addProperty", {
       user: user,
       data: data,
     });
-    reset();
-    handleOpen();
+    const message = response.data.message;
+    if (message === "Property Already Exists") {
+      alert(message);
+    }
   };
 
   return (
@@ -83,10 +80,7 @@ export const AddProperty = () => {
           <Form.Label className="blue-text" htmlFor="prov">
             Property Province:{" "}
           </Form.Label>
-          <Form.Select
-            id="prov"
-            {...register("prov", { required: true })}
-          >
+          <Form.Select id="prov" {...register("prov", { required: true })}>
             <option value={"AB"}>AB</option>
             <option value={"BC"}>BC</option>
             <option value={"MB"}>MB</option>

@@ -15,11 +15,6 @@ export function DisplayProperties() {
   const addProperty = () => navigate("/addProperty");
   const viewProperty = (id) => navigate("/taskList/" + id);
 
-  // Get the user
-  // Query the database for properties belonging to the user
-  // add them to a state variable.
-  //map over that list
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -27,14 +22,19 @@ export function DisplayProperties() {
 
   const user = UseUser();
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      const { userID } = user;
-      const result = await axios.get(`/api/users/${userID}`);
+  const fetchProperties = async () => {
+    const { userID } = user;
+    const result = await axios.get(`/api/getUserProperties/${userID}`);
+    if (result.data.userProperties) {
       setProperties(result.data.userProperties);
-    };
+    } else {
+      setProperties([]);
+    }
+  };
+
+  useEffect(() => {
     fetchProperties();
-  }, [user]);
+  }, []);
 
   const handlePlural = (properties, maxProperties) => {
     if (maxProperties - properties.length === 1) {
@@ -51,6 +51,21 @@ export function DisplayProperties() {
     } else setUserScreenName(email);
   }, [user]);
 
+  const handleDeleteProperty = async (propertyID) => {
+    try {
+      await axios.delete(`/api/deleteProperty`, {
+        data: {
+          propertyID,
+        },
+      });
+      // Refresh properties after deletion
+      alert("Property removed succesfully");
+      fetchProperties();
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
+
   return (
     <Container className="container main">
       {/* Only to show usage of useUser. */}
@@ -59,7 +74,10 @@ export function DisplayProperties() {
         {properties.map((property) => {
           return (
             <Col key={property.id}>
-              <PropertyCard property={property} />
+              <PropertyCard
+                property={property}
+                onDelete={() => handleDeleteProperty(property.propertyID)}
+              />
             </Col>
           );
         })}
