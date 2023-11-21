@@ -14,8 +14,6 @@ export const signUpRoute = {
       new CognitoUserAttribute({ Name: "email", Value: email }),
     ];
 
-    //MAY NEED TO ADD PASSWORD VALIDATION??
-
     awsUserPool.signUp(
       email,
       password,
@@ -26,7 +24,9 @@ export const signUpRoute = {
           console.log(err);
           if (err.code === "UsernameExistsException") {
             const error = err.code;
-            return res.status(500).json({ error });
+            return res
+              .status(500)
+              .json({ error, message: "Username Already Exists" });
           } else {
             return res.status(500).json({ message: "Unable to sign up user" });
           }
