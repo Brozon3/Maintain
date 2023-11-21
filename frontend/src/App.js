@@ -24,13 +24,6 @@ import axios from "axios";
 export function App() {
   const [user] = useState(null);
 
-  const getProperties = async (email) => {
-    try {
-      const response = await axios.get(`/api/getProperties/${email}`, {});
-    } catch (error) {
-      console.error(error.response.data);
-    }
-  };
 
   const [properties, setProperties] = useState(data);
   const [loggedIn, setLoggedIn] = useState(false);

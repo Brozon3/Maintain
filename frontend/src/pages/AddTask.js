@@ -1,16 +1,37 @@
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
+import { UseUser } from "../auth/useUser";
+import { useToken } from "../auth/useToken";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { Modal } from "react-bootstrap";
 
 export const AddTask = () => {
-  const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const user = UseUser();
+  const [token, setToken] = useToken();
+  const { id, email, isVerified } = user;
+
+  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+  
+
+  const onSubmit = async (data) => {
     console.log(data);
+    reset();
+    handleOpen();
   };
 
   return (
+  <>
     <Container className="container main">
       <h1 className="mb-3 p-3 blue-header">Add a Task</h1>
       <Form
@@ -67,5 +88,25 @@ export const AddTask = () => {
         </Button>
       </Form>
     </Container>
+
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+          <Modal.Title className="blue-text">
+              Task Added
+          </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="blue-text">
+          That task was successfully added to this property.
+      </Modal.Body>
+      <Modal.Footer>
+          <Button className="blue-button" onClick={() => navigate(-1)}>
+              View Tasks
+          </Button>
+          <Button className="green-button" onClick={handleClose}>
+              Add Another Task
+          </Button>
+      </Modal.Footer>
+    </Modal>
+  </>
   );
 };
