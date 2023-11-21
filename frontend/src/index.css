@@ -1,15 +1,15 @@
 html{
-    height: 80vh;
+    height: 100vh;
 }
 
 body {
-    min-height: 80vh;
+    min-height: 100vh;
     background-color: #17A589 !important;
 }
 
 .main {
     background-color: #F8F9FA !important;
-    min-height: 85vh !important;
+    min-height: 100vh !important;
     justify-content: center;
 }
 

@@ -41,6 +41,9 @@ export const AddProperty = () => {
     const message = response.data.message;
     if (message === "Property Already Exists") {
       alert(message);
+    } else {
+      handleOpen();
+      reset();
     }
   };
 
