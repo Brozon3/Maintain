@@ -42,8 +42,8 @@ export const PropertyTaskList = () => {
     return (
         <Container className="text-center main" >
 
-            <h1 className="p-3 blue-header">{property.address}</h1>
-            <h2 className="mb-2 blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
+            <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
+            <h2 className="blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
 
             <PropertyDoubleButton current={"task"} id={id}/>
                 <Form className="container w-75 blue-border my-3">

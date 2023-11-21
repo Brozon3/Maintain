@@ -1,24 +1,31 @@
 import {
   getUserByEmail,
   updateGoogleUser,
-  insertUser,
+  insertNewUser,
 } from "../commands/users.js";
 
 export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
-  const { id, verified_email: isVerified, email } = oauthUserInfo;
+  const { id, verified_email: is_verified, email, name } = oauthUserInfo;
 
   const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
-    const { userID } = existingUser;
-    const result = await updateGoogleUser({ oauthUserInfo });
-    return result;
-  } else {
-    const userID = parseInt(id);
-    const result = await insertUser({
+    const { userID, max_properties } = existingUser[0];
+    const result = await updateGoogleUser({
       userID,
       email,
-      isVerified,
+      is_verified,
+      max_properties,
+      name,
+    });
+    return result;
+  } else {
+    const max_properties = 3;
+    const result = await insertNewUser({
+      id,
+      email,
+      is_verified,
+      max_properties,
     });
     return result;
   }

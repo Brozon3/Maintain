@@ -56,6 +56,7 @@ body {
 
 .green-text {
     color:#17A589 !important;
+    text-decoration: none !important;
 }
 
 .green-border {
@@ -81,13 +82,38 @@ body {
 }
 
 .bg {
-    background-image: url("backgroundimage.jpg");
-    height: 30vh;
+    background-image: url("backgroundImage.bmp");
+    height: 50vh;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%; 
 }
 
 .red-text {
     color:rgb(211, 0, 0) !important;
 }
+
+.google-sign-in-button {
+    background-color: #f2f2f2 !important;
+    color: #1f1f1f !important;
+    border: 1px solid #2A4D6A !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    border-radius: 5px  !important;
+    display: flex !important;
+    align-items: center;
+}
+
+.google-sign-in-button .google-icon {
+    margin-right: 12px;
+  }
+
+.google-sign-in-button:hover {
+  -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.noBulletsList {
+    list-style-type: none;
+  }

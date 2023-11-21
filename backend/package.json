@@ -26,6 +26,7 @@
     "jwt-decode": "^4.0.0",
     "mysql": "^2.18.1",
     "node-fetch": "^3.3.2",
+    "react-router": "^6.19.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

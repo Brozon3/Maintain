@@ -1,12 +1,13 @@
-import { signUpRoute } from "./signUpRoute.js";
-import { loginRoute } from "./loginRoute.js";
+import { signUpRoute } from "./authRoutes/signUpRoute.js";
+import { oAuthConfig } from "./authRoutes/oAuthConfigRoute.js";
+import { resetPasswordRoute } from "./authRoutes/resetPasswordRoute.js";
+import { loginRoute } from "./authRoutes/loginRoute.js";
+import { verifyEmailRoute } from "./authRoutes/verifyEmailRoute.js";
+import { forgotPasswordRoute } from "./authRoutes/forgotPasswordRoute.js";
+import { getGoogleOauthUrlRoute } from "./authRoutes/getGoogleOauthUrlRoute.js";
+import { googleOauthCallbackRoute } from "./authRoutes/googleOauthCallbackRoute.js";
 import { testRoute } from "./testRoute.js";
 import { updateUserInfoRoute } from "./updateUserInfoRoute.js";
-import { testEmailRoute } from "./testEmailRoute.js";
-import { verifyEmailRoute } from "./verifyEmailRoute.js";
-import { forgotPasswordRoute } from "./forgotPasswordRoute.js";
-import { getGoogleOauthUrlRoute } from "./getGoogleOauthURLRoute.js";
-import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
 import { getAllUsersRoute } from "./getAllUsersRoute.js";
@@ -14,7 +15,8 @@ import { deleteUserRoute } from "./deleteUserRoute.js";
 import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
 import { getAllAppliancesRoute } from "./getAllAppliancesRoute.js";
 import { getAllTasksRoute } from "./getAllTasksRoute.js";
-import { getPropertiesByUserRoute } from "./getPropertiesByUser.js";
+import { getPropertiesByUser } from "./getPropertiesByUserRoute.js";
+import { deleteUserProperty } from "./deletePropertyRoute.js";
 import { getPropertyByIDRoute } from "./getPropertyByIDRoute.js";
 import { getPropertyTasksRoute } from "./getPropertyTasksRoute.js";
 
@@ -28,14 +30,17 @@ export const routes = [
   forgotPasswordRoute,
   getGoogleOauthUrlRoute,
   googleOauthCallbackRoute,
-  getAllFeatures, 
+  getAllFeatures,
   insertFeatures,
+  resetPasswordRoute,
   getAllUsersRoute,
   deleteUserRoute,
   getAllPropertiesRoute,
   getAllAppliancesRoute,
   getAllTasksRoute,
-  getPropertiesByUserRoute,
+  getPropertiesByUser,
+  oAuthConfig,
+  deleteUserProperty,
   getPropertyByIDRoute,
   getPropertyTasksRoute,
 ];
