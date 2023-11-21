@@ -24,7 +24,6 @@ import axios from "axios";
 export function App() {
   const [user] = useState(null);
 
-
   const [properties, setProperties] = useState(data);
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {}, [user, properties]);
