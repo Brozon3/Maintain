@@ -1,7 +1,7 @@
 import {
   getUserByEmail,
   updateGoogleUser,
-  insertUser,
+  insertNewUser,
 } from "../commands/users.js";
 
 export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
@@ -24,7 +24,7 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
     const result = await insertNewUser({
       id,
       email,
-      isVerified,
+      is_verified,
     });
     return result;
   }
