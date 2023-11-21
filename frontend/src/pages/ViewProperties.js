@@ -5,8 +5,6 @@ import { UseUser } from "../auth/useUser";
 import { PropertyCard } from "../components/propertyCard.js";
 import axios from "axios";
 
-const maxProperties = 3;
-
 export function DisplayProperties() {
   const [userEmail, setUserScreenName] = useState("");
   const [properties, setProperties] = useState([]);
@@ -21,9 +19,9 @@ export function DisplayProperties() {
   const handleOpen = () => setShow(true);
 
   const user = UseUser();
+  const { userID, max_properties } = user;
 
   const fetchProperties = async () => {
-    const { userID } = user;
     const result = await axios.get(`/api/getUserProperties/${userID}`);
     if (result.data.userProperties) {
       setProperties(result.data.userProperties);
@@ -36,8 +34,8 @@ export function DisplayProperties() {
     fetchProperties();
   }, []);
 
-  const handlePlural = (properties, maxProperties) => {
-    if (maxProperties - properties.length === 1) {
+  const handlePlural = (properties, max_properties) => {
+    if (max_properties - properties.length === 1) {
       return " Free Property Remaining";
     } else {
       return " Free Properties Remaining";
@@ -58,7 +56,6 @@ export function DisplayProperties() {
           propertyID,
         },
       });
-      // Refresh properties after deletion
       handleOpen();
       fetchProperties();
     } catch (error) {
@@ -86,14 +83,15 @@ export function DisplayProperties() {
             <Card className="m-5 text-center green-border">
               <Card.Body className="align-items-center">
                 <Card.Title className="blue-header p-1">
-                  {maxProperties -
+                  {max_properties -
                     properties.length +
-                    handlePlural(properties, maxProperties)}
+                    handlePlural(properties, max_properties)}
                 </Card.Title>
                 <Button
                   type="submit"
                   className="mx-2 green-button"
                   onClick={addProperty}
+                  disabled={properties.length >= max_properties}
                 >
                   Add a Property
                 </Button>
@@ -105,17 +103,15 @@ export function DisplayProperties() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title className="blue-text">
-                Property Deleted
-            </Modal.Title>
+          <Modal.Title className="blue-text">Property Deleted</Modal.Title>
         </Modal.Header>
         <Modal.Body className="blue-text">
-            That property was successfully deleted from your profile.
+          That property was successfully deleted from your profile.
         </Modal.Body>
         <Modal.Footer>
-            <Button className="green-button" onClick={handleClose}>
-                Close
-            </Button>
+          <Button className="green-button" onClick={handleClose}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

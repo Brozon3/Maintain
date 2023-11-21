@@ -20,11 +20,12 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
     });
     return result;
   } else {
-    // const userID = parseInt(id);
+    const max_properties = 3;
     const result = await insertNewUser({
       id,
       email,
       is_verified,
+      max_properties,
     });
     return result;
   }

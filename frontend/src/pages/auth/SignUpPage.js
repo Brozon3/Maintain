@@ -23,10 +23,12 @@ export const SignUpPage = () => {
   const navigate = useNavigate();
 
   const onSignUpClicked = async () => {
+    const max_properties = 3;
     try {
       const response = await axios.post("/api/signup", {
         email: emailValue,
         password: passwordValue,
+        max_properties: max_properties,
       });
 
       const { token } = response.data;
