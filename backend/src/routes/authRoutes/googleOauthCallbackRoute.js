@@ -12,8 +12,6 @@ export const googleOauthCallbackRoute = {
 
     const { userID, email, is_verified, max_properties, name } = updatedUser;
 
-    // const { verified_email: is_verified, email, name } = oauthUserInfo;
-
     jwt.sign(
       { userID, is_verified, email, name, max_properties },
       process.env.JWT_SECRET,

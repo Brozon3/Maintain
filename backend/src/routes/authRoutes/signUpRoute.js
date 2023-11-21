@@ -32,11 +32,14 @@ export const signUpRoute = {
           }
         }
 
+        const max_properties = 3;
+
         const is_verified = false;
         try {
           const result = await insertNewUser({
             email,
             is_verified,
+            max_properties,
           });
           const { userID } = result[0];
 
@@ -45,6 +48,7 @@ export const signUpRoute = {
               userID,
               is_verified,
               email,
+              max_properties,
             },
             process.env.JWT_SECRET,
             {

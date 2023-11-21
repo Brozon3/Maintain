@@ -105,29 +105,33 @@ export const forgotPasswordCode = async (email, passwordResetCode) => {
 };
 
 export const insertNewUser = async (userData) => {
-  const { email, is_verified } = userData;
+  const { email, is_verified, max_properties } = userData;
   return new Promise((resolve, reject) => {
     try {
       const sql =
-        "INSERT INTO Maintain_Database.users (email, is_verified) VALUES (?, ?)";
+        "INSERT INTO Maintain_Database.users (email, is_verified, max_properties) VALUES (?, ?, ?)";
 
-      conn.query(sql, [email, is_verified], function (err, result) {
-        if (err) {
-          console.error("Error inserting user:", err);
-          reject(err);
-        } else {
-          const selectSql =
-            "SELECT userID FROM Maintain_Database.users WHERE email = ?";
-          conn.query(selectSql, [email], function (err, selectResult) {
-            if (err) {
-              console.error("Error retrieving updated user data:", err);
-              reject(err);
-            } else {
-              resolve(selectResult || []);
-            }
-          });
+      conn.query(
+        sql,
+        [email, is_verified, max_properties],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting user:", err);
+            reject(err);
+          } else {
+            const selectSql =
+              "SELECT userID FROM Maintain_Database.users WHERE email = ?";
+            conn.query(selectSql, [email], function (err, selectResult) {
+              if (err) {
+                console.error("Error retrieving updated user data:", err);
+                reject(err);
+              } else {
+                resolve(selectResult || []);
+              }
+            });
+          }
         }
-      });
+      );
     } catch (error) {
       console.error("Error connecting to the database:", error);
       reject(error);
