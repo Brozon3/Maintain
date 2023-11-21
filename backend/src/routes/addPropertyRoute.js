@@ -14,7 +14,12 @@ export const addProperty = {
     const propertyResult = await insertProperty(data);
 
     if (!propertyResult) {
-      res.status(200).json({ message: "Property Already Exists" });
+      res
+        .status(200)
+        .json({
+          message: "That property already exists.",
+          addedOrExists: "Exists",
+        });
     } else {
       const { insertId } = propertyResult;
 
@@ -23,7 +28,11 @@ export const addProperty = {
         propertyId: insertId,
       });
 
-      res.status(200).json({ insertId });
+      res.status(200).json({
+        insertId,
+        message: "That property was successfully added to your profile.",
+        addedOrExists: "Added",
+      });
     }
   },
 };

@@ -14,6 +14,8 @@ export const AddProperty = () => {
   const user = UseUser();
   const [token, setToken] = useToken();
   const { id, email, isVerified } = user;
+  const [message, setMessage] = useState("");
+  const [addedOrExists, setAddedOrExists] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
@@ -39,10 +41,8 @@ export const AddProperty = () => {
       data: data,
     });
     handleOpen();
-    const message = response.data.message;
-    if (message === "Property Already Exists") {
-      alert(message);
-    }
+    setMessage(response.data.message);
+    setAddedOrExists(response.data.addedOrExists);
   };
 
   return (
@@ -167,11 +167,11 @@ export const AddProperty = () => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="blue-text">Property Added</Modal.Title>
+          <Modal.Title className="blue-text">
+            Property {addedOrExists}{" "}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="blue-text">
-          That property was successfully added to your profile.
-        </Modal.Body>
+        <Modal.Body className="blue-text">{message}</Modal.Body>
         <Modal.Footer>
           <Button
             className="blue-button"
