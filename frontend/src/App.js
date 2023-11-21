@@ -19,6 +19,7 @@ import { PasswordResetLandingPage } from "./pages/auth/PasswordResetLandingPage"
 import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePage";
 import { EmailOrUsernameLoginFail } from "./pages/auth/EmailOrUsernameLoginFail";
 import { UsernameExistsSignUpFail } from "./pages/auth/UsernameExistsSignUpFail";
+import { PasswordRequirements } from "./auth/PasswordRequirements";
 import axios from "axios";
 
 export function App() {
@@ -42,6 +43,10 @@ export function App() {
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<PasswordResetLandingPage />} />
+        <Route
+          path="/passwordRequirements"
+          element={<PasswordRequirements />}
+        />
         <Route
           path="/usernameExistsSignUpFail"
           element={<UsernameExistsSignUpFail />}
