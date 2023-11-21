@@ -12,13 +12,18 @@ export const addProperty = {
     const { user, data } = req.body;
 
     const propertyResult = await insertProperty(data);
-    const { insertId } = propertyResult;
 
-    const userPropertyResult = await associateProperty({
-      user: user,
-      propertyId: insertId,
-    });
+    if (!propertyResult) {
+      res.status(200).json({ message: "Property Already Exists" });
+    } else {
+      const { insertId } = propertyResult;
 
-    res.status(200).json({ insertId });
+      const userPropertyResult = await associateProperty({
+        user: user,
+        propertyId: insertId,
+      });
+
+      res.status(200).json({ insertId });
+    }
   },
 };

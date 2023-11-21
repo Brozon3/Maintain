@@ -16,6 +16,7 @@ import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
 import { getAllAppliancesRoute } from "./getAllAppliancesRoute.js";
 import { getAllTasksRoute } from "./getAllTasksRoute.js";
 import { getPropertiesByUser } from "./getPropertiesByUserRoute.js";
+import { deleteUserProperty } from "./deletePropertyRoute.js";
 
 export const routes = [
   addProperty,
@@ -37,4 +38,5 @@ export const routes = [
   getAllTasksRoute,
   getPropertiesByUser,
   oAuthConfig,
+  deleteUserProperty,
 ];

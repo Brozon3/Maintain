@@ -72,20 +72,54 @@ export const getPropertiesByIDs = async (propertyIDs) => {
   });
 };
 
-// Should we delete the Property from the DB of just remove the association with a user? Either way, the association should also be deleted in the flow (either here or in the route)./
-export const deleteProperty = async (userObject) => {
-  const { propertyID } = userObject;
+export const deleteProperty = async (propertyObject) => {
+  const { propertyID } = propertyObject;
+
   return new Promise((resolve, reject) => {
     try {
-      const sql = `DELETE FROM Maintain_Database.users WHERE (propertyID) = ?`;
+      const sql = `DELETE FROM Maintain_Database.properties WHERE propertyID = ?`;
 
-      conn.query(sql, [propertyID], function (err, result) {
+      conn.query(sql, [parseInt(propertyID)], function (err, result) {
         if (err) {
           console.error("Error deleting Property: ", err);
           reject(err);
         } else {
-          console.log("Property deleted successfully.");
-          resolve(result);
+          if (result.affectedRows > 0) {
+            console.log("Property deleted successfully.");
+            resolve(result);
+          } else {
+            console.log("Property not found.");
+            resolve(null);
+          }
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
+
+export const dissociateUserProperty = async (propertyObject) => {
+  const { propertyID } = propertyObject;
+
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "DELETE FROM Maintain_Database.userProperty WHERE propertyID = ?";
+
+      conn.query(sql, [parseInt(propertyID)], function (err, result) {
+        if (err) {
+          console.error("Error deleting property:", err);
+          reject(err);
+        } else {
+          if (result.affectedRows > 0) {
+            console.log("Property dissociation complete.");
+            resolve(result);
+          } else {
+            console.log("User property association not found.");
+            resolve(null);
+          }
         }
       });
     } catch (error) {
@@ -100,18 +134,35 @@ export const insertProperty = async (propertyObject) => {
     propertyObject;
   return new Promise((resolve, reject) => {
     try {
-      const sql =
-        "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating) VALUES (?,?,?,?,?,?,?,?)";
+      const checkIfExistsSql =
+        "SELECT * FROM Maintain_Database.properties WHERE address = ? AND city = ? AND prov = ?";
       conn.query(
-        sql,
-        [address, city, prov, type, roof, carpet, pets, heatingType],
+        checkIfExistsSql,
+        [address, city, prov],
         function (err, result) {
           if (err) {
-            console.error("Error inserting property:", err);
+            console.error("Error checking for existing properties", err);
             reject(err);
           } else {
-            console.log("Property inserted successfully");
-            resolve(result);
+            if (result.length > 0) {
+              resolve(null);
+            } else {
+              const sql =
+                "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating) VALUES (?,?,?,?,?,?,?,?)";
+              conn.query(
+                sql,
+                [address, city, prov, type, roof, carpet, pets, heatingType],
+                function (err, result) {
+                  if (err) {
+                    console.error("Error inserting property:", err);
+                    reject(err);
+                  } else {
+                    console.log("Property inserted successfully");
+                    resolve(result);
+                  }
+                }
+              );
+            }
           }
         }
       );
