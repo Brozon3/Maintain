@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken.js";
+import { PasswordRequirements } from "../../auth/PasswordRequirements.js";
 
 export const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -77,6 +78,7 @@ export const SignUpPage = () => {
             onChange={(e) => setConfirmPasswordValue(e.target.value)}
           />
         </Form.Group>
+        <PasswordRequirements />
         <hr></hr>
 
         <Button
