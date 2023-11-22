@@ -12,141 +12,44 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
 
     const handleOpen = () => setShow(true);
 
-    const deleteTask = (task, tasks) => { 
-        setTasks(()=> {
-            const updatedTasks = [];
-            for (let i=0; i<tasks.length; i++){
-                if (tasks[i].taskName !== task.taskName){
-                    updatedTasks.push(tasks[i]);
-                }
-            }
-            return updatedTasks;
-        });
+    const deleteTask = (id) => { 
+        console.log(id);
+        setTasks();
     };
 
-    const nextDate = (task, tasks) => {
+    const saveTask = (task) => {
+        console.log(task);
+        setTasks();
+    };
+
+    const nextDate = (task) => {
         const completedDate = new Date();
         task.completedOn = completedDate.toDateString();
 
         let nextCompleteDate = new Date(completedDate);
         
-        
         if (task.frequency === "Annually"){
             nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 1);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Bi-Annually"){
             nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 2);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Weekly"){
             nextCompleteDate.setDate(nextCompleteDate.getDate() + 7);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Bi-Weekly"){
             nextCompleteDate.setDate(nextCompleteDate.getDate() + 14);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Monthly"){
             nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 1);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Bi-Monthly"){
             nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 2);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Quarterly"){
             nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 3);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else if (task.frequency === "Semi-Annually"){
             nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 6);
-            task.completeBy = nextCompleteDate.toDateString();
-            setTasks(()=> {
-                const updatedTasks = [];
-                for (let i=0; i<tasks.length; i++){
-                    if (tasks[i].taskName !== task.taskName){
-                        updatedTasks.push(tasks[i]);
-                    }
-                }
-                updatedTasks.push(task);
-                return updatedTasks;
-            });
-
         } else {
-            deleteTask(task, tasks);
+            deleteTask(task.id);
         }
 
+        task.completeBy = nextCompleteDate.toDateString();
+        saveTask(task);
         handleClose();
         
     }

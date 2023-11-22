@@ -11,7 +11,7 @@ export const PropertyTaskList = () => {
 
     const today = new Date();
 
-    const [property, setProperty] = useState([]);
+    const [property, setProperty] = useState({});
     const [tasks, setTasks] = useState([]);
 
     // Get Property by ID to display current property

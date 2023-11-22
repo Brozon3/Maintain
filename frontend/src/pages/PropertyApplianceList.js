@@ -1,34 +1,55 @@
-import React from "react";
+import React, {useState, useEffect }from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { PropertyDoubleButton } from "../components/PropertyDoubleButton";
 import { useParams } from "react-router";
 import { ApplianceForm } from "../components/ApplianceForm";
+import axios from "axios"
 
 export const PropertyApplianceList = ({properties}) => {
 
     const { id } = useParams();
 
-    const findProperty = () => {
-        for (let i=0; i < properties.length; i++){
-            if (properties[i].id === parseInt(id)){
-                return properties[i];
-            }
+    const [property, setProperty] = useState({});
+    const [appliances, setAppliances] = useState([]);
+
+    const fetchProperty = async () => {
+        const result = await axios.get(`/api/properties/${id}`)
+        console.log(result);
+        if (result.data) {
+            setProperty(result.data);
+        } else {
+            setProperty({});
+        }
+    };
+
+    useEffect (() => {
+        fetchProperty();
+    }, []);
+
+    // TODO: create the route for getting all appliances by propertyID
+    const fetchAppliances = async () => {
+        const result = await axios.get(``)
+        if (result.data.applianceIDs) {
+            setAppliances(result.data.appliances);
+        } else {
+            setAppliances([]);
         }
     }
-
-    const property = findProperty();
+    
+    useEffect (() => {
+        fetchAppliances();
+    }, []);
 
     const warrantyCheck = (purchaseDate, warrantyLength) => {
         if (purchaseDate === ""){
             return "--";
         }
 
+        const today = new Date();
         const pDate = new Date(purchaseDate);
-        
+
         const warrantyExpireDate = new Date(pDate);
         warrantyExpireDate.setFullYear(warrantyExpireDate.getFullYear() + warrantyLength);
-        
-        const today = new Date();
         
         if (today < warrantyExpireDate) {
             return "No";
@@ -72,7 +93,7 @@ export const PropertyApplianceList = ({properties}) => {
                         <h6>#</h6>
                     </Col>
                 </Row>
-                {property.applianceList.map((appliance, i) => {
+                {appliances.map((appliance, i) => {
                     if (appliance.empty === false){
                         return(
                             <Row className="my-3 table-input" key={i}>
