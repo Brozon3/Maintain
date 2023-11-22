@@ -100,9 +100,9 @@ export const updateTask = async (userObject) => {
 export const getTasksByIDs = async (taskIDs) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = `SELECT * FROM Maintain_Database.tasks WHERE taskID IN ?`;
+      const sql = `SELECT * FROM Maintain_Database.tasks WHERE taskID IN (${taskIDs})`;
 
-      conn.query(sql, taskIDs, function (err, result) {
+      conn.query(sql, [taskIDs], function (err, result) {
         if (err) {
           console.error("Error getting Tasks: ", err);
           reject(err);
