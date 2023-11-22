@@ -35,6 +35,10 @@ export const AddProperty = () => {
     }
   }, [propertyType]);
 
+  // Take the data.
+  // send to add Property api
+  // insert the new property
+  // add an association with the new property.
   const onSubmit = async (data) => {
     const response = await axios.post("/api/addProperty", {
       user: user,
