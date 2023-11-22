@@ -12,7 +12,7 @@ export const PropertyTaskList = () => {
     const today = new Date();
 
     const [property, setProperty] = useState([]);
-    const [tasks, setTasks] = useState();
+    const [tasks, setTasks] = useState([]);
 
     // Get Property by ID to display current property
     // 
@@ -24,8 +24,8 @@ export const PropertyTaskList = () => {
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${id}`)
         console.log(result);
-        if (result.data.propertyResult) {
-            setProperty(result.data.propretyResult);
+        if (result.data) {
+            setProperty(result.data);
         } else {
             setProperty([]);
         }
@@ -50,7 +50,6 @@ export const PropertyTaskList = () => {
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + id);
-
     return (
         <Container className="text-center main" >
 
