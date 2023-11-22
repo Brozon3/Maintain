@@ -41,7 +41,7 @@ export const getPropertyByID = async (propertyID) => {
           reject(err);
         } else {
           console.log("Successfully got property.");
-          resolve(result);
+          resolve(result[0]);
         }
       });
     } catch (error) {
@@ -198,7 +198,7 @@ export const associateProperty = async (propertyObject) => {
 export const getPropertyTaskIDs = async (propertyID) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = `SELECT * FROM Maintain_Database.propertyTasks WHERE 
+      const sql = `SELECT taskID FROM Maintain_Database.propertyTasks WHERE 
       propertyID = ?`;
 
       conn.query(sql, [propertyID], function (err, result) {

@@ -8,6 +8,12 @@ export const getPropertyByIDRoute = {
   handler: async (req, res) => {
     let id = req.params.id;
     const propertyResult = await getPropertyByID(id);
+    
+    
+    
+    
+    
+    
     res.status(200).json({ propertyResult });
   },
 };
