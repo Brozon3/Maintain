@@ -1,39 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Form, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 import { PropertyDoubleButton } from "../components/PropertyDoubleButton";
-import { useNavigate, useParams } from "react-router";
 import { SwitchModal } from "../components/SwitchModal";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-export const PropertyTaskList = ({properties}) => {
+export const PropertyTaskList = () => {
 
-    const { id } = useParams();
+    const { id } = useParams(); // grabbing this ID
 
     const today = new Date();
-    
-    const findProperty = () => {
-        for (let i=0; i < properties.length; i++){
-            if (properties[i].id === parseInt(id)){
-                return properties[i];
-            }
+
+    const [property, setProperty] = useState([]);
+    const [tasks, setTasks] = useState([]);
+
+    // Get Property by ID to display current property
+    // 
+    // Get Tasks associated with property ID from propertyTask table
+    // Return the tasks from the database to the front end 
+    // render the tasks
+    // 
+
+    const fetchProperty = async () => {
+        const result = await axios.get(`/api/properties/${id}`)
+        console.log(result);
+        if (result.data) {
+            setProperty(result.data);
+        } else {
+            setProperty([]);
         }
-    }
-
-    const property = findProperty();
-
-    const [tasks, setTasks] = useState(property.tasks);
+    };
 
     useEffect (() => {
-        console.log(tasks);
-    }, [tasks])
+        fetchProperty();
+    }, []);
+
+    const fetchTasks = async () => {
+        const result = await axios.get(`/api/propertyTasks/${id}`)
+        if (result.data.taskIDs) {
+            setTasks(result.data.taskIDs);
+        } else {
+            setTasks([]);
+        }
+    }
+    
+    useEffect (() => {
+        fetchTasks();
+    }, []);
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + id);
-
     return (
         <Container className="text-center main" >
 
             <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
-            <h2 className="blue-secondary-header">{(property.city) + ", " + (property.province)}</h2>
+            <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
 
             <PropertyDoubleButton current={"task"} id={id}/>
                 <Form className="container w-75 blue-border my-3">

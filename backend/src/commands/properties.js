@@ -41,7 +41,7 @@ export const getPropertyByID = async (propertyID) => {
           reject(err);
         } else {
           console.log("Successfully got property.");
-          resolve(result);
+          resolve(result[0]);
         }
       });
     } catch (error) {
@@ -185,6 +185,28 @@ export const associateProperty = async (propertyObject) => {
           console.error("Error inserting property:", err);
           reject(err);
         } else {
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
+
+export const getPropertyTaskIDs = async (propertyID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT taskID FROM Maintain_Database.propertyTasks WHERE 
+      propertyID = ?`;
+
+      conn.query(sql, [propertyID], function (err, result) {
+        if (err) {
+          console.error("Error getting Property: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got property.");
           resolve(result);
         }
       });

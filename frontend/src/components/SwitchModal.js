@@ -178,7 +178,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     </Col>
                     <Col lg={8}>
                         <p style={{textAlign: "left"}}>
-                            {task.taskName}
+                            {task.description}
                         </p>
                     </Col>
                     <Col lg={3}>
@@ -210,7 +210,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     </Col>
                     <Col lg={8}>
                         <p style={{textAlign: "left"}}>
-                            {task.taskName}
+                            {task.description}
                         </p>
                     </Col>
                     <Col lg={3}>
