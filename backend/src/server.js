@@ -10,18 +10,16 @@ import {
 } from "./commands/users.js";
 import {
   getAllProperties,
-  insertProperty,
+  // insertProperty,
+  // deleteProperty,
   getPropertyByID,
-  deleteProperty,
-  } from "./commands/properties.js";
-import { 
+} from "./commands/properties.js";
+import {
   getAllAppliances,
   insertAppliance,
-  deleteAppliance, 
+  deleteAppliance,
 } from "./commands/appliances.js";
-import { 
-  updateTask, 
-} from "./commands/tasks.js";
+import { updateTask } from "./commands/tasks.js";
 
 const port = 8000;
 
@@ -34,7 +32,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
 
 // Get all the users
 // app.get("/api/users/", async (req, res) => {
@@ -94,7 +91,7 @@ app.use(express.json());
 
 app.get("/api/properties/:id", async (req, res) => {
   let id = req.params.id;
-  console.log(id)
+  console.log(id);
   id = parseInt(id);
 
   try {
@@ -109,33 +106,33 @@ app.get("/api/properties/:id", async (req, res) => {
   }
 });
 
-app.post("/api/properties", async (req, res) => {
-  const body = req.body;
-  try {
-    const newProperty = await insertProperty(body);
-    console.log("newProperty", newProperty);
-    res.status(200).json(body);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.post("/api/properties", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     const newProperty = await insertProperty(body);
+//     console.log("newProperty", newProperty);
+//     res.status(200).json(body);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
-app.delete("/api/properties", async (req, res) => {
-  const body = req.body;
-  try {
-    const property = await deleteProperty(body);
-    console.log("property", property);
-    res.status(200).json(body);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
+// app.delete("/api/properties", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     const property = await deleteProperty(body);
+//     console.log("property", property);
+//     res.status(200).json(body);
+//   } catch (err) {
+//     console.error(err);
+//     res
+//       .status(err.statusCode || 500)
+//       .json({ message: err.message || "Something went wrong" });
+//   }
+// });
 
 //Appliances
 // app.get("/api/appliances/", async (req, res) => {
@@ -165,7 +162,6 @@ app.put("/api/tasks", async (req, res) => {
       .json({ message: err.message || "Something went wrong" });
   }
 });
-
 
 // Add the routes stores in the routes/index.js folder
 routes.forEach((route) => {

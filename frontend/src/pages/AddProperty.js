@@ -46,7 +46,8 @@ export const AddProperty = () => {
     });
     handleOpen();
     setMessage(response.data.message);
-    setAddedOrExists(response.data.addedOrExists);
+    setAddedOrExists(response.data.propertyID ? "added" : "exists");
+
     reset();
   };
 
@@ -157,8 +158,8 @@ export const AddProperty = () => {
               id="heating"
               {...register("heating", { required: true })}
             >
-              <option value={"Electric"}>Electric</option>
-              <option value={"Oil"}>Oil</option>
+              <option value={"heating_electric"}>Electric</option>
+              <option value={"heating_oil"}>Oil</option>
             </Form.Select>
           </Form.Group>
 
