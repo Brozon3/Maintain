@@ -33,7 +33,6 @@ export function App() {
     <BrowserRouter>
       <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
-      <Footer />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route

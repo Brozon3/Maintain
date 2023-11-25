@@ -87,7 +87,7 @@ export const AddProperty = () => {
             <Form.Label className="blue-text" htmlFor="prov">
               Property Province:{" "}
             </Form.Label>
-            <Form.Select id="prov" {...register("prov", { required: true })}>
+            <Form.Select id="prov" defaultValue={"AB"} {...register("prov", { required: true })}>
               <option value={"AB"}>AB</option>
               <option value={"BC"}>BC</option>
               <option value={"MB"}>MB</option>
@@ -109,6 +109,7 @@ export const AddProperty = () => {
             </Form.Label>
             <Form.Control
               as={"select"}
+              defaultValue={"Apartment"}
               id="type"
               {...register("type", {
                 required: true,
@@ -133,6 +134,7 @@ export const AddProperty = () => {
             </Form.Label>
             <Form.Select
               id="carpet"
+              defaultValue={"No"}
               {...register("carpet", { required: true })}
             >
               <option value={"No"}>No</option>
@@ -144,7 +146,7 @@ export const AddProperty = () => {
             <Form.Label className="blue-text" htmlFor="pets">
               Pets:{" "}
             </Form.Label>
-            <Form.Select id="pets" {...register("pets", { required: true })}>
+            <Form.Select id="pets" defaultValue={"No"} {...register("pets", { required: true })}>
               <option value={"No"}>No</option>
               <option value={"Yes"}>Yes</option>
             </Form.Select>
@@ -156,6 +158,7 @@ export const AddProperty = () => {
             </Form.Label>
             <Form.Select
               id="heating"
+              defaultValue={"Electric"}
               {...register("heating", { required: true })}
             >
               <option value={"heating_electric"}>Electric</option>

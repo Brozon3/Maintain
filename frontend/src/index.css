@@ -1,9 +1,9 @@
 html{
-    height: 100vh;
+    min-height: 100vh !important;
 }
 
 body {
-    min-height: 100vh;
+    min-height: 100vh !important;
     background-color: #17A589 !important;
 }
 
@@ -116,4 +116,4 @@ body {
 
 .noBulletsList {
     list-style-type: none;
-  }
+}

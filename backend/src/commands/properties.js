@@ -241,6 +241,51 @@ export const getPropertiesByIDs = async (propertyIDs) => {
 //     }
 //   });
 // };
+export const insertProperty = async (propertyObject) => {
+  const today = new Date();
+  const dateString = today.getFullYear().toString() + "-" + (today.getMonth() + 1).toString() + "-" + today.getDate().toString();
+  const { address, city, prov, type, roof, carpet, pets, heating } =
+    propertyObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const checkIfExistsSql =
+        "SELECT * FROM Maintain_Database.properties WHERE address = ? AND city = ? AND prov = ?";
+      conn.query(
+        checkIfExistsSql,
+        [address, city, prov],
+        function (err, result) {
+          if (err) {
+            console.error("Error checking for existing properties", err);
+            reject(err);
+          } else {
+            if (result.length > 0) {
+              resolve(null);
+            } else {
+              const sql =
+                "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating, date_added) VALUES (?,?,?,?,?,?,?,?,?)";
+              conn.query(
+                sql,
+                [address, city, prov, type, roof, carpet, pets, heating, dateString],
+                function (err, result) {
+                  if (err) {
+                    console.error("Error inserting property:", err);
+                    reject(err);
+                  } else {
+                    console.log("Property inserted successfully");
+                    resolve(result);
+                  }
+                }
+              );
+            }
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
 
 // export const associateProperty = async (propertyObject) => {
 //   const { user, propertyId } = propertyObject;
