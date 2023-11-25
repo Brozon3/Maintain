@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap';
 
 export const Footer = () => {
     return(
-        <Navbar className="bg-body-tertiary fixed-bottom border border-success">
+        <Navbar className="bg-body-tertiary fixed-bottom border border-success footer">
             <Container>
                 <Navbar.Brand className='green-text'>
                     <h6>Copyright 2023</h6>
