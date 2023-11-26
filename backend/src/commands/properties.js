@@ -243,7 +243,12 @@ export const getPropertiesByIDs = async (propertyIDs) => {
 // };
 export const insertProperty = async (propertyObject) => {
   const today = new Date();
-  const dateString = today.getFullYear().toString() + "-" + (today.getMonth() + 1).toString() + "-" + today.getDate().toString();
+  const dateString =
+    today.getFullYear().toString() +
+    "-" +
+    (today.getMonth() + 1).toString() +
+    "-" +
+    today.getDate().toString();
   const { address, city, prov, type, roof, carpet, pets, heating } =
     propertyObject;
   return new Promise((resolve, reject) => {
@@ -265,7 +270,17 @@ export const insertProperty = async (propertyObject) => {
                 "INSERT INTO Maintain_Database.properties (address, city, prov, type ,roof, carpet, pets, heating, date_added) VALUES (?,?,?,?,?,?,?,?,?)";
               conn.query(
                 sql,
-                [address, city, prov, type, roof, carpet, pets, heating, dateString],
+                [
+                  address,
+                  city,
+                  prov,
+                  type,
+                  roof,
+                  carpet,
+                  pets,
+                  heating,
+                  dateString,
+                ],
                 function (err, result) {
                   if (err) {
                     console.error("Error inserting property:", err);
@@ -308,6 +323,27 @@ export const insertProperty = async (propertyObject) => {
 //     }
 //   });
 // };
+
+export const getPropertyTasks = async (propertyID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.propertyTaskView WHERE propertyID = ?`;
+
+      conn.query(sql, [propertyID], function (err, result) {
+        if (err) {
+          console.error("Error getting Tasks: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got Tasks.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
 
 export const getPropertyTaskIDs = async (propertyID) => {
   return new Promise((resolve, reject) => {
