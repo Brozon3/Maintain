@@ -8,19 +8,12 @@ import { Footer } from "../components/Footer";
 
 export const PropertyTaskList = () => {
 
-    const { id } = useParams(); // grabbing this ID
+    const { id } = useParams();
 
     const today = new Date();
 
     const [property, setProperty] = useState({});
     const [tasks, setTasks] = useState([]);
-
-    // Get Property by ID to display current property
-    // 
-    // Get Tasks associated with property ID from propertyTask table
-    // Return the tasks from the database to the front end 
-    // render the tasks
-    // 
 
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${id}`)
