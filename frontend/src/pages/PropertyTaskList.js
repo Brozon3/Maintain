@@ -15,13 +15,6 @@ export const PropertyTaskList = () => {
     const [property, setProperty] = useState({});
     const [tasks, setTasks] = useState([]);
 
-    // Get Property by ID to display current property
-    // 
-    // Get Tasks associated with property ID from propertyTask table
-    // Return the tasks from the database to the front end 
-    // render the tasks
-    // 
-
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${id}`)
         console.log(result);
