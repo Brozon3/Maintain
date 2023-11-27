@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { ApplianceForm } from "../components/ApplianceForm";
 import axios from "axios"
 
-export const PropertyApplianceList = ({properties}) => {
+export const PropertyApplianceList = () => {
 
     const { id } = useParams();
 
@@ -18,7 +18,7 @@ export const PropertyApplianceList = ({properties}) => {
         if (result.data) {
             setProperty(result.data);
         } else {
-            setProperty({});
+            setProperty([]);
         }
     };
 
@@ -28,9 +28,9 @@ export const PropertyApplianceList = ({properties}) => {
 
     // TODO: create the route for getting all appliances by propertyID
     const fetchAppliances = async () => {
-        const result = await axios.get(``)
-        if (result.data.applianceIDs) {
-            setAppliances(result.data.appliances);
+        const result = await axios.get(`/api/propertyAppliances/${id}`)
+        if (result.data.getAppliances) {
+            setAppliances(result.data.getAppliances);
         } else {
             setAppliances([]);
         }

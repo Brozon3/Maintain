@@ -21,15 +21,15 @@ export const PropertyTaskList = () => {
   // render the tasks
   //
 
-  const fetchProperty = async () => {
-    const result = await axios.get(`/api/properties/${id}`);
-    console.log(result);
-    if (result.data) {
-      setProperty(result.data);
-    } else {
-      setProperty([]);
-    }
-  };
+    const fetchProperty = async () => {
+        const result = await axios.get(`/api/properties/${id}`)
+        console.log(result);
+        if (result.data) {
+            setProperty(result.data);
+        } else {
+            setProperty([]);
+        }
+    };
 
   useEffect(() => {
     fetchProperty();

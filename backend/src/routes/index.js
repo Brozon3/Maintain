@@ -19,6 +19,7 @@ import { getPropertiesByUser } from "./getPropertiesByUserRoute.js";
 import { deleteUserProperty } from "./deletePropertyRoute.js";
 import { getPropertyByIDRoute } from "./getPropertyByIDRoute.js";
 import { getPropertyTasksRoute } from "./getPropertyTasksRoute.js";
+import { getPropertyAppliancesRoute } from "./getPropertyAppliancesRoute.js";
 
 export const routes = [
   addProperty,
@@ -43,4 +44,5 @@ export const routes = [
   deleteUserProperty,
   getPropertyByIDRoute,
   getPropertyTasksRoute,
+  getPropertyAppliancesRoute,
 ];

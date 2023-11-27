@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { UseUser } from "../auth/useUser";
 import { useToken } from "../auth/useToken";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
 
 export const AddTask = () => {
@@ -14,9 +14,13 @@ export const AddTask = () => {
   const user = UseUser();
   const [token, setToken] = useToken();
   const { id, email, isVerified } = user;
+  const [message, setMessage] = useState("");
+  const [addedOrExists, setAddedOrExists] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
+
+  const { propertyID } = useParams();
 
   const [show, setShow] = useState(false);
 
@@ -25,9 +29,15 @@ export const AddTask = () => {
   
 
   const onSubmit = async (data) => {
+    const response = await axios.post("/api/addTask", {
+      property: propertyID,
+      data: data
+    })
     console.log(data);
-    reset();
     handleOpen();
+    setMessage(response.data.message);
+    setAddedOrExists(response.data.taskID ? "added" : "exists")
+    reset();
   };
 
   return (
@@ -90,23 +100,24 @@ export const AddTask = () => {
     </Container>
 
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+        <Modal.Header closeButton>
           <Modal.Title className="blue-text">
-              Task Added
+            Property {addedOrExists}{" "}
           </Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="blue-text">
-          That task was successfully added to this property.
-      </Modal.Body>
-      <Modal.Footer>
-          <Button className="blue-button" onClick={() => navigate(-1)}>
-              View Tasks
+        </Modal.Header>
+        <Modal.Body className="blue-text">{message}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            className="blue-button"
+            onClick={() => navigate("/displayProperties")}
+          >
+            View Properties
           </Button>
           <Button className="green-button" onClick={handleClose}>
-              Add Another Task
+            Add Another Property
           </Button>
-      </Modal.Footer>
-    </Modal>
+        </Modal.Footer>
+      </Modal>
   </>
   );
 };

@@ -366,3 +366,25 @@ export const getPropertyTaskIDs = async (propertyID) => {
     }
   });
 };
+
+export const getPropertyAppliances = async (propertyID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.applianceView WHERE 
+      propertyID = ?`;
+      console.log(sql);
+      conn.query(sql, [propertyID], function (err, result) {
+        if (err) {
+          console.error("Error getting Property Appliances: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got property appliances.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
