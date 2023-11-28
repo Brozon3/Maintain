@@ -15,31 +15,14 @@ export const PropertyTaskList = () => {
     const [property, setProperty] = useState({});
     const [tasks, setTasks] = useState([]);
 
-    const fetchProperty = async () => {
-        const result = await axios.get(`/api/properties/${id}`)
-        console.log(result);
-        if (result.data) {
-            setProperty(result.data);
-        } else {
-            setProperty([]);
-        }
-    };
-
-    useEffect (() => {
-        fetchProperty();
-    }, []);
-
-    const fetchTasks = async () => {
-        const result = await axios.get(`/api/propertyTasks/${id}`)
-        if (result.data.taskIDs) {
-            setTasks(result.data.taskIDs);
-        } else {
-            setTasks([]);
-        }
+    const fetchPropertyInfo = async () => {
+        const result = await axios.get(`/api/propertyTasks/${id}`);
+        setProperty(result.data.property);
+        setTasks(result.data.tasks);
     }
     
     useEffect (() => {
-        fetchTasks();
+        fetchPropertyInfo();
     }, []);
 
     const navigate = useNavigate();
@@ -49,13 +32,13 @@ export const PropertyTaskList = () => {
             <Container className="text-center main" >
 
                 <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
-                <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
+                <h2 className="blue-secondary-header">{(property.prov)}</h2>
 
                 <PropertyDoubleButton current={"task"} id={id}/>
                     <Form className="container w-75 blue-border my-3">
                         <h1 className='mb-3 blue-header p-3'>Outstanding Tasks</h1>
                         {tasks.map((task, i) => {
-                            if (new Date(task.completeBy) <= today){
+                            if (new Date(task[1]) <= today){
                                 return(
                                     <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"out" + i} i={i} color={"red"}/>
                                 )
@@ -67,7 +50,7 @@ export const PropertyTaskList = () => {
                     <Form className="container w-75 justify-content-center blue-border my-3">
                         <h1 className='mb-3 blue-header p-3'>Upcoming Tasks</h1>
                         {tasks.map((task, i) => {
-                            if (new Date(task.completeBy) > today){
+                            if (new Date(task[1]) > today){
                                 return(
                                     <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"up" + i} i={i}/>
                                 )
