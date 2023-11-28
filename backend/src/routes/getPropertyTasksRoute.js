@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { getPropertyTasks } from "../commands/properties.js";
-import { getTasksByIDs } from "../commands/tasks.js"
 
 export const getPropertyTasksRoute = {
   path: "/api/propertyTasks/:id",
