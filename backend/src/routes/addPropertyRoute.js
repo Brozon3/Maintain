@@ -3,7 +3,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "../commands/users.js";
-import { insertProperty, associateProperty } from "../commands/properties.js";
+import { callAddProperty } from "../commands/properties.js";
 
 export const addProperty = {
   path: "/api/addProperty",
@@ -11,28 +11,13 @@ export const addProperty = {
   handler: async (req, res) => {
     const { user, data } = req.body;
 
-    const propertyResult = await insertProperty(data);
+    const propertyResult = await callAddProperty(user.userID, data);
 
-    if (!propertyResult) {
-      res
-        .status(200)
-        .json({
-          message: "That property already exists.",
-          addedOrExists: "Exists",
-        });
-    } else {
-      const { insertId } = propertyResult;
+    const { propertyID, message } = propertyResult;
 
-      const userPropertyResult = await associateProperty({
-        user: user,
-        propertyId: insertId,
-      });
-
-      res.status(200).json({
-        insertId,
-        message: "That property was successfully added to your profile.",
-        addedOrExists: "Added",
-      });
-    }
+    res.status(200).json({
+      propertyID: propertyID,
+      message: message,
+    });
   },
 };

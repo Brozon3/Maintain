@@ -97,3 +97,24 @@ export const associateAppliance = async (applianceObject) => {
     }
   });
 };
+
+export const getAppliancesByIDs = async (applianceIDs) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.appliances WHERE applianceID IN (${applianceIDs})`;
+
+      conn.query(sql, [applianceIDs], function (err, result) {
+        if (err) {
+          console.error("Error getting Appliances: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got appliances.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};

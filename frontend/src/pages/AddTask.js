@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { UseUser } from "../auth/useUser";
 import { useToken } from "../auth/useToken";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
 
 export const AddTask = () => {
@@ -14,9 +14,13 @@ export const AddTask = () => {
   const user = UseUser();
   const [token, setToken] = useToken();
   const { id, email, isVerified } = user;
+  const [message, setMessage] = useState("");
+  const [addedOrExists, setAddedOrExists] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
+
+  const { propertyID } = useParams();
 
   const [show, setShow] = useState(false);
 
@@ -26,8 +30,15 @@ export const AddTask = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    reset();
+    console.log(propertyID);
+    const response = await axios.post("/api/addTask", {
+      user: user,
+      propertyID: propertyID,
+      data: data
+    });
     handleOpen();
+    setMessage(response.data.message);
+    reset();
   };
 
   return (
@@ -40,10 +51,9 @@ export const AddTask = () => {
       >
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="description">
-            Task Name:{" "}
+            Task Description:{" "}
           </Form.Label>
           <Form.Control
-            type="task-name"
             placeholder="Clean the cat litter"
             id="description"
             {...register("description", { required: true })}
@@ -59,25 +69,25 @@ export const AddTask = () => {
             {...register("frequency", { required: true })}
           >
             <option value={"Once"}>Once</option>
-            <option value={"Weekly"}>Weekly</option>
-            <option value={"Bi-Weekly"}>Bi-Weekly</option>
-            <option value={"Monthly"}>Monthly</option>
-            <option value={"Bi-Monthly"}>Bi-Monthly</option>
-            <option value={"Quarterly"}>Quarterly</option>
-            <option value={"Semi-Annually"}>Semi-Annually</option>
-            <option value={"Annually"}>Annually</option>
-            <option value={"Bi-Annually"}>Bi-Annually</option>
+            <option value={"7 DAYS"}>Weekly</option>
+            <option value={"14 DAYS"}>Bi-Weekly</option>
+            <option value={"1 MONTH"}>Monthly</option>
+            <option value={"2 MONTHS"}>Bi-Monthly</option>
+            <option value={"3 MONTHS"}>Quarterly</option>
+            <option value={"6 MONTHS"}>Semi-Annually</option>
+            <option value={"1 YEAR"}>Annually</option>
+            <option value={"2 YEARS"}>Bi-Annually</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="completeBy">
+          <Form.Label className="blue-text" htmlFor="dueDate">
             Complete by:{" "}
           </Form.Label>
           <Form.Control
             type="date"
-            id="completeBy"
-            {...register("completeBy", { required: true })}
+            id="dueDate"
+            {...register("dueDate", { required: true })}
           />
         </Form.Group>
 
@@ -90,23 +100,24 @@ export const AddTask = () => {
     </Container>
 
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+        <Modal.Header closeButton>
           <Modal.Title className="blue-text">
-              Task Added
+            Property {addedOrExists}{" "}
           </Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="blue-text">
-          That task was successfully added to this property.
-      </Modal.Body>
-      <Modal.Footer>
-          <Button className="blue-button" onClick={() => navigate(-1)}>
-              View Tasks
+        </Modal.Header>
+        <Modal.Body className="blue-text">{message}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            className="blue-button"
+            onClick={() => navigate("/displayProperties")}
+          >
+            View Properties
           </Button>
           <Button className="green-button" onClick={handleClose}>
-              Add Another Task
+            Add Another Property
           </Button>
-      </Modal.Footer>
-    </Modal>
+        </Modal.Footer>
+      </Modal>
   </>
   );
 };

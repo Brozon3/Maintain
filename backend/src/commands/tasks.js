@@ -8,6 +8,43 @@ const conn = mysql.createConnection({
   password: process.env.AWS_RDS_PASSWORD
 })
 
+export const callAddTask = async (userID, propertyID, taskObject) => {
+  const { description, frequency, dueDate, featureType, applianceType } =
+    taskObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "CALL Maintain_Database.add_task(?, ?, ?, ?, ?, ?, ?, @message_res)";
+      conn.query(
+        sql,
+        [description, dueDate, userID, frequency, featureType, applianceType, propertyID],
+        function (err, result) {
+          if (err) {
+            console.error("Error adding task", err);
+            reject(err);
+          } else {
+            const responseParams =
+              "SELECT @message_res AS message_res";
+            conn.query(responseParams, function (err, outputResult) {
+              if (err) {
+                console.error("Error fetching output parameters:", err);
+                reject(err);
+              } else {
+                const message = outputResult[0].message_res;
+                console.log("Output parameters:", message);
+                resolve({ message: message });
+              }
+            });
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};
+
 export const getAllTasks = async () => {
   return new Promise((resolve, reject) => {
     try {
@@ -96,3 +133,24 @@ export const updateTask = async (userObject) => {
     }
   });
 }
+
+export const getTasksByIDs = async (taskIDs) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.tasks WHERE taskID IN (${taskIDs})`;
+
+      conn.query(sql, [taskIDs], function (err, result) {
+        if (err) {
+          console.error("Error getting Tasks: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got tasks.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
