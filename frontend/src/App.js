@@ -73,7 +73,7 @@ export function App() {
             element={<PropertyTaskList properties={properties} />}
           />
           <Route
-            path="/addTask/:id"
+            path="/addTask/:propertyID"
             element={<AddTask properties={properties} />}
           />
           <Route path="/pleaseVerify" element={<PleaseVerifyEmailPage />} />

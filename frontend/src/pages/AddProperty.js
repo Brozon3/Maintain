@@ -43,7 +43,6 @@ export const AddProperty = () => {
     handleOpen();
     setMessage(response.data.message);
     setAddedOrExists(response.data.propertyID ? "added" : "exists");
-
     reset();
   };
 
