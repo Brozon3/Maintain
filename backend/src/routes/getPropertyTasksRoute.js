@@ -11,10 +11,12 @@ export const getPropertyTasksRoute = {
   method: "get",
   handler: async (req, res) => {
     let id = req.params.id;
-
-    const propertyTasks = await getPropertyTasks(id);
-    if (propertyTasks.length > 0) {
-      res.status(200).json({ propertyTasks });
+    
+    const getTaskIDs = await getPropertyTaskIDs(id);
+    if (getTaskIDs.length > 0) {
+      const tasks = getTaskIDs.map((result) => result.taskID);
+      const taskIDs = await getTasksByIDs(tasks);
+      res.status(200).json({ taskIDs });
     } else {
       res.status(200).json({ message: "No tasks in list." });
     }

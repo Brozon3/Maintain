@@ -24,7 +24,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
 
     const nextDate = (task) => {
         const completedDate = new Date();
-        task.completedOn = completedDate.toDateString();
+        task[0] = completedDate.toDateString();
 
         let nextCompleteDate = new Date(completedDate);
         
@@ -56,7 +56,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
 
     const calculateDaysDue = (task) => {
         const today = new Date();
-        const completeBy = new Date(task.completeBy)
+        const completeBy = new Date(task[1])
         let datediff = completeBy.getTime() - today.getTime();
         datediff = Math.ceil(datediff / 1000 / 60 / 60 / 24);
         if (datediff === 0){
@@ -81,7 +81,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     </Col>
                     <Col lg={8}>
                         <p style={{textAlign: "left"}}>
-                            {task.description}
+                            {task[0]}
                         </p>
                     </Col>
                     <Col lg={3}>

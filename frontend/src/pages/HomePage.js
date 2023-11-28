@@ -24,8 +24,6 @@ export function HomePage() {
             and longevity of some of the most substantial investments most of us
             will make. Share properties with others to maintain your property
             with Maintain.
-
-            Test
           </p>
         </Col>
       </Row>

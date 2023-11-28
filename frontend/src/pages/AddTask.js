@@ -29,14 +29,15 @@ export const AddTask = () => {
   
 
   const onSubmit = async (data) => {
-    const response = await axios.post("/api/addTask", {
-      property: propertyID,
-      data: data
-    })
     console.log(data);
+    console.log(propertyID);
+    const response = await axios.post("/api/addTask", {
+      user: user,
+      propertyID: propertyID,
+      data: data
+    });
     handleOpen();
     setMessage(response.data.message);
-    setAddedOrExists(response.data.taskID ? "added" : "exists")
     reset();
   };
 
@@ -50,10 +51,9 @@ export const AddTask = () => {
       >
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="description">
-            Task Name:{" "}
+            Task Description:{" "}
           </Form.Label>
           <Form.Control
-            type="task-name"
             placeholder="Clean the cat litter"
             id="description"
             {...register("description", { required: true })}
@@ -69,25 +69,25 @@ export const AddTask = () => {
             {...register("frequency", { required: true })}
           >
             <option value={"Once"}>Once</option>
-            <option value={"Weekly"}>Weekly</option>
-            <option value={"Bi-Weekly"}>Bi-Weekly</option>
-            <option value={"Monthly"}>Monthly</option>
-            <option value={"Bi-Monthly"}>Bi-Monthly</option>
-            <option value={"Quarterly"}>Quarterly</option>
-            <option value={"Semi-Annually"}>Semi-Annually</option>
-            <option value={"Annually"}>Annually</option>
-            <option value={"Bi-Annually"}>Bi-Annually</option>
+            <option value={"7 DAYS"}>Weekly</option>
+            <option value={"14 DAYS"}>Bi-Weekly</option>
+            <option value={"1 MONTH"}>Monthly</option>
+            <option value={"2 MONTHS"}>Bi-Monthly</option>
+            <option value={"3 MONTHS"}>Quarterly</option>
+            <option value={"6 MONTHS"}>Semi-Annually</option>
+            <option value={"1 YEAR"}>Annually</option>
+            <option value={"2 YEARS"}>Bi-Annually</option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="completeBy">
+          <Form.Label className="blue-text" htmlFor="dueDate">
             Complete by:{" "}
           </Form.Label>
           <Form.Control
             type="date"
-            id="completeBy"
-            {...register("completeBy", { required: true })}
+            id="dueDate"
+            {...register("dueDate", { required: true })}
           />
         </Form.Group>
 

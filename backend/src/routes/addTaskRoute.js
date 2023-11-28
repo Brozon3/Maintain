@@ -1,15 +1,17 @@
+import { callAddTask } from "../commands/tasks.js";
+
 export const addTask = {
     path: "/api/addTask",
     method: "post",
     handler: async (req, res) => {
-        const { property, data } = req.body;
+        console.log(req.body.propertyID);
+        const { user, propertyID, data } = req.body;
 
-        const taskResult = await callAddTask(property, data);
+        const taskResult = await callAddTask(user.userID, propertyID, data);
 
-        const { taskID, message } = taskResult;
+        const { message } = taskResult;
 
-        res.stats(200).json({
-            taskID: taskID,
+        res.status(200).json({
             message: message
         });
     }
