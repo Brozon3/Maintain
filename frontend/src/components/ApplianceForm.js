@@ -16,11 +16,13 @@ export const ApplianceForm = ({properties, appliance, warrantyCheck}) => {
         fetch("http://localhost:3000/api/applianceTypes").then((data)=>data.json()).then((val)=>setValues(val));
     },[])
     console.log(values, "values")
+    
     return(
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Row className="my-3 table-input">
                 <Col lg={1}>
                     <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
+                        <option >--</option>
                         {
                             values.map((opts,i)=><option>{opts.applianceType}</option>)
                         }
