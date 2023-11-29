@@ -117,14 +117,16 @@ export const PropertyApplianceList = () => {
                     
                     }
                 })}
-                {appliances.map((appliance, i) => {
+                {/* {appliances.map((appliance, i) => {
                     return (
-                        <Row className="my-3 table-input" key={i}>
-                            <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
-                        </Row> 
+                    <Row className="my-3 table-input" key={i}>
+                        <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
+                    </Row> 
                     )
-
-                })}
+                })} */}
+                    <Row className="my-3 table-input">
+                        <ApplianceForm appliance={appliances} warrantyCheck={warrantyCheck}/>
+                    </Row> 
 
             </Container>
          
