@@ -7,17 +7,18 @@ CREATE PROCEDURE reset_users_properties ()
     
 BEGIN
 	DECLARE sql_error TINYINT DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-		SET sql_error = TRUE;
 	DECLARE userID_P INT;
 	DECLARE propertyID INT;
 	DECLARE message_res VARCHAR(255);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		SET sql_error = TRUE;
         
 	START TRANSACTION;
 
-		DELETE FROM propertyAppliances;
 		DELETE FROM userProperty;
 		DELETE FROM userTaskList;
+		DELETE FROM propertyAppliances;
 		DELETE FROM propertyFeatures;
 		DELETE FROM applianceTasks;
 		DELETE FROM defaultTasks;
@@ -77,7 +78,7 @@ BEGIN
 		CALL add_task("Inspect stovepipe and flue before fall.", NULL, NULL, "1 YEAR", NULL, "woodstove", NULL, @message_res);
 		CALL add_task("Drain the tank and wash out sediment.", NULL, NULL, "1 YEAR", NULL, "water heater", NULL, @message_res);
 		CALL add_task("Clean  the trash compactor.", NULL, NULL, "1 MONTH", NULL, "trash compactor", NULL, @message_res);
-		CALL add_task("Deep clean the microwave", NULL, NULL, "6 MONTH", NULL, "microwave", NULL, @message_res);
+		CALL add_task("Deep clean the microwave", NULL, NULL, "6 MONTH", NULL, "microwave oven", NULL, @message_res);
 		CALL add_task("Check the oil and sparkplugs.", NULL, NULL, "1 YEAR", NULL, "lawnmower", NULL, @message_res);
 		CALL add_task("No real regular maintenance, just keep it clean.", NULL, NULL, "1 MONTH", NULL, "air fryer", NULL, @message_res);
 		CALL add_task("Empty the bag/dump debris.", NULL, NULL, "1 MONTH", NULL, "vacuum cleaner", NULL, @message_res);
@@ -96,20 +97,20 @@ BEGIN
 		-- Dev 1 default properties & appliances
 		SET userID_p = 69;
 		-- Property 1
-		CALL add_property(userID_p, "44 Hampshire Place", "St. John's", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", propertyID, message_res);
-		CALL add_propertyAppliance(userID_p, propertyID, "snowblower", "234886598", NOW(), "5 YEARS", "Poulan Pro", "445");
-		CALL add_propertyAppliance(userID_p, propertyID, "oven", "76393456120as", NOW(), "2 YEARS", "Frigidaire Gallery", "GCRE306CAF");
-		CALL add_propertyAppliance(userID_p, propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), "2 YEARS", "LG Electronics", "LRFGC2706S");
+		CALL add_property(userID_p, "44 Hampshire Place", "St. John's", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_propertyAppliance(userID_p, @propertyID, "snowblower", "234886598", NOW(), 5, "Poulan Pro", "445", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
 		CALL add_property(userID, "48 Hampshire Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
-		CALL add_propertyAppliance(userID_p, propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), "5 YEARS", "Samsung", "WA50R5200AW");
-		CALL add_propertyAppliance(userID_p, propertyID, "clothes dryer", "ASHFD3457565", NOW(), "2 YEARS", "Hotpoint", "HTX24EASKWS");
-		CALL add_propertyAppliance(userID_p, propertyID, "mini split", "DHDD33453456", NOW(), "3 YEARS", "DuctlessAire", "DA2421-H2");
+		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), "5 YEARS", "Samsung", "WA50R5200AW", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), "2 YEARS", "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), "3 YEARS", "DuctlessAire", "DA2421-H2", @propertyApplianceID);
 		-- Property 3
 		CALL add_property(userID_p, "44 Hampshire Place", "St-Louis-de-Ha-Ha!", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
-		CALL add_propertyAppliance(userID_p, propertyID, "oil furnace", "fkfdsASDFJAS", NOW(), "50 YEARS", "MorrHeat", "MH80");
-		CALL add_propertyAppliance(userID_p, propertyID, "lawnmower", "dlsgkjh", NOW(), NULL, "Troy Built", "Check Don't Change 3 in 1");
-		CALL add_propertyAppliance(userID_p, propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200");
+		CALL add_propertyAppliance(userID_p, @propertyID, "oil furnace", "fkfdsASDFJAS", NOW(), "50 YEARS", "MorrHeat", "MH80", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "lawnmower", "dlsgkjh", NOW(), NULL, "Troy Built", "Check Don't Change 3 in 1", @propertyApplianceID);
+		CALL add_propertyAppliance(userID_p, @propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200", @propertyApplianceID);
 	
 	SET message_res = 'Property Added';
     
@@ -123,3 +124,8 @@ BEGIN
 END//
 
 DELIMITER ;
+
+
+
+
+

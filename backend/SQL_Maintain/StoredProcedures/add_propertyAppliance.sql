@@ -9,7 +9,7 @@ IN propertyID_p				INT,
 IN applianceType_p			VARCHAR(45),
 IN serialNumber_p			VARCHAR(45),
 IN purchaseDate_p			DATETIME,
-IN warrantyLength_p			VARCHAR(45),
+IN warrantyLength_p			INT,
 IN manufacturer_p			VARCHAR(45),
 IN model_p					VARCHAR(45),
 OUT propertyApplianceID_p		INT)
