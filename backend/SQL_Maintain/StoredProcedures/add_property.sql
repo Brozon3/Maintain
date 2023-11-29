@@ -43,12 +43,7 @@ BEGIN
 
 				
 				IF carpet_param = 1 THEN
-					-- userID, propertyID, featureType, @propertyFeaturesID)
 					CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);                    
-				
-                -- working
-				-- SELECT featureID INTO addFeatureID FROM features
--- 				WHERE featureType = heating_param;
 				ELSEIF heating_param IS NOT NULL THEN
 					CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
 				ELSEIF pets_param = 1 THEN
@@ -81,6 +76,3 @@ END//
 
 DELIMITER ;
 
-SELECT taskID FROM featureTask WHERE featureID = 1;
-SELECT * FROM tasks;
-SELECT * FROM features;
