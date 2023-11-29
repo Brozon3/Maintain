@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -26,11 +26,23 @@ export const AddTask = () => {
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
+
+  const getApplianceTypes = async () => {
+    const result = await axios.get("/api/applianceTypes");
+    if (result.data.applianceTypes) {
+      setProperties(result.data.user)
+    }
+  }
+
+  const [applianceTypes, setApplianceTypes] = useState([]);
+
+  useEffect(() => {
+    getApplianceTypes();
+    console.log(applianceTypes);
+  }, [])
   
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log(propertyID);
     const response = await axios.post("/api/addTask", {
       user: user,
       propertyID: propertyID,
@@ -77,6 +89,17 @@ export const AddTask = () => {
             <option value={"6 MONTHS"}>Semi-Annually</option>
             <option value={"1 YEAR"}>Annually</option>
             <option value={"2 YEARS"}>Bi-Annually</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label className="blue-text" htmlFor="applianceType">
+            Appliance Type:{" "}
+          </Form.Label>
+          <Form.Select
+            id="applianceType"
+            {...register("applianceType", { required: true })}
+          >
           </Form.Select>
         </Form.Group>
 

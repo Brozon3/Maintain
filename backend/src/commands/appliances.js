@@ -118,3 +118,24 @@ export const getAppliancesByIDs = async (applianceIDs) => {
     }
   });
 };
+
+export const getApplianceTypes = async () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT applianceType FROM Maintain_Database.appliances";
+
+      conn.query(sql, function (err, result) {
+        if (err) {
+          console.error("Error getting appliance types: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got appliance types.");
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};

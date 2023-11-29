@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
-export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
+export const SwitchModal = ({task, i, color}) => {
 
     const [show, setShow] = useState(false);
 
@@ -12,47 +13,11 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
 
     const handleOpen = () => setShow(true);
 
-    const deleteTask = (id) => { 
-        console.log(id);
-        setTasks();
+    const saveTask = async (taskID) => {
+        const response = await axios.post("/api/updateTask", {
+            taskID: taskID
+          });
     };
-
-    const saveTask = (task) => {
-        console.log(task);
-        setTasks();
-    };
-
-    const nextDate = (task) => {
-        const completedDate = new Date();
-        task[0] = completedDate.toDateString();
-
-        let nextCompleteDate = new Date(completedDate);
-        
-        if (task.frequency === "Annually"){
-            nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 1);
-        } else if (task.frequency === "Bi-Annually"){
-            nextCompleteDate.setFullYear(nextCompleteDate.getFullYear() + 2);
-        } else if (task.frequency === "Weekly"){
-            nextCompleteDate.setDate(nextCompleteDate.getDate() + 7);
-        } else if (task.frequency === "Bi-Weekly"){
-            nextCompleteDate.setDate(nextCompleteDate.getDate() + 14);
-        } else if (task.frequency === "Monthly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 1);
-        } else if (task.frequency === "Bi-Monthly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 2);
-        } else if (task.frequency === "Quarterly"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 3);
-        } else if (task.frequency === "Semi-Annually"){
-            nextCompleteDate.setMonth(nextCompleteDate.getMonth() + 6);
-        } else {
-            deleteTask(task.id);
-        }
-
-        task.completeBy = nextCompleteDate.toDateString();
-        saveTask(task);
-        handleClose();
-        
-    }
 
     const calculateDaysDue = (task) => {
         const today = new Date();
@@ -97,7 +62,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     <Button className="blue-button"  onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button className="green-button" onClick={() => nextDate(task, tasks)}>
+                    <Button className="green-button" onClick={saveTask}>
                         Complete Task
                     </Button>
                     </Modal.Footer>
@@ -113,7 +78,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     </Col>
                     <Col lg={8}>
                         <p style={{textAlign: "left"}}>
-                            {task.description}
+                            {task[0]}
                         </p>
                     </Col>
                     <Col lg={3}>
@@ -129,7 +94,7 @@ export const SwitchModal = ({task, tasks, setTasks, i, color}) => {
                     <Button className="blue-button"  onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button className="green-button" onClick={() => nextDate(task, tasks)}>
+                    <Button className="green-button" onClick={saveTask}>
                         Complete Task
                     </Button>
                     </Modal.Footer>
