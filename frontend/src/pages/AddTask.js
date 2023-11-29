@@ -26,20 +26,6 @@ export const AddTask = () => {
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
-
-  const getApplianceTypes = async () => {
-    const result = await axios.get("/api/applianceTypes");
-    if (result.data.applianceTypes) {
-      setProperties(result.data.user)
-    }
-  }
-
-  const [applianceTypes, setApplianceTypes] = useState([]);
-
-  useEffect(() => {
-    getApplianceTypes();
-    console.log(applianceTypes);
-  }, [])
   
 
   const onSubmit = async (data) => {
@@ -52,6 +38,22 @@ export const AddTask = () => {
     setMessage(response.data.message);
     reset();
   };
+
+  //Justin's Dropdown Code 
+  const [values, setValues]=useState([])
+  const [options, setOptions]=useState([])
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/api/applianceTypes").then((data)=>data.json()).then((val)=>setValues(val));
+  },[])
+  console.log(values, "values")
+
+  // <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
+  // <option >--</option>
+  // {
+  //     values.map((opts,i)=><option>{opts.applianceType}</option>)
+  // }
+  // </Form.Select>
 
   return (
   <>
