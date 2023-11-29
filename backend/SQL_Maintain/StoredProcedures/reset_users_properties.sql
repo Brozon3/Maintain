@@ -4,16 +4,16 @@ DROP procedure IF EXISTS reset_users_properties;
 DELIMITER //
 
 CREATE PROCEDURE reset_users_properties ()
-	
-BEGIN
     
-    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-        SET message_res = 'Could not reset data.';
+BEGIN
+	DECLARE sql_error TINYINT DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		SET sql_error = TRUE;
+	DECLARE userID_P INT;
+	DECLARE propertyID INT;
+	DECLARE message_res VARCHAR(255);
         
 	START TRANSACTION;
-		DECLARE userID_P INT;
-		DECLARE propertyID INT;
-		DECLARE message_res VARCHAR(255);
 
 		DELETE FROM propertyAppliances;
 		DELETE FROM userProperty;
@@ -85,7 +85,7 @@ BEGIN
 		CALL add_task("Clean the gutters and check the shingles", NULL, NULL, "1 YEAR", "roof_shingles", NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Clean the gutters.", NULL, NULL, "1 YEAR", "roof_metal", NULL, NULL, NULL, NULL, @message_res);
 		
-		--Create default tasks added to all new properties
+		-- Create default tasks added to all new properties
 		CALL add_default_task("Test smoke alarms and replace batteries", "1 YEAR");
 		CALL add_default_task("Property walk-through and inspection", "1 YEAR");
 		CALL add_default_task("Winter is coming! Time to bring in the patio furniture,", "1 YEAR");
@@ -93,15 +93,15 @@ BEGIN
 		CALL add_default_task("They help us stay clean but get dirty in the process. Time to scrub the tub.", "1 MONTH");
 		CALL add_default_task("Clean the house before NYE party.", "2 YEAR");
 
-		--Dev 1 default properties & appliances
+		-- Dev 1 default properties & appliances
 		SET userID_p = 69;
 		-- Property 1
 		CALL add_property(userID_p, "44 Hampshire Place", "St. John's", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", propertyID, message_res);
 		CALL add_propertyAppliance(userID_p, propertyID, "snowblower", "234886598", NOW(), "5 YEARS", "Poulan Pro", "445");
 		CALL add_propertyAppliance(userID_p, propertyID, "oven", "76393456120as", NOW(), "2 YEARS", "Frigidaire Gallery", "GCRE306CAF");
 		CALL add_propertyAppliance(userID_p, propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), "2 YEARS", "LG Electronics", "LRFGC2706S");
-		--Property 2
-		CALL add_property(69, "48 Hampshire Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		-- Property 2
+		CALL add_property(userID, "48 Hampshire Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), "5 YEARS", "Samsung", "WA50R5200AW");
 		CALL add_propertyAppliance(userID_p, propertyID, "clothes dryer", "ASHFD3457565", NOW(), "2 YEARS", "Hotpoint", "HTX24EASKWS");
 		CALL add_propertyAppliance(userID_p, propertyID, "mini split", "DHDD33453456", NOW(), "3 YEARS", "DuctlessAire", "DA2421-H2");
@@ -113,7 +113,13 @@ BEGIN
 	
 	SET message_res = 'Property Added';
     
-	COMMIT;
+    IF sql_error = FALSE THEN
+		COMMIT;
+        SELECT 'DB Reset';
+	ELSE
+		ROLLBACK;
+        SELECT 'Rollback';
+	END IF;
 END//
 
 DELIMITER ;
