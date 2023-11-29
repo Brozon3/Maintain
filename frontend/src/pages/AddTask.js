@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -8,6 +8,7 @@ import { useToken } from "../auth/useToken";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
+import { ApplianceTypeSelect } from "../components/ApplianceTypeSelect";
 
 export const AddTask = () => {
 
@@ -26,11 +27,8 @@ export const AddTask = () => {
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
-  
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log(propertyID);
     const response = await axios.post("/api/addTask", {
       user: user,
       propertyID: propertyID,
@@ -79,6 +77,8 @@ export const AddTask = () => {
             <option value={"2 YEARS"}>Bi-Annually</option>
           </Form.Select>
         </Form.Group>
+
+        <ApplianceTypeSelect />
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="dueDate">

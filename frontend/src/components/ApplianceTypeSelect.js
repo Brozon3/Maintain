@@ -1,0 +1,40 @@
+import React from "react";
+import { Form } from "react-bootstrap";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+export const ApplianceTypeSelect = () => {
+
+    const getApplianceTypes = async () => {
+        const result = await axios.get("/api/applianceTypes");
+        setApplianceTypes(result.data.applianceTypes);
+    }
+
+    const { register } = useForm();
+
+    const [applianceTypes, setApplianceTypes] = useState([]);
+
+    useEffect(() => {
+        getApplianceTypes();
+    }, [])
+
+    return (
+        <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="applianceType">
+                Appliance Type:{" "}
+            </Form.Label>
+            <Form.Select
+                id="applianceType"
+                {...register("applianceType", { required: true })}
+            >
+            {applianceTypes.map((type, i) => {
+                return(
+                    <option key={i} value={type}>{type}</option>
+                )
+            })}
+            </Form.Select>
+        </Form.Group>
+    )
+
+}

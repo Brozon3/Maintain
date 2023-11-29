@@ -21,14 +21,28 @@ export const PropertyTaskList = () => {
   // render the tasks
   //
 
-    const fetchPropertyInfo = async () => {
+    const fetchProperty = async () => {
+        const result = await axios.get(`/api/properties/${id}`)
+        console.log(result);
+        if (result.data) {
+            setProperty(result.data);
+        } else {
+            setProperty([]);
+        }
+    };
+
+    useEffect (() => {
+        fetchProperty();
+    }, []);
+    
+    const fetchTasks = async () => {
         const result = await axios.get(`/api/propertyTasks/${id}`);
-        setProperty(result.data.property);
         setTasks(result.data.tasks);
+        console.log(tasks);
     }
     
     useEffect (() => {
-        fetchPropertyInfo();
+        fetchTasks();
     }, []);
 
     const navigate = useNavigate();
@@ -38,7 +52,7 @@ export const PropertyTaskList = () => {
             <Container className="text-center main" >
 
                 <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
-                <h2 className="blue-secondary-header">{(property.prov)}</h2>
+                <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
 
                 <PropertyDoubleButton current={"task"} id={id}/>
                     <Form className="container w-75 blue-border my-3">
@@ -46,7 +60,7 @@ export const PropertyTaskList = () => {
                         {tasks.map((task, i) => {
                             if (new Date(task[1]) <= today){
                                 return(
-                                    <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"out" + i} i={i} color={"red"}/>
+                                    <SwitchModal task={task} key={"out" + i} i={i} color={"red"}/>
                                 )
                             } else {
                                 return(null);
