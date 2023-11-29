@@ -93,13 +93,15 @@ export const PropertyApplianceList = () => {
                         <h6>#</h6>
                     </Col>
                 </Row>
+   
                 {appliances.map((appliance, i) => {
-                    if (appliance.empty === false){
+                    // if (appliance.empty === false){
+                    if (appliance){
                         return(
                             <Row className="my-3 table-input" key={i}>
                                 <Col lg={1}>{appliance.applianceType}</Col>
                                 <Col lg={2}>{appliance.manufacturer}</Col>
-                                <Col lg={2}>{appliance.modelNumber}</Col>
+                                <Col lg={2}>{appliance.model}</Col>
                                 <Col lg={2}>{appliance.serialNumber}</Col>
                                 <Col lg={2}>{appliance.purchaseDate}</Col>
                                 <Col lg={1}>{appliance.warrantyLength}</Col>
@@ -107,12 +109,23 @@ export const PropertyApplianceList = () => {
                                 <Col lg={1}><a href="/" className="link">User Manual</a></Col>
                             </Row>
                         )
-                    } else {
+                    }
+                     else {
                         return(
                             <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
                         )
+                    
                     }
                 })}
+                {appliances.map((appliance, i) => {
+                    return (
+                        <Row className="my-3 table-input" key={i}>
+                            <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
+                        </Row> 
+                    )
+
+                })}
+
             </Container>
          
         </Container>
