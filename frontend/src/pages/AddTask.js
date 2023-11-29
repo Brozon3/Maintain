@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -40,6 +40,22 @@ export const AddTask = () => {
     setMessage(response.data.message);
     reset();
   };
+
+  //Justin's Dropdown Code 
+  const [values, setValues]=useState([])
+  const [options, setOptions]=useState([])
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/api/applianceTypes").then((data)=>data.json()).then((val)=>setValues(val));
+  },[])
+  console.log(values, "values")
+
+  // <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
+  // <option >--</option>
+  // {
+  //     values.map((opts,i)=><option>{opts.applianceType}</option>)
+  // }
+  // </Form.Select>
 
   return (
   <>
