@@ -5,7 +5,7 @@ DROP procedure IF EXISTS add_default_task;
 DELIMITER //
 
 CREATE PROCEDURE add_default_task (
-	IN description_p			VARCHAR(45),
+	IN description_p			VARCHAR(500),
 	IN frequency_p				VARCHAR(45)
 	)
 BEGIN
