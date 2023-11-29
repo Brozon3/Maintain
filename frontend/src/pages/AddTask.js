@@ -8,6 +8,7 @@ import { useToken } from "../auth/useToken";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
+import { ApplianceTypeSelect } from "../components/ApplianceTypeSelect";
 
 export const AddTask = () => {
 
@@ -26,7 +27,6 @@ export const AddTask = () => {
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
-  
 
   const onSubmit = async (data) => {
     const response = await axios.post("/api/addTask", {
@@ -38,22 +38,6 @@ export const AddTask = () => {
     setMessage(response.data.message);
     reset();
   };
-
-  //Justin's Dropdown Code 
-  const [values, setValues]=useState([])
-  const [options, setOptions]=useState([])
-
-  useEffect(()=>{
-    fetch("http://localhost:3000/api/applianceTypes").then((data)=>data.json()).then((val)=>setValues(val));
-  },[])
-  console.log(values, "values")
-
-  // <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
-  // <option >--</option>
-  // {
-  //     values.map((opts,i)=><option>{opts.applianceType}</option>)
-  // }
-  // </Form.Select>
 
   return (
   <>
@@ -94,16 +78,7 @@ export const AddTask = () => {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="applianceType">
-            Appliance Type:{" "}
-          </Form.Label>
-          <Form.Select
-            id="applianceType"
-            {...register("applianceType", { required: true })}
-          >
-          </Form.Select>
-        </Form.Group>
+        <ApplianceTypeSelect />
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="dueDate">

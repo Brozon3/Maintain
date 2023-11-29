@@ -1,7 +1,7 @@
 import { getApplianceTypes } from "../commands/appliances.js";
 
 export const getApplianceTypesRoute = {
-  path: "/api/applianceTypes/",
+  path: "/api/applianceTypes",
   method: "get",
   handler: async (req, res) => {
     const result = await getApplianceTypes();
