@@ -6,6 +6,18 @@ COPY /backend .
 
 RUN npm install
 
+WORKDIR /app/frontend .
+
+RUN npm install
+
+RUN npm build
+
+RUN mv ./build ../backend
+
+WORKDIR /app/backend
+
+EXPOSE 4000
+
 CMD ["npm", "run", "start"]
 
 # run build in terminal from root directory. Expose the port
