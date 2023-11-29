@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 
@@ -9,12 +9,25 @@ export const ApplianceForm = ({properties, appliance, warrantyCheck}) => {
     const onSubmit = (data) => {
         console.log(data);
     }
+    const [values, setValues]=useState([])
+    const [options, setOptions]=useState([])
 
+    useEffect(()=>{
+        fetch("http://localhost:3000/api/applianceTypes").then((data)=>data.json()).then((val)=>setValues(val));
+    },[])
+    console.log(values, "values")
+    
     return(
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Row className="my-3 table-input">
                 <Col lg={1}>
-                    {appliance.applianceType}  
+                    <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
+                        <option >--</option>
+                        {
+                            values.map((opts,i)=><option>{opts.applianceType}</option>)
+                        }
+                    </Form.Select>
+                    {/* {appliance.applianceType}   */}
                 </Col>
                 <Col lg={2}>
                     <Form.Select name="brand" className="table-input" {...register("brand", { required: true })}>
