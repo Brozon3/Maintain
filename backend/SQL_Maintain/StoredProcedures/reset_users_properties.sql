@@ -101,7 +101,7 @@ BEGIN
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID, "48 Python Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 Python Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
@@ -119,7 +119,7 @@ BEGIN
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID, "48 North Atlantic", "Peterborough", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 North Atlantic", "Peterborough", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
@@ -137,7 +137,7 @@ BEGIN
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID, "48 Murach place", "Mount Pearl", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 Murach place", "Mount Pearl", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
@@ -161,5 +161,8 @@ END//
 DELIMITER ;
 
 CALL reset_users_properties();
+
+SELECT * FROM userPropertyView;
+
 
 SELECT * FROM propertyTaskView;
