@@ -29,6 +29,27 @@ export const getAllAppliances = async () => {
   });
 }
 
+export const getAllApplianceTypes = async () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = "SELECT applianceType FROM Maintain_Database.appliances";
+
+      conn.query(sql, function (err, result) {
+        if (err) {
+          console.error("Error getting applianceTypes: ", err);
+          reject(err);
+        } else {
+          console.log("Successfully got all appliance types.")
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+}
+
 export const insertAppliance = async (userObject) => {
   const { type, manufacturer, model, serialNumber, purchaseDate, warrantyLength } = userObject;
   return new Promise((resolve, reject) => {

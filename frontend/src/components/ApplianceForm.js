@@ -26,14 +26,6 @@ export const ApplianceForm = ({ type }) => {
 
     const onSubmit = async (data) => {
         console.log(data);
-        const response = await axios.post("/api/addAppliance", {
-            user: user,
-            propertyID: propertyID,
-            data: data
-        });
-        handleOpen();
-        setMessage(response.data.message);
-        reset();
     }
 
     return(
@@ -41,9 +33,15 @@ export const ApplianceForm = ({ type }) => {
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row className="my-3 table-input">
                     <Col lg={1}>
-                        <Form.Text name="applianceType" defaultValue={type} {...register("applianceType")}>
+                    <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
+                        <option >--</option>
+                        {
+                            values.map((opts,i)=><option>{opts.applianceType}</option>)
+                        }
+                    </Form.Select>
+                    {/*     <Form.Text name="applianceType" defaultValue={type} {...register("applianceType")}>
                             {type}
-                        </Form.Text>
+                        </Form.Text> */}
                     </Col>
                     <Col lg={2}>
                         <Form.Select name="brand" className="table-input" {...register("brand", { required: true })}>
