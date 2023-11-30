@@ -40,13 +40,10 @@ BEGIN
 				VALUES (address_param, city_param, prov_param, propertyType_param, NOW());
 				
 				SET propertyID_res = LAST_INSERT_ID();
-
 				
 				IF carpet_param = 1 THEN
 					CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);                    
 				ELSEIF heating_param IS NOT NULL THEN
-					CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
-				ELSEIF pets_param = 1 THEN
 					CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
 				ELSEIF roof_param IS NOT NULL THEN
 					CALL insert_feature_task(userID_param, propertyID_res, roof_param, propertyFeaturesID_p);
@@ -62,10 +59,21 @@ BEGIN
 					FROM featureTask WHERE featureID = addFeatureID;
 				
                 END IF;
+                  -- Add default tasks
+               INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
+				SELECT
+					userID_param as userID,
+					propertyID_res as propertyID,
+					taskID,
+					NOW(),
+					NULL,
+					NULL
+				FROM defaultTasks;
                 
 				INSERT INTO userProperty (userID, propertyID)
 				VALUES (userID_param, propertyID_res);
-				SET message_res = "Property added successfully";				
+				SET message_res = "Property added successfully";
+				
 			
 			END IF;
             
@@ -76,3 +84,12 @@ END//
 
 DELIMITER ;
 
+INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
+	SELECT
+		69 as userID,
+		219 as propertyID,
+		taskID,
+		NOW(),
+		NULL,
+		NULL
+	FROM defaultTasks;
