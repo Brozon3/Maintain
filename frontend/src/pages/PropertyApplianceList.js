@@ -1,5 +1,5 @@
 import React, {useState, useEffect }from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { PropertyDoubleButton } from "../components/PropertyDoubleButton";
 import { useParams } from "react-router";
 import { ApplianceForm } from "../components/ApplianceForm";
@@ -7,13 +7,24 @@ import axios from "axios"
 
 export const PropertyApplianceList = () => {
 
-    const { id } = useParams();
+    const { propertyID } = useParams();
 
     const [property, setProperty] = useState({});
     const [appliances, setAppliances] = useState([]);
 
+    const getApplianceTypes = async () => {
+        const result = await axios.get("/api/applianceTypes");
+        setApplianceTypes(result.data.applianceTypes);
+    }
+
+    const [applianceTypes, setApplianceTypes] = useState([]);
+
+    useEffect(() => {
+        getApplianceTypes();
+    }, [])
+
     const fetchProperty = async () => {
-        const result = await axios.get(`/api/properties/${id}`)
+        const result = await axios.get(`/api/properties/${propertyID}`)
         console.log(result);
         if (result.data) {
             setProperty(result.data);
@@ -26,9 +37,8 @@ export const PropertyApplianceList = () => {
         fetchProperty();
     }, []);
 
-    // TODO: create the route for getting all appliances by propertyID
     const fetchAppliances = async () => {
-        const result = await axios.get(`/api/propertyAppliances/${id}`)
+        const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
         if (result.data.getAppliances) {
             setAppliances(result.data.getAppliances);
         } else {
@@ -64,7 +74,7 @@ export const PropertyApplianceList = () => {
             <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
             <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
 
-            <PropertyDoubleButton current={"appliance"} id={id}/>
+            <PropertyDoubleButton current={"appliance"} propertyID={propertyID}/>
 
             <Container className="blue-border my-3 blue-text">
                 <Row className="my-3 table-input">
@@ -93,26 +103,28 @@ export const PropertyApplianceList = () => {
                         <h6>#</h6>
                     </Col>
                 </Row>
-                {appliances.map((appliance, i) => {
-                    if (appliance.empty === false){
-                        return(
-                            <Row className="my-3 table-input" key={i}>
-                                <Col lg={1}>{appliance.applianceType}</Col>
-                                <Col lg={2}>{appliance.manufacturer}</Col>
-                                <Col lg={2}>{appliance.modelNumber}</Col>
-                                <Col lg={2}>{appliance.serialNumber}</Col>
-                                <Col lg={2}>{appliance.purchaseDate}</Col>
-                                <Col lg={1}>{appliance.warrantyLength}</Col>
-                                <Col lg={1}>{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</Col>
-                                <Col lg={1}><a href="/" className="link">User Manual</a></Col>
-                            </Row>
-                        )
-                    } else {
-                        return(
-                            <ApplianceForm appliance={appliance} warrantyCheck={warrantyCheck} key={i}/>
-                        )
-                    }
+                {applianceTypes.map((type, i) => {
+                    return(
+                        <>
+                            {appliances.filter((appliance) => appliance.applianceType === type).map((appliance, i) => {
+                                return(
+                                    <Row className="my-3 table-input" key={appliance.serialNumber + i}>
+                                        <Col lg={1}>{appliance.applianceType}</Col>
+                                        <Col lg={2}>{appliance.manufacturer}</Col>
+                                        <Col lg={2}>{appliance.model}</Col>
+                                        <Col lg={2}>{appliance.serialNumber}</Col>
+                                        <Col lg={2}>{appliance.purchaseDate.substring(0, 10)}</Col>
+                                        <Col lg={1}>{appliance.warrantyLength}</Col>
+                                        <Col lg={1}>{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</Col>
+                                        <Col lg={1}><Button className="blue-button">-</Button></Col>
+                                    </Row>
+                                )   
+                            })}
+                        </>
+                    )
                 })}
+                <ApplianceForm type={"washer"}/>                
+
             </Container>
          
         </Container>

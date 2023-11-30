@@ -7,22 +7,15 @@ import axios from "axios";
 import { Footer } from "../components/Footer";
 
 export const PropertyTaskList = () => {
-  const { id } = useParams(); // grabbing this ID
+  const { propertyID } = useParams();
 
   const today = new Date();
 
   const [property, setProperty] = useState({});
   const [tasks, setTasks] = useState([]);
 
-  // Get Property by ID to display current property
-  //
-  // Get Tasks associated with property ID from propertyTask table
-  // Return the tasks from the database to the front end
-  // render the tasks
-  //
-
     const fetchProperty = async () => {
-        const result = await axios.get(`/api/properties/${id}`)
+        const result = await axios.get(`/api/properties/${propertyID}`)
         console.log(result);
         if (result.data) {
             setProperty(result.data);
@@ -36,7 +29,7 @@ export const PropertyTaskList = () => {
     }, []);
     
     const fetchTasks = async () => {
-        const result = await axios.get(`/api/propertyTasks/${id}`);
+        const result = await axios.get(`/api/propertyTasks/${propertyID}`);
         setTasks(result.data.tasks);
         console.log(tasks);
     }
@@ -46,7 +39,7 @@ export const PropertyTaskList = () => {
     }, []);
 
     const navigate = useNavigate();
-    const addTask = () => navigate('/addTask/' + id);
+    const addTask = () => navigate('/addTask/' + propertyID);
     return (
         <>
             <Container className="text-center main" >
@@ -54,7 +47,7 @@ export const PropertyTaskList = () => {
                 <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
                 <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
 
-                <PropertyDoubleButton current={"task"} id={id}/>
+                <PropertyDoubleButton current={"task"} propertyID={propertyID}/>
                     <Form className="container w-75 blue-border my-3">
                         <h1 className='mb-3 blue-header p-3'>Outstanding Tasks</h1>
                         {tasks.map((task, i) => {

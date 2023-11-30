@@ -139,3 +139,40 @@ export const getApplianceTypes = async () => {
     }
   });
 };
+
+export const callAddAppliance = async (userID, propertyID, taskObject) => {
+  const { applianceType, brand, model, serialNumber, purchaseDate, warrantyLength } =
+    taskObject;
+  return new Promise((resolve, reject) => {
+    try {
+      const sql =
+        "CALL Maintain_Database.add_propertyAppliance(?, ?, ?, ?, ?, ?, ?, ?, @message_res)";
+      conn.query(
+        sql,
+        [userID, propertyID, applianceType, serialNumber, purchaseDate, warrantyLength, manufacturer, model],
+        function (err, result) {
+          if (err) {
+            console.error("Error adding appliance", err);
+            reject(err);
+          } else {
+            const responseParams =
+              "SELECT @message_res AS message_res";
+            conn.query(responseParams, function (err, outputResult) {
+              if (err) {
+                console.error("Error fetching output parameters:", err);
+                reject(err);
+              } else {
+                const message = outputResult[0].message_res;
+                console.log("Output parameters:", message);
+                resolve({ message: message });
+              }
+            });
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      reject(error);
+    }
+  });
+};

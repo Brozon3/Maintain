@@ -69,12 +69,13 @@ export function DisplayProperties() {
         {/* Only to show usage of useUser. */}
         <h1 className="mb-3 p-3 blue-header">{userEmail}'s Properties</h1>
         <Row xs={1} md={2} className="g-4">
-          {properties.map((property) => {
+          {properties.map((property, i) => {
             return (
-              <Col key={property.id}>
+              <Col key={i}>
                 <PropertyCard
                   property={property}
                   onDelete={() => handleDeleteProperty(property.propertyID)}
+                  key={i}
                 />
               </Col>
             );

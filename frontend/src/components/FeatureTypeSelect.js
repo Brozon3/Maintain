@@ -4,31 +4,31 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export const ApplianceTypeSelect = () => {
+export const FeatureTypeSelect = () => {
 
-    const getApplianceTypes = async () => {
-        const result = await axios.get("/api/applianceTypes");
-        setApplianceTypes(result.data.applianceTypes);
+    const getFeatureTypes = async () => {
+        const result = await axios.get("/api/FeatureTypes");
+        setFeatureTypes(result.data.featureTypes);
     }
 
     const { register } = useForm();
 
-    const [applianceTypes, setApplianceTypes] = useState([]);
+    const [featureTypes, setFeatureTypes] = useState([]);
 
     useEffect(() => {
-        getApplianceTypes();
+        getFeatureTypes();
     }, [])
 
     return (
         <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="applianceType">
-                Appliance Type:{" "}
+            <Form.Label className="blue-text" htmlFor="featureType">
+                Feature Type:{" "}
             </Form.Label>
             <Form.Select
-                id="applianceType"
-                {...register("applianceType", { required: true })}
+                id="featureType"
+                {...register("featureType", { required: true })}
             >
-            {applianceTypes.map((type, i) => {
+            {featureTypes.map((type, i) => {
                 return(
                     <option key={i} value={type}>{type}</option>
                 )

@@ -1,11 +1,11 @@
 import { Button } from "react-bootstrap"
 import { useNavigate } from "react-router";
 
-export const PropertyDoubleButton = ({current, id}) => {
+export const PropertyDoubleButton = ({current, propertyID}) => {
 
     const navigate = useNavigate();
-    const taskList = () => navigate('/taskList/' + id);
-    const applianceList = () => navigate('/applianceList/' + id);
+    const taskList = () => navigate('/taskList/' + propertyID);
+    const applianceList = () => navigate('/applianceList/' + propertyID);
 
     if (current === "task"){
         return(

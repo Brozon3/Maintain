@@ -32,6 +32,8 @@ export function App() {
   return (
     <BrowserRouter>
       <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      
+      <Footer />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -65,11 +67,11 @@ export function App() {
             element={<AddProperty properties={properties} />}
           />
           <Route
-            path="/applianceList/:id"
+            path="/applianceList/:propertyID"
             element={<PropertyApplianceList properties={properties} />}
           />
           <Route
-            path="/taskList/:id"
+            path="/taskList/:propertyID"
             element={<PropertyTaskList properties={properties} />}
           />
           <Route

@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
 import { ApplianceTypeSelect } from "../components/ApplianceTypeSelect";
+import { FeatureTypeSelect } from "../components/FeatureTypeSelect";
 
 export const AddTask = () => {
 
@@ -66,7 +67,7 @@ export const AddTask = () => {
             id="frequency"
             {...register("frequency", { required: true })}
           >
-            <option value={"Once"}>Once</option>
+            <option value={""}>Once</option>
             <option value={"7 DAYS"}>Weekly</option>
             <option value={"14 DAYS"}>Bi-Weekly</option>
             <option value={"1 MONTH"}>Monthly</option>
@@ -79,6 +80,8 @@ export const AddTask = () => {
         </Form.Group>
 
         <ApplianceTypeSelect />
+
+        <FeatureTypeSelect />
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="dueDate">
