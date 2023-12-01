@@ -5,8 +5,9 @@ DELIMITER //
 
 CREATE PROCEDURE add_task (
 IN description_p			VARCHAR(500),
-IN dueDate_p				DATETIME,
+IN dueDate_p				DATE,
 IN userID_p					INT,
+IN defaultDate_p			VARCHAR(45),
 IN frequency_p				VARCHAR(45),
 IN featureType_p			VARCHAR(45),
 IN applianceType_p			VARCHAR(45),
@@ -19,10 +20,34 @@ BEGIN
     DECLARE taskID_p		INT;
     DECLARE featureID_p		INT;
     DECLARE applianceID_p	INT;
+    DECLARE fValue_p		VARCHAR(5);
+    DECLARE fInterval_p		VARCHAR(45);
     
+    -- If the dueDate_p is null, construct if from defaultDate_p -- default date should be a string in the format of mm-dd
+    IF dueDate_p IS NULL AND defaultDate_p IS NOT NULL THEN
+		SET dueDate_p = STR_TO_DATE(
+        IF(
+            STR_TO_DATE(CONCAT(YEAR(NOW()), defaultDate_p), '%Y-%m-%d') < CURDATE(),
+            CONCAT(YEAR(NOW()) + 1, defaultDate_p),
+            CONCAT(YEAR(NOW()), defaultDate_p)
+        ),
+        '%Y-%m-%d'
+    );
+    ELSEIF dueDate_p IS NULL AND frequency_p IS NOT NULL THEN
+		SET fValue_p = SUBSTRING_INDEX(frequency_p, ' ', 1);
+        SET fInterval_p = SUBSTRING_INDEX(frequency_p, ' ', -1);
+        
+        SET @sql = CONCAT('SELECT DATE_ADD(NOW(), INTERVAL ', fValue_p, ' ', fInterval_p, ') INTO @updatedDueDate_p');
+        PREPARE stmt FROM @sql;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+        
+        SET dueDate_p = @updatedDueDate_p;
+	END IF;
+		
     -- Insert the new task and set the task ID. If the description already exists, get the existing task ID.
-	INSERT INTO tasks (description, frequency) 
-    VALUES (description_p, frequency_p);
+	INSERT IGNORE INTO tasks (description, frequency, defaultDate)
+    VALUES (description_p, frequency_p, defaultDate_p);
     
     SELECT ROW_COUNT() INTO rowsAffected;
     
@@ -45,9 +70,6 @@ BEGIN
 		INSERT INTO propertyTasks (propertyID, taskID) VALUES (propertyID_p, taskID_p);
 		SET message_res = CONCAT(message_res, "property task added");
 	ELSEIF userID_p IS NOT NULL THEN
-		IF dueDate_p IS NULL THEN
-			SET dueDate_p = NOW();
-		END IF;
 		INSERT INTO userTaskList (userID, propertyID, taskID, propertyFeatureID, propertyApplianceID, dueDate) VALUES
         (userID_p, propertyID_p, taskID_p, propertyFeatureID_p, propertyApplianceID_p, dueDate_p);
         SET message_res = CONCAT(message_res, "item added to user task list.");

@@ -6,14 +6,15 @@ DELIMITER //
 
 CREATE PROCEDURE add_default_task (
 	IN description_p			VARCHAR(500),
+	IN defaultDate_p			VARCHAR(50),
 	IN frequency_p				VARCHAR(45)
 	)
 BEGIN
 	DECLARE rowsAffected INT;
     DECLARE taskID_p INT;
     
-	INSERT INTO tasks (description, frequency) 
-    VALUES (description_p, frequency_p);
+	INSERT INTO tasks (description, frequency, defaultDate) 
+    VALUES (description_p, frequency_p, defaultDate_p);
     
     SELECT ROW_COUNT() INTO rowsAffected;
     

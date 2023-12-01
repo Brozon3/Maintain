@@ -24,11 +24,21 @@ BEGIN
         SELECT
             userID_p as userID,
             propertyID_p as propertyID,
-            taskID,
-            NOW(),
-            propertyFeaturesID_p,
-            NULL
-        FROM featureTask WHERE featureID = addFeatureID;
+            t.taskID,
+            CASE
+				WHEN t.defaultDate IS NOT NULL THEN 
+					STR_TO_DATE(IF(
+									STR_TO_DATE(CONCAT(YEAR(NOW()), t.defaultDate), '%Y-%m-%d') < CURDATE(),
+									CONCAT(YEAR(NOW()) + 1, t.defaultDate),
+									CONCAT(YEAR(NOW()), t.defaultDate)
+									),
+								'%Y-%m-%d')
+				ELSE NOW()
+			END AS dueDate,
+			propertyFeaturesID_p,
+            NULL AS propertyApplianceID
+        FROM featureTask ft JOIN tasks t USING(taskID)
+        WHERE featureID = addFeatureID;
 
 END//
 

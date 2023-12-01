@@ -41,34 +41,34 @@ BEGIN
 				
 				SET propertyID_res = LAST_INSERT_ID();
 				
+                -- Insert feature tasks
 				IF carpet_param = 1 THEN
 					CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);                    
 				ELSEIF heating_param IS NOT NULL THEN
 					CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
 				ELSEIF roof_param IS NOT NULL THEN
 					CALL insert_feature_task(userID_param, propertyID_res, roof_param, propertyFeaturesID_p);
-				-- ELSE
--- 					INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
--- 						SELECT
--- 							userID_param as userID,
--- 							propertyID_res as propertyID,
--- 							taskID,
--- 							NOW(),
--- 							NULL,
--- 							NULL
--- 					FROM featureTask WHERE featureID = addFeatureID;
 				
                 END IF;
-                  -- Add default tasks
+				-- Insert default tasks
                INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
-				SELECT
-					userID_param as userID,
-					propertyID_res as propertyID,
-					taskID,
-					NOW(),
-					NULL,
-					NULL
-				FROM defaultTasks;
+	SELECT
+		userID_param as userID,
+		propertyID_res as propertyID,
+		t.taskID,
+		CASE
+			WHEN defaultDate IS NOT NULL THEN
+				CASE
+					WHEN STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d') < CURDATE() THEN
+						STR_TO_DATE(CONCAT(YEAR(NOW()) + 1, '-', defaultDate), '%Y-%m-%d')
+					ELSE
+						STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d')
+					END
+			ELSE CURDATE()
+		END AS dueDate,
+		NULL,
+		NULL
+		FROM defaultTasks JOIN tasks t USING(taskID);
                 
 				INSERT INTO userProperty (userID, propertyID)
 				VALUES (userID_param, propertyID_res);
@@ -83,13 +83,24 @@ BEGIN
 END//
 
 DELIMITER ;
-
+        
 INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
 	SELECT
 		69 as userID,
-		219 as propertyID,
-		taskID,
-		NOW(),
+		300 as propertyID,
+		t.taskID,
+		CASE
+			WHEN defaultDate IS NOT NULL THEN
+				CASE
+					WHEN STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d') < CURDATE() THEN
+						STR_TO_DATE(CONCAT(YEAR(NOW()) + 1, '-', defaultDate), '%Y-%m-%d')
+					ELSE
+						STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d')
+					END
+			ELSE CURDATE()
+		END AS dueDate,
 		NULL,
 		NULL
-	FROM defaultTasks;
+	FROM defaultTasks JOIN tasks t USING(taskID);
+    
+    SELECT * FROM propertyTaskView WHERE propertyID = 300;

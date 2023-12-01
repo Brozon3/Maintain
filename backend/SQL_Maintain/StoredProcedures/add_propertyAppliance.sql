@@ -41,13 +41,35 @@ BEGIN
 		SELECT
 				userID_p as userID,
 				propertyID_p as propertyID,
-				taskID,
-                NOW() as dueDate,
+				t. taskID,
+                CASE
+					WHEN defaultDate IS NOT NULL THEN
+						CASE
+							WHEN STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d') < CURDATE() THEN
+								STR_TO_DATE(CONCAT(YEAR(NOW()) + 1, '-', defaultDate), '%Y-%m-%d')
+							ELSE
+								STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d')
+							END
+					ELSE CURDATE()
+					END AS dueDate,
                 NULL,
                 propertyApplianceID_p
-			FROM applianceTasks WHERE applianceID = applianceID_p;
+			FROM applianceTasks JOIN tasks t USING(taskID) WHERE applianceID = applianceID_p;
             
 END//
 
 DELIMITER ;
 
+SELECT description, defaultDate, CASE
+							WHEN defaultDate IS NOT NULL THEN
+								CASE
+									WHEN STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d') < CURDATE() THEN
+										STR_TO_DATE(CONCAT(YEAR(NOW()) + 1, '-', defaultDate), '%Y-%m-%d')
+									ELSE
+										STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate), '%Y-%m-%d')
+									END
+						ELSE CURDATE()
+					END AS dueDate
+FROM tasks;
+
+SELECT YEAR(NOW()) + 1;
