@@ -35,20 +35,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 // Get all the applianceTypes
-app.get("/api/applianceTypes/", async (req, res) => {
-  console.log("hit");
-  try {
-    const users = await getAllApplianceTypes();
-    res.status(200).json(users);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(err.statusCode || 500)
-      .json({ message: err.message || "Something went wrong" });
-  }
-});
-
-
 // Get all the users
 // app.get("/api/users/", async (req, res) => {
 //   console.log("hit");

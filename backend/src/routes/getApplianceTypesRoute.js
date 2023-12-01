@@ -4,6 +4,7 @@ export const getApplianceTypesRoute = {
   path: "/api/applianceTypes",
   method: "get",
   handler: async (req, res) => {
+    console.log("this is working");
     const result = await getApplianceTypes();
     const applianceTypes = result.map((applianceType) => applianceType.applianceType);
     console.log(applianceTypes);

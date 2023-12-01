@@ -6,8 +6,9 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { UseUser } from "../auth/useUser";
+import { ApplianceTypeSelect } from "./ApplianceTypeSelect";
 
-export const ApplianceForm = ({ type }) => {    
+export const ApplianceForm = () => {    
 
     const user = UseUser();
 
@@ -28,20 +29,12 @@ export const ApplianceForm = ({ type }) => {
         console.log(data);
     }
 
-    return(
+    return (
         <>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row className="my-3 table-input">
                     <Col lg={1}>
-                    <Form.Select onChange={(e)=>setOptions(e.target.value)} name="applianceType" className="table-input" {...register("applianceType", { required: true })}>
-                        <option >--</option>
-                        {
-                            values.map((opts,i)=><option>{opts.applianceType}</option>)
-                        }
-                    </Form.Select>
-                    {/*     <Form.Text name="applianceType" defaultValue={type} {...register("applianceType")}>
-                            {type}
-                        </Form.Text> */}
+                        <ApplianceTypeSelect type={"no_label"} register={register}/>
                     </Col>
                     <Col lg={2}>
                         <Form.Select name="brand" className="table-input" {...register("brand", { required: true })}>
@@ -77,21 +70,26 @@ export const ApplianceForm = ({ type }) => {
                     <Col lg={1}>
                         {"N/A"}
                     </Col>
-                    <Col lg={1}><Button className="green-button" type="submit">+</Button></Col>
+                    <Col lg={1}><Button className="green-button" type="submit" onClick={handleOpen}>+</Button></Col>
                 </Row>
             </Form>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title className="blue-text">
-                    Appliance {addedOrExists}{" "}
-                </Modal.Title>
+                    <Modal.Title className="blue-text">
+                        Add Appliance
+                    </Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="blue-text">{message}</Modal.Body>
+                <Modal.Body className="blue-text">
+                    Are you sure you want to add this appliance?
+                </Modal.Body>
                 <Modal.Footer>
-                <Button className="green-button" onClick={handleClose}>
-                    Close
-                </Button>
+                    <Button className="blue-button" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button className="green-button" onClick={handleSubmit}>
+                        Add Appliance
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>

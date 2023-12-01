@@ -8,11 +8,10 @@ export const getPropertyAppliancesRoute = {
   handler: async (req, res) => {
     let id = req.params.id;
     const getAppliances = await getPropertyAppliances(id);
-    console.log("Get appliances", getAppliances);
     if (getAppliances.length > 0) {
       res.status(200).json({ getAppliances });
     } else {
       res.status(200).json({ message: "No appliances in list." });
     }
-  },
+  }
 };
