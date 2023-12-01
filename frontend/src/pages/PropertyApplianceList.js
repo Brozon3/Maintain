@@ -1,5 +1,5 @@
-import React, {useState, useEffect }from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, {useState, useEffect } from "react";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { PropertyDoubleButton } from "../components/PropertyDoubleButton";
 import { useParams } from "react-router";
 import { ApplianceForm } from "../components/ApplianceForm";
@@ -11,16 +11,6 @@ export const PropertyApplianceList = () => {
 
     const [property, setProperty] = useState({});
     const [appliances, setAppliances] = useState([]);
-    const [applianceTypes, setApplianceTypes] = useState([]);
-
-    const getApplianceTypes = async () => {
-        const result = await axios.get("/api/applianceTypes");
-        setApplianceTypes(result.data.applianceTypes);
-    }
-
-    useEffect(() => {
-        getApplianceTypes();
-    }, [])
 
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${propertyID}`)
@@ -37,9 +27,7 @@ export const PropertyApplianceList = () => {
 
     const fetchAppliances = async () => {
         const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
-        console.log(result.data.getAppliances);
         setAppliances(result.data.getAppliances);
-        console.log(appliances);
     }
     
     useEffect (() => {
@@ -63,6 +51,24 @@ export const PropertyApplianceList = () => {
             return "Yes";
         }
     };
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const handleDeleteAppliance = async (applianceID) => {
+        try {
+          await axios.delete(`/api/deleteAppliance`, {
+            data: {
+              propertyID,
+            },
+          });
+          handleOpen();
+        } catch (error) {
+          console.error("Error deleting property:", error);
+        }
+      };
 
     return (
         <Container className="text-center main">
@@ -99,30 +105,43 @@ export const PropertyApplianceList = () => {
                         <h6>#</h6>
                     </Col>
                 </Row>
-                {applianceTypes.map((type, i) => {
+                
+                {appliances.map((appliance, i) => {
                     return(
-                        <>
-                            {appliances.filter((appliance) => appliance.applianceType === type).map((appliance, i) => {
-                                return(
-                                    <Row className="my-3 table-input" key={appliance.serialNumber + i}>
-                                        <Col lg={1}>{appliance.applianceType}</Col>
-                                        <Col lg={2}>{appliance.manufacturer}</Col>
-                                        <Col lg={2}>{appliance.model}</Col>
-                                        <Col lg={2}>{appliance.serialNumber}</Col>
-                                        <Col lg={2}>{appliance.purchaseDate.substring(0, 10)}</Col>
-                                        <Col lg={1}>{appliance.warrantyLength}</Col>
-                                        <Col lg={1}>{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</Col>
-                                        <Col lg={1}><Button className="blue-button">-</Button></Col>
-                                    </Row>
-                                )   
-                            })}
-                        </>
-                    )
+                        <Row className="my-3 table-input" key={appliance.serialNumber + i}>
+                            <Col lg={1}>{appliance.applianceType}</Col>
+                            <Col lg={2}>{appliance.manufacturer}</Col>
+                            <Col lg={2}>{appliance.model}</Col>
+                            <Col lg={2}>{appliance.serialNumber}</Col>
+                            <Col lg={2}>{appliance.purchaseDate.substring(0, 10)}</Col>
+                            <Col lg={1}>{appliance.warrantyLength}</Col>
+                            <Col lg={1}>{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</Col>
+                            <Col lg={1}><Button className="blue-button" onClick={handleOpen}>-</Button></Col>
+                        </Row>
+                    )   
                 })}
-                <ApplianceForm type={"washer"}/>                
+   
+                <ApplianceForm type={"no_label"}/>                
 
             </Container>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="blue-text">Delete Appliance</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="blue-text">
+                    Are you sure you want to delete this appliance?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="blue-button" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button className="green-button" onClick={handleDeleteAppliance}>
+                        Delete Appliance
+                    </Button>
+                </Modal.Footer>
+            </Modal>
          
         </Container>
+
     )
 }

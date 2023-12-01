@@ -79,9 +79,9 @@ export const AddTask = () => {
           </Form.Select>
         </Form.Group>
 
-        <ApplianceTypeSelect />
+        <ApplianceTypeSelect register={register}/>
 
-        <FeatureTypeSelect />
+        <FeatureTypeSelect register={register}/>
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="dueDate">
@@ -93,6 +93,14 @@ export const AddTask = () => {
             {...register("dueDate", { required: true })}
           />
         </Form.Group>
+
+        <Form.Check 
+          className="mb-3"
+          type="switch"
+          id="allProperties"
+          label="Add task to all properties"
+          {...register("allProperties")}
+        />
 
         <hr></hr>
 

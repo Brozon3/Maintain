@@ -26,7 +26,7 @@ export const PropertyCard = ({ property, onDelete }) => {
             {property.city}
           </Card.Text>
           <Card.Text className="blue-secondary-header">
-            {property.province}
+            {property.prov}
           </Card.Text>
           <Button
             type="submit"

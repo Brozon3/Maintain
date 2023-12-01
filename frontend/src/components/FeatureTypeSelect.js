@@ -4,14 +4,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export const FeatureTypeSelect = () => {
+export const FeatureTypeSelect = ({ register }) => {
 
     const getFeatureTypes = async () => {
         const result = await axios.get("/api/FeatureTypes");
         setFeatureTypes(result.data.featureTypes);
     }
-
-    const { register } = useForm();
 
     const [featureTypes, setFeatureTypes] = useState([]);
 
@@ -28,6 +26,7 @@ export const FeatureTypeSelect = () => {
                 id="featureType"
                 {...register("featureType", { required: true })}
             >
+                <option value={""}>--</option>
             {featureTypes.map((type, i) => {
                 return(
                     <option key={i} value={type}>{type}</option>

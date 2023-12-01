@@ -16,7 +16,6 @@ export const PropertyTaskList = () => {
 
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${propertyID}`)
-        console.log(result);
         if (result.data) {
             setProperty(result.data);
         } else {
@@ -31,7 +30,6 @@ export const PropertyTaskList = () => {
     const fetchTasks = async () => {
         const result = await axios.get(`/api/propertyTasks/${propertyID}`);
         setTasks(result.data.tasks);
-        console.log(tasks);
     }
     
     useEffect (() => {
@@ -40,6 +38,7 @@ export const PropertyTaskList = () => {
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + propertyID);
+    
     return (
         <>
             <Container className="text-center main" >
