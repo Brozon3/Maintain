@@ -47,16 +47,16 @@ BEGIN
 					CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
 				ELSEIF roof_param IS NOT NULL THEN
 					CALL insert_feature_task(userID_param, propertyID_res, roof_param, propertyFeaturesID_p);
-				ELSE
-					INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
-						SELECT
-							userID_param as userID,
-							propertyID_res as propertyID,
-							taskID,
-							NOW(),
-							NULL,
-							NULL
-					FROM featureTask WHERE featureID = addFeatureID;
+				-- ELSE
+-- 					INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
+-- 						SELECT
+-- 							userID_param as userID,
+-- 							propertyID_res as propertyID,
+-- 							taskID,
+-- 							NOW(),
+-- 							NULL,
+-- 							NULL
+-- 					FROM featureTask WHERE featureID = addFeatureID;
 				
                 END IF;
                   -- Add default tasks

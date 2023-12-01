@@ -163,7 +163,7 @@ DELIMITER ;
 USE Maintain_Database;
 CALL reset_users_properties();
 SELECT * FROM userPropertyView;
-SELECT * FROM propertyTaskView WHERE propertyID = 228;
+SELECT * FROM propertyTaskView WHERE propertyID = 237;
 
 SELECT * FROM defaultTasks;
 SELECT * FROM tasks;
