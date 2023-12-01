@@ -11,13 +11,12 @@ export const PropertyApplianceList = () => {
 
     const [property, setProperty] = useState({});
     const [appliances, setAppliances] = useState([]);
+    const [applianceTypes, setApplianceTypes] = useState([]);
 
     const getApplianceTypes = async () => {
         const result = await axios.get("/api/applianceTypes");
         setApplianceTypes(result.data.applianceTypes);
     }
-
-    const [applianceTypes, setApplianceTypes] = useState([]);
 
     useEffect(() => {
         getApplianceTypes();
@@ -25,7 +24,6 @@ export const PropertyApplianceList = () => {
 
     const fetchProperty = async () => {
         const result = await axios.get(`/api/properties/${propertyID}`)
-        console.log(result);
         if (result.data) {
             setProperty(result.data);
         } else {
@@ -39,11 +37,9 @@ export const PropertyApplianceList = () => {
 
     const fetchAppliances = async () => {
         const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
-        if (result.data.getAppliances) {
-            setAppliances(result.data.getAppliances);
-        } else {
-            setAppliances([]);
-        }
+        console.log(result.data.getAppliances);
+        setAppliances(result.data.getAppliances);
+        console.log(appliances);
     }
     
     useEffect (() => {
@@ -66,7 +62,7 @@ export const PropertyApplianceList = () => {
         } else {
             return "Yes";
         }
-    }
+    };
 
     return (
         <Container className="text-center main">
