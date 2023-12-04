@@ -6,7 +6,6 @@ import { verifyEmailRoute } from "./authRoutes/verifyEmailRoute.js";
 import { forgotPasswordRoute } from "./authRoutes/forgotPasswordRoute.js";
 import { getGoogleOauthUrlRoute } from "./authRoutes/getGoogleOauthUrlRoute.js";
 import { googleOauthCallbackRoute } from "./authRoutes/googleOauthCallbackRoute.js";
-import { testRoute } from "./testRoute.js";
 import { updateUserInfoRoute } from "./updateUserInfoRoute.js";
 import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
@@ -24,10 +23,11 @@ import { addTask } from "./addTaskRoute.js";
 import { getApplianceTypesRoute } from "./getApplianceTypesRoute.js";
 import { addApplianceRoute } from "./addApplianceRoute.js";
 import { getFeatureTypesRoute } from "./getFeatureTypesRoute.js";
+import { updateTaskRoute } from "./updateTaskRoute.js";
+import { deleteApplianceRoute } from "./deleteApplianceRoute.js";
 
 export const routes = [
   addProperty,
-  testRoute,
   signUpRoute,
   loginRoute,
   updateUserInfoRoute,
@@ -52,5 +52,7 @@ export const routes = [
   addTask,
   getApplianceTypesRoute,
   addApplianceRoute,
-  getFeatureTypesRoute
+  getFeatureTypesRoute,
+  updateTaskRoute,
+  deleteApplianceRoute
 ];

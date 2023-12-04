@@ -18,7 +18,6 @@ export const getFeatureTypes = async () => {
           console.error("Error getting feature types: ", err);
           reject(err);
         } else {
-          console.log("Successfully got feature types.");
           resolve(result);
         }
       });

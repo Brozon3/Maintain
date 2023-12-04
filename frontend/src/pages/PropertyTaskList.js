@@ -14,27 +14,40 @@ export const PropertyTaskList = () => {
   const [property, setProperty] = useState({});
   const [tasks, setTasks] = useState([]);
 
-    const fetchProperty = async () => {
-        const result = await axios.get(`/api/properties/${propertyID}`)
-        if (result.data) {
-            setProperty(result.data);
-        } else {
-            setProperty([]);
-        }
-    };
-
     useEffect (() => {
+        const fetchProperty = async () => {
+            const result = await axios.get(`/api/properties/${propertyID}`)
+            if (result.data) {
+                setProperty(result.data);
+            } else {
+                setProperty([]);
+            }
+        };
         fetchProperty();
-    }, []);
+    }, [property, propertyID]);
     
     const fetchTasks = async () => {
         const result = await axios.get(`/api/propertyTasks/${propertyID}`);
-        setTasks(result.data.tasks);
+        if (result.data.tasks){
+            setTasks(result.data.tasks);
+        } else {
+            setTasks([]);
+        }
+        
     }
     
     useEffect (() => {
+        const fetchTasks = async () => {
+            const result = await axios.get(`/api/propertyTasks/${propertyID}`);
+            if (result.data.tasks){
+                setTasks(result.data.tasks);
+            } else {
+                setTasks([]);
+            }
+            
+        }
         fetchTasks();
-    }, []);
+    }, [tasks, propertyID]);
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + propertyID);
@@ -52,10 +65,10 @@ export const PropertyTaskList = () => {
                         {tasks.map((task, i) => {
                             if (new Date(task[1]) <= today){
                                 return(
-                                    <SwitchModal task={task} key={"out" + i} i={i} color={"red"}/>
+                                    <SwitchModal task={task} fetchTasks={() => fetchTasks()} key={"out" + i} i={i} color={"red"}/>
                                 )
                             } else {
-                                return(null);
+                                return(null)
                             }
                         })}
                     </Form>
@@ -64,7 +77,7 @@ export const PropertyTaskList = () => {
                         {tasks.map((task, i) => {
                             if (new Date(task[1]) > today){
                                 return(
-                                    <SwitchModal task={task} tasks={tasks} setTasks={setTasks} key={"up" + i} i={i}/>
+                                    <SwitchModal task={task} fetchTasks={() => fetchTasks()} key={"up" + i} i={i}/>
                                 )
                             } else {
                                 return(null);

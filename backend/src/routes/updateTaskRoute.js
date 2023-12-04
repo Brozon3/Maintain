@@ -1,18 +1,18 @@
-import { updateTask } from "../commands/tasks.js";
+import { callUpdateTask } from "../commands/tasks.js";
 
-export const addTask = {
+export const updateTaskRoute = {
     path: "/api/updateTask",
     method: "post",
     handler: async (req, res) => {
 
-        const { taskID } = req.body;
+        const { entryID } = req.body;
 
-        const taskResult = await updateTask(taskID);
+        const taskResult = await callUpdateTask(entryID);
 
-        const { message } = taskResult;
+        console.log(taskResult[0]);
 
         res.status(200).json({
-            message: message
+            message: "All good."
         });
     }
 };

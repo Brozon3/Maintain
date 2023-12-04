@@ -45,7 +45,7 @@ export const callAddTask = async (userID, propertyID, taskObject) => {
   });
 };
 
-export const getAllTasks = async () => {
+export const callPropertyTaskView = async () => {
   return new Promise((resolve, reject) => {
     try {
       const sql = `SELECT * FROM Maintain_Database.tasks`;
@@ -55,7 +55,6 @@ export const getAllTasks = async () => {
           console.error("Error getting tasks: ", err);
           reject(err);
         } else {
-          console.log("Successfully got all tasks.")
           resolve(result);
         }
       });
@@ -79,7 +78,6 @@ export const insertTask = async (userObject) => {
           console.error("Error inserting task: ", err);
           reject(err);
         } else {
-          console.log("Task inserted successfully.");
           resolve(result);
         }
       });
@@ -101,7 +99,6 @@ export const deleteTask = async (userObject) => {
           console.error("Error deleting task: ", err);
           reject(err);
         } else {
-          console.log("Task deleted successfully.");
           resolve(result);
         }
       });
@@ -112,18 +109,16 @@ export const deleteTask = async (userObject) => {
   });
 }
 
-export const updateTask = async (userObject) => {
-  const { completedOn, taskID } = userObject;
+export const callUpdateTask = async (entryID) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = `Update Maintain_Database.tasks SET completedOn = ? WHERE taskID = ?`;
+      const sql = `CALL Maintain_Database.complete_task(?)`;
 
-      conn.query(sql, [completedOn, taskID ], function (err, result) {
+      conn.query(sql, [entryID], function (err, result) {
         if (err) {
-          console.error("Error deleting task: ", err);
+          console.error("Error completing task: ", err);
           reject(err);
         } else {
-          console.log("Task deleted successfully.");
           resolve(result);
         }
       });
@@ -144,7 +139,6 @@ export const getTasksByIDs = async (taskIDs) => {
           console.error("Error getting Tasks: ", err);
           reject(err);
         } else {
-          console.log("Successfully got tasks.");
           resolve(result);
         }
       });

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { UseUser } from "../auth/useUser";
 import { ApplianceTypeSelect } from "./ApplianceTypeSelect";
 
-export const ApplianceForm = () => {    
+export const ApplianceForm = ({ fetchAppliances }) => {    
 
     const user = UseUser();
 
@@ -27,6 +27,14 @@ export const ApplianceForm = () => {
 
     const onSubmit = async (data) => {
         console.log(data);
+        const response = await axios.post("/api/addAppliance", {
+            user: user,
+            propertyID: propertyID,
+            data: data
+        })
+        fetchAppliances();
+        handleClose();
+        reset();
     }
 
     return (
@@ -37,7 +45,7 @@ export const ApplianceForm = () => {
                         <ApplianceTypeSelect type={"no_label"} register={register}/>
                     </Col>
                     <Col lg={2}>
-                        <Form.Select name="brand" className="table-input" {...register("brand", { required: true })}>
+                        <Form.Select name="brand" className="table-input" {...register("manufacturer", { required: true })}>
                             <option >--</option>
                             <option value={"Amana"}>Amana</option>
                             <option value={"Bosch"}>Bosch</option>
@@ -62,7 +70,7 @@ export const ApplianceForm = () => {
                         <Form.Control type="text" placeholder="ABCXYZ" name="serialNumber" className="table-input" {...register("serialNumber", { required: true })}/>
                     </Col>
                     <Col lg={2}>
-                        <Form.Control type="date" className="table-input" name="purchaseDate" {...register("purhcaseDate", { required: true })}/>
+                        <Form.Control type="date" className="table-input" name="purchaseDate" {...register("purchaseDate", { required: true })}/>
                     </Col>
                     <Col lg={1}>
                         <Form.Control type="number" className="table-input" placeholder="1" min={0} max={25} defaultValue={0} name="warrantyLength" {...register("warrantyLength", { required: true })}/>

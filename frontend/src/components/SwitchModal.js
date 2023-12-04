@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
-export const SwitchModal = ({task, i, color}) => {
+export const SwitchModal = ({task, i, color, fetchTasks}) => {
 
     const [show, setShow] = useState(false);
 
@@ -13,10 +13,14 @@ export const SwitchModal = ({task, i, color}) => {
 
     const handleOpen = () => setShow(true);
 
-    const saveTask = async (taskID) => {
+    const saveTask = async (entryID) => {
+        console.log(entryID);
         const response = await axios.post("/api/updateTask", {
-            taskID: taskID
-          });
+            entryID: entryID
+        });
+        fetchTasks();
+        handleClose();
+        
     };
 
     const calculateDaysDue = (task) => {
@@ -62,7 +66,7 @@ export const SwitchModal = ({task, i, color}) => {
                     <Button className="blue-button"  onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button className="green-button" onClick={saveTask}>
+                    <Button className="green-button" onClick={() => saveTask(task[2])}>
                         Complete Task
                     </Button>
                     </Modal.Footer>
@@ -91,12 +95,12 @@ export const SwitchModal = ({task, i, color}) => {
                     </Modal.Header>
                     <Modal.Body className="blue-text">Are you sure you want to complete this task?</Modal.Body>
                     <Modal.Footer>
-                    <Button className="blue-button"  onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button className="green-button" onClick={saveTask}>
-                        Complete Task
-                    </Button>
+                        <Button className="blue-button"  onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button className="green-button" onClick={() => saveTask(task[2])}>
+                            Complete Task
+                        </Button>
                     </Modal.Footer>
                 </Modal>
             </>

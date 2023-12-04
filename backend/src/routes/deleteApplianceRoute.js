@@ -1,13 +1,17 @@
-import { deleteAppliance } from "../commands/appliances.js";
+import { callRemoveAppliance } from "../commands/appliances.js";
 
-export const deleteAppliance = {
-  path: "/api/deleteAppliance/",
+export const deleteApplianceRoute = {
+  path: "/api/deleteAppliance",
   method: "delete",
   handler: async (req, res) => {
-    const { applianceID } = req.body;
+    const { applianceID, propertyApplianceID } = req.body;
+    
+    console.log(applianceID, propertyApplianceID);
 
-    const response = await deleteAppliance({ applianceID });
+    const response = await callRemoveAppliance(applianceID, propertyApplianceID);
 
-    res.status(200).json({ message: response });
+    console.log(response);
+
+    //res.status(200).json({ message: "All good."});
   },
 };

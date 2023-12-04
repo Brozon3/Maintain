@@ -29,7 +29,6 @@ export const getAllUsers = async () => {
           console.error("Error getting user: ", err);
           reject(err);
         } else {
-          console.log("Successfully got all users.");
           resolve(result);
         }
       });
@@ -51,7 +50,6 @@ export const deleteUser = async (userObject) => {
           console.error("Error deleting user: ", err);
           reject(err);
         } else {
-          console.log("User deleted successfully.");
           resolve(result);
         }
       });

@@ -6,7 +6,6 @@ export const getFeatureTypesRoute = {
   handler: async (req, res) => {
     const result = await getFeatureTypes();
     const featureTypes = result.map((featureType) => featureType.featureType);
-    console.log(featureTypes);
     res.status(200).json({featureTypes});
   }
 };

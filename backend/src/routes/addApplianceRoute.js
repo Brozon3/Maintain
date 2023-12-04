@@ -6,10 +6,10 @@ export const addApplianceRoute = {
   handler: async (req, res) => {
     const { user, propertyID, data } = req.body;
 
-    const applianceResult = await callAddProperty(user.userID, propertyID, data);
+    const applianceResult = await callAddAppliance(user.userID, propertyID, data);
 
-    const { message } = applianceResult;
+    console.log(applianceResult);
 
-    res.status(200).json({ message: message });
+    res.status(200).json({ message: "All good."});
   },
 };

@@ -9,7 +9,7 @@ export const getPropertyTasksRoute = {
     let id = req.params.id;
     const propertyTasks = await getPropertyTasks(id);
     if (propertyTasks.length > 0) {
-      const tasks = propertyTasks.map((result) => [result.description, result.dueDate]);
+      const tasks = propertyTasks.map((result) => [result.description, result.dueDate, result.entryID]);
       res.status(200).json({ tasks});
     } else {
       res.status(200).json({ message: "No tasks in list." });

@@ -87,7 +87,6 @@ export const getAllProperties = async () => {
           console.error("Error getting user: ", err);
           reject(err);
         } else {
-          console.log("Successfully got all users.");
           resolve(result);
         }
       });
@@ -109,7 +108,6 @@ export const getPropertyByID = async (propertyID) => {
           console.error("Error getting Property: ", err);
           reject(err);
         } else {
-          console.log("Successfully got property.");
           resolve(result[0]);
         }
       });
@@ -335,7 +333,6 @@ export const getPropertyTaskIDs = async (propertyID) => {
           console.error("Error getting Property: ", err);
           reject(err);
         } else {
-          console.log("Successfully got property.");
           resolve(result);
         }
       });
@@ -351,13 +348,11 @@ export const getPropertyAppliances = async (propertyID) => {
     try {
       const sql = `SELECT * FROM Maintain_Database.applianceView WHERE 
       propertyID = ?`;
-      console.log(sql);
       conn.query(sql, [propertyID], function (err, result) {
         if (err) {
           console.error("Error getting Property Appliances: ", err);
           reject(err);
         } else {
-          console.log("Successfully got property appliances.");
           resolve(result);
         }
       });
@@ -377,7 +372,6 @@ export const getPropertyTasks = async (propertyID) => {
           console.error("Error getting property tasks: ", err)
           reject(err);
         } else {
-          console.log("Succesfully got property tasks.")
           resolve(result);
         }
       })
