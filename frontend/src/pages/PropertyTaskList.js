@@ -37,17 +37,8 @@ export const PropertyTaskList = () => {
     }
     
     useEffect (() => {
-        const fetchTasks = async () => {
-            const result = await axios.get(`/api/propertyTasks/${propertyID}`);
-            if (result.data.tasks){
-                setTasks(result.data.tasks);
-            } else {
-                setTasks([]);
-            }
-            
-        }
         fetchTasks();
-    }, [tasks, propertyID]);
+    }, [tasks]);
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + propertyID);

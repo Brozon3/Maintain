@@ -1,8 +1,3 @@
-// Is this updating
-
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { getUserByEmail } from "../commands/users.js";
 import { callAddProperty } from "../commands/properties.js";
 
 export const addProperty = {

@@ -19,47 +19,6 @@ AWS.config.update({
 export const DocumentClient = new AWS.DynamoDB.DocumentClient();
 export const TABLE_NAME = "users";
 
-export const getAllUsers = async () => {
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `SELECT * FROM Maintain_Database.users`;
-
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error getting user: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-};
-
-export const deleteUser = async (userObject) => {
-  const { userID } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `DELETE FROM Maintain_Database.users WHERE (userID) = ?`;
-
-      conn.query(sql, [userID], function (err, result) {
-        if (err) {
-          console.error("Error deleting user: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-};
-
 export const getUserByEmail = async (email) => {
   return new Promise((resolve, reject) => {
     try {
@@ -160,33 +119,6 @@ export const verifyUser = async (email) => {
           });
         }
       });
-    } catch (error) {
-      console.error("Error connecting to the database:", error);
-      reject(error);
-    }
-  });
-};
-
-export const insertUser = async (userObject) => {
-  const { email, passwordHash, isVerified } = userObject;
-  // hard coded for now.
-  const maxProperties = 3;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql =
-        "INSERT INTO Maintain_Database.users (email, max_properties, is_verified, password_hash) VALUES (?,?,?,?)";
-      conn.query(
-        sql,
-        [email, maxProperties, passwordHash, isVerified],
-        function (err, result) {
-          if (err) {
-            console.error("Error inserting user:", err);
-            reject(err);
-          } else {
-            resolve(result);
-          }
-        }
-      );
     } catch (error) {
       console.error("Error connecting to the database:", error);
       reject(error);
