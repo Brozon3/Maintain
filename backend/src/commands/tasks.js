@@ -65,49 +65,6 @@ export const callPropertyTaskView = async () => {
   });
 }
 
-export const insertTask = async (userObject) => {
-  const { description, recurring, frequency, completeBy, completedOn } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `INSERT INTO Maintain_Database.tasks 
-      (description, recurring, frequency, completeBy, completedOn) 
-      Values (?, ?, ?, ?, ?)`;
-
-      conn.query(sql, [description, recurring, frequency, completeBy, completedOn], function (err, result) {
-        if (err) {
-          console.error("Error inserting task: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
-export const deleteTask = async (userObject) => {
-  const { taskID } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `DELETE FROM Maintain_Database.tasks WHERE (taskID) = ?`;
-
-      conn.query(sql, [taskID], function (err, result) {
-        if (err) {
-          console.error("Error deleting task: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
 
 export const callUpdateTask = async (entryID) => {
   return new Promise((resolve, reject) => {
@@ -128,23 +85,3 @@ export const callUpdateTask = async (entryID) => {
     }
   });
 }
-
-export const getTasksByIDs = async (taskIDs) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `SELECT * FROM Maintain_Database.tasks WHERE taskID IN (${taskIDs})`;
-
-      conn.query(sql, [taskIDs], function (err, result) {
-        if (err) {
-          console.error("Error getting Tasks: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-};

@@ -28,19 +28,15 @@ export const ApplianceField = ({appliance, i, fetchAppliances}) => {
     const handleOpen = () => setShow(true);
 
     const handleDeleteAppliance = async (applianceID, propertyApplianceID) => {
-        try {
-            await axios.delete(`/api/deleteAppliance`, {
-                data: {
-                    applianceID,
-                    propertyApplianceID
-                }
-            });
-        } catch (error) {
-          console.error("Error deleting property:", error);
-        }
-        handleClose();
+        const response = await axios.delete(`/api/deleteAppliance`, {
+            data: {
+                applianceID,
+                propertyApplianceID
+            }
+        });
         fetchAppliances();
-      };
+        handleClose();
+    };
 
     return(
         <>

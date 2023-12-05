@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { callRemoveProperty } from "../commands/properties.js";
 
 export const deleteUserProperty = {

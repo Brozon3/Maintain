@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import { getPropertyIdsByUser } from "../commands/users.js";
 import { getPropertiesByIDs } from "../commands/properties.js";
 

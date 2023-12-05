@@ -2,12 +2,6 @@ import jwt from "jsonwebtoken";
 import { getUserByEmail } from "../../commands/users.js";
 import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { awsUserPool } from "../../util/awsUserPool.js";
-import { useNavigate } from "react-router";
-
-// const loginFail = () => {
-//   const navigate = useNavigate();
-//   navigate("/EmailOrUsernameLoginFail");
-// };
 
 export const loginRoute = {
   path: "/api/login",

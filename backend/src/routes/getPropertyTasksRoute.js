@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import { getPropertyTasks } from "../commands/properties.js";
 
 export const getPropertyTasksRoute = {

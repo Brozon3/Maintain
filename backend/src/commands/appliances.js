@@ -8,69 +8,6 @@ const conn = mysql.createConnection({
   password: process.env.AWS_RDS_PASSWORD
 })
 
-export const getAllAppliances = async () => {
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = "SELECT * FROM Maintain_Database.appliances";
-
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error getting appliances: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
-export const getAllApplianceTypes = async () => {
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = "SELECT applianceType FROM Maintain_Database.appliances";
-
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error getting appliance types: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
-export const insertAppliance = async (userObject) => {
-  const { type, manufacturer, model, serialNumber, purchaseDate, warrantyLength } = userObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `INSERT INTO Maintain_Database.appliances 
-      (type, manufacturer, model, serialNumber, purchaseDate, warrantyLength) 
-      Values (?, ?, ?, ?, ?, ?)`;
-
-      conn.query(sql, [type, manufacturer, model, serialNumber, purchaseDate, warrantyLength], function (err, result) {
-        if (err) {
-          console.error("Error inserting appliance: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-}
-
 export const callRemoveAppliance = async (applianceID, propertyApplianceID) => {
   return new Promise((resolve, reject) => {
     try {
@@ -101,48 +38,6 @@ export const callRemoveAppliance = async (applianceID, propertyApplianceID) => {
     }
   });
 }
-
-export const associateAppliance = async (applianceObject) => {
-  const { propertyID, applianceID } = applianceObject;
-  return new Promise((resolve, reject) => {
-    try {
-      const sql =
-        "INSERT INTO Maintain_Database.propertyAppliance (propertyID, applianceID) VALUES (?,?)";
-
-      conn.query(sql, [applianceID, propertyID], function (err, result) {
-        if (err) {
-          console.error("Error inserting property appliance association:", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-};
-
-export const getAppliancesByIDs = async (applianceIDs) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const sql = `SELECT * FROM Maintain_Database.appliances WHERE applianceID IN (${applianceIDs})`;
-
-      conn.query(sql, [applianceIDs], function (err, result) {
-        if (err) {
-          console.error("Error getting Appliances: ", err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    } catch (error) {
-      console.error("Error connecting to the database: ", error);
-      reject(error);
-    }
-  });
-};
 
 export const getApplianceTypes = async () => {
   return new Promise((resolve, reject) => {

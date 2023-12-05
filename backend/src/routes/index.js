@@ -7,13 +7,7 @@ import { forgotPasswordRoute } from "./authRoutes/forgotPasswordRoute.js";
 import { getGoogleOauthUrlRoute } from "./authRoutes/getGoogleOauthUrlRoute.js";
 import { googleOauthCallbackRoute } from "./authRoutes/googleOauthCallbackRoute.js";
 import { updateUserInfoRoute } from "./updateUserInfoRoute.js";
-import { getAllFeatures, insertFeatures } from "./featuresAndAppliances.js";
 import { addProperty } from "./addPropertyRoute.js";
-import { getAllUsersRoute } from "./getAllUsersRoute.js";
-import { deleteUserRoute } from "./deleteUserRoute.js";
-import { getAllPropertiesRoute } from "./getAllPropertiesRoute.js";
-import { getAllAppliancesRoute } from "./getAllAppliancesRoute.js";
-import { getAllTasksRoute } from "./getAllTasksRoute.js";
 import { getPropertiesByUser } from "./getPropertiesByUserRoute.js";
 import { deleteUserProperty } from "./deletePropertyRoute.js";
 import { getPropertyByIDRoute } from "./getPropertyByIDRoute.js";
@@ -35,14 +29,7 @@ export const routes = [
   forgotPasswordRoute,
   getGoogleOauthUrlRoute,
   googleOauthCallbackRoute,
-  getAllFeatures,
-  insertFeatures,
   resetPasswordRoute,
-  getAllUsersRoute,
-  deleteUserRoute,
-  getAllPropertiesRoute,
-  getAllAppliancesRoute,
-  getAllTasksRoute,
   getPropertiesByUser,
   oAuthConfig,
   deleteUserProperty,
