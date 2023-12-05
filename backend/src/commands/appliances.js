@@ -5,8 +5,8 @@ dotenv.config();
 const conn = mysql.createConnection({
   host: process.env.AWS_RDS_HOST,
   user: process.env.AWS_RDS_USER,
-  password: process.env.AWS_RDS_PASSWORD
-})
+  password: process.env.AWS_RDS_PASSWORD,
+});
 
 export const getAllAppliances = async () => {
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ export const getAllAppliances = async () => {
       reject(error);
     }
   });
-}
+};
 
 export const getAllApplianceTypes = async () => {
   return new Promise((resolve, reject) => {
@@ -46,45 +46,55 @@ export const getAllApplianceTypes = async () => {
       reject(error);
     }
   });
-}
+};
 
 export const insertAppliance = async (userObject) => {
-  const { type, manufacturer, model, serialNumber, purchaseDate, warrantyLength } = userObject;
+  const {
+    type,
+    manufacturer,
+    model,
+    serialNumber,
+    purchaseDate,
+    warrantyLength,
+  } = userObject;
   return new Promise((resolve, reject) => {
     try {
       const sql = `INSERT INTO Maintain_Database.appliances 
       (type, manufacturer, model, serialNumber, purchaseDate, warrantyLength) 
       Values (?, ?, ?, ?, ?, ?)`;
 
-      conn.query(sql, [type, manufacturer, model, serialNumber, purchaseDate, warrantyLength], function (err, result) {
-        if (err) {
-          console.error("Error inserting appliance: ", err);
-          reject(err);
-        } else {
-          resolve(result);
+      conn.query(
+        sql,
+        [type, manufacturer, model, serialNumber, purchaseDate, warrantyLength],
+        function (err, result) {
+          if (err) {
+            console.error("Error inserting appliance: ", err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
         }
-      });
+      );
     } catch (error) {
       console.error("Error connecting to the database: ", error);
       reject(error);
     }
   });
-}
+};
 
-export const callRemoveAppliance = async (applianceID, propertyApplianceID) => {
+export const callRemoveAppliance = async (propertyApplianceID) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = `CALL Maintain_Database.remove_appliance(?, ?, @message_res)`;
+      const sql = `CALL Maintain_Database.remove_appliance(?, @message_res)`;
 
-      conn.query(sql, [applianceID, propertyApplianceID], function (err, result) {
+      conn.query(sql, [propertyApplianceID], function (err, result) {
         if (err) {
           console.error("Error deleting appliance: ", err);
           reject(err);
         } else {
-          const responseParams =
-            "SELECT @message_res AS message_res";
+          const responseParams = "SELECT @message_res AS message_res";
           conn.query(responseParams, function (err, outputResult) {
-            if (err){
+            if (err) {
               console.error("Error deleting output parameters:", err);
               reject(err);
             } else {
@@ -100,7 +110,7 @@ export const callRemoveAppliance = async (applianceID, propertyApplianceID) => {
       reject(error);
     }
   });
-}
+};
 
 export const associateAppliance = async (applianceObject) => {
   const { propertyID, applianceID } = applianceObject;
@@ -165,15 +175,30 @@ export const getApplianceTypes = async () => {
 };
 
 export const callAddAppliance = async (userID, propertyID, taskObject) => {
-  const { applianceType, manufacturer, model, serialNumber, purchaseDate, warrantyLength } =
-    taskObject;
+  const {
+    applianceType,
+    manufacturer,
+    model,
+    serialNumber,
+    purchaseDate,
+    warrantyLength,
+  } = taskObject;
   return new Promise((resolve, reject) => {
     try {
       const sql =
         "CALL Maintain_Database.add_propertyAppliance(?, ?, ?, ?, ?, ?, ?, ?, @propertyApplianceID_p)";
       conn.query(
         sql,
-        [userID, propertyID, applianceType, serialNumber, purchaseDate, warrantyLength, manufacturer, model],
+        [
+          userID,
+          propertyID,
+          applianceType,
+          serialNumber,
+          purchaseDate,
+          warrantyLength,
+          manufacturer,
+          model,
+        ],
         function (err, result) {
           if (err) {
             console.error("Error adding appliance", err);
@@ -186,7 +211,8 @@ export const callAddAppliance = async (userID, propertyID, taskObject) => {
                 console.error("Error fetching output parameters:", err);
                 reject(err);
               } else {
-                const propertyApplianceID = outputResult[0].propertyApplianceID_p;
+                const propertyApplianceID =
+                  outputResult[0].propertyApplianceID_p;
                 console.log("Output parameters:", propertyApplianceID);
                 resolve({ propertyApplianceID: propertyApplianceID });
               }

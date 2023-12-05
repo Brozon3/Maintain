@@ -15,7 +15,6 @@ BEGIN
 		SET sql_error = TRUE;
         
 	START TRANSACTION;
-
 		DELETE FROM userProperty;
 		DELETE FROM userTaskList;
 		DELETE FROM propertyAppliances;
@@ -91,7 +90,7 @@ BEGIN
 		CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
 		CALL add_default_task("Property walk-through and inspection", "06-30", "1 YEAR");
 		CALL add_default_task("Winter is coming! Time to bring in the patio furniture,", "10-30", "1 YEAR");
-		CALL add_default_task("Inpect fire exthinguishers.", "11-01", "6 MONTH");
+		CALL add_default_task("Inspect fire extinguishers.", "11-01", "6 MONTH");
 
 		-- Dev 1 default properties & appliances
 		SET userID_p = 69;
@@ -148,7 +147,7 @@ BEGIN
 		CALL add_propertyAppliance(userID_p, @propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200", @propertyApplianceID);
 	
 	SET message_res = 'Property Added';
-    -- SELECT "message"; 
+
     IF sql_error = FALSE THEN
 		COMMIT;
         SELECT 'DB Reset';
@@ -161,9 +160,12 @@ END//
 DELIMITER ;
 
 USE Maintain_Database;
+
 CALL reset_users_properties();
-SELECT * FROM userPropertyView;
-SELECT description, dueDate FROM propertyTaskView WHERE propertyID = 309;
+
+
+SELECT * FROM usercomplete_taskPropertyView;
+SELECT description, dueDate FROM propertyTaskView;
 SELECT * FROM defaultTasks;
 CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
 SELECT * FROM tasks;
