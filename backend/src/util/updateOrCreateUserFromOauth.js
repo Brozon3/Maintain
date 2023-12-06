@@ -4,6 +4,7 @@ import {
   insertNewUser,
 } from "../commands/users.js";
 
+//Updates or creates user in the database
 export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
   const { id, verified_email: is_verified, email, name } = oauthUserInfo;
 

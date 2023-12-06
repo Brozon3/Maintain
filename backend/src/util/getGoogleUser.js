@@ -10,5 +10,11 @@ export const getGoogleUser = async ({ code }) => {
     getAccessAndBearerTokenUrl({ accessToken: tokens.access_token }),
     { headers: { Authorization: `Bearer ${tokens.id_token}` } }
   );
-  return response.data;
+  const oauthUserInfo = response.data;
+  return {
+    oauthUserInfo: oauthUserInfo,
+    access_token: tokens.access_token,
+    id_token: tokens.idToken,
+    refresh_token: tokens.refresh_token,
+  };
 };
