@@ -21,7 +21,6 @@ BEGIN
 	DELETE FROM propertyTasks WHERE propertyID = propertyID_p;
 	DELETE FROM userTaskList WHERE propertyID = propertyID_p;
 	DELETE FROM propertyAppliances WHERE propertyID = propertyID_p;
-    DELETE FROM properties WHERE propertyID = propertyID_p;
     
     IF sql_error = FALSE THEN
 		COMMIT;
@@ -37,15 +36,22 @@ END//
 
 DELIMITER ;
 
-SET @ID = 363;
+SELECT * FROM properties;
+SET @ID = 365;
 SELECT * FROM properties WHERE propertyID = @ID;
+
 DELETE FROM userProperty WHERE propertyID = @ID;
 DELETE FROM propertyFeatures WHERE propertyID = @ID;
 DELETE FROM propertyTasks WHERE propertyID = @ID;
 DELETE FROM userTaskList WHERE propertyID = @ID;
+
 DELETE FROM propertyAppliances WHERE propertyID = @ID;
+
 DELETE FROM properties WHERE propertyID = @ID;
 
+SELECT * FROM properties WHERE propertyID = @ID;
+
+Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (`Maintain_Database`.`taskLog`, CONSTRAINT `propertyID_fk02` FOREIGN KEY (`propertyID`) REFERENCES `properties` (`propertyID`))
 
 CALL remove_property(@ID, @message_res);
 
