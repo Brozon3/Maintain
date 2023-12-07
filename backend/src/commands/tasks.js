@@ -9,15 +9,15 @@ const conn = mysql.createConnection({
 })
 
 export const callAddTask = async (userID, propertyID, taskObject) => {
-  const { description, frequency, dueDate, featureType, applianceType } =
+  const { description, dueDate, defaultDate, frequency, featureType, applianceType, propertyApplianceID, propertyFeatureID, eventID } =
     taskObject;
   return new Promise((resolve, reject) => {
     try {
       const sql =
-        "CALL Maintain_Database.add_task(?, ?, ?, ?, ?, ?, ?, @message_res)";
+        "CALL Maintain_Database.add_task(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @message_res)";
       conn.query(
         sql,
-        [description, dueDate, userID, frequency, featureType, applianceType, propertyID],
+        [description, dueDate, userID, defaultDate, frequency, featureType, applianceType, propertyID, propertyApplianceID, propertyFeatureID, eventID],
         function (err, result) {
           if (err) {
             console.error("Error adding task", err);

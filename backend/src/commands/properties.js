@@ -138,6 +138,26 @@ export const getPropertyAppliances = async (propertyID) => {
   });
 };
 
+export const getPropertyFeatures = async (propertyID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const sql = `SELECT * FROM Maintain_Database.featureView WHERE 
+      propertyID = ?`;
+      conn.query(sql, [propertyID], function (err, result) {
+        if (err) {
+          console.error("Error getting Property Features: ", err);
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    } catch (error) {
+      console.error("Error connecting to the database: ", error);
+      reject(error);
+    }
+  });
+};
+
 export const getPropertyTasks = async (propertyID) => {
   return new Promise((resolve, reject) => {
     try {

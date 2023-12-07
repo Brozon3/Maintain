@@ -16,9 +16,9 @@ import { getPropertyAppliancesRoute } from "./getPropertyAppliancesRoute.js";
 import { addTask } from "./addTaskRoute.js";
 import { getApplianceTypesRoute } from "./getApplianceTypesRoute.js";
 import { addApplianceRoute } from "./addApplianceRoute.js";
-import { getFeatureTypesRoute } from "./getFeatureTypesRoute.js";
 import { updateTaskRoute } from "./updateTaskRoute.js";
 import { deleteApplianceRoute } from "./deleteApplianceRoute.js";
+import { getPropertyFeaturesRoute } from "./getPropertyFeaturesRoute.js"
 
 export const routes = [
   addProperty,
@@ -39,7 +39,7 @@ export const routes = [
   addTask,
   getApplianceTypesRoute,
   addApplianceRoute,
-  getFeatureTypesRoute,
   updateTaskRoute,
-  deleteApplianceRoute
+  deleteApplianceRoute,
+  getPropertyFeaturesRoute
 ];

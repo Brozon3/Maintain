@@ -34,8 +34,8 @@ export const ApplianceField = ({appliance, i, fetchAppliances}) => {
                 propertyApplianceID
             }
         });
-        fetchAppliances();
         handleClose();
+        fetchAppliances();
     };
 
     return(

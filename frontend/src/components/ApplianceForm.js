@@ -26,14 +26,13 @@ export const ApplianceForm = ({ fetchAppliances }) => {
     const handleOpen = () => setShow(true);
 
     const onSubmit = async (data) => {
-        console.log(data);
         const response = await axios.post("/api/addAppliance", {
             user: user,
             propertyID: propertyID,
             data: data
         })
-        fetchAppliances();
         handleClose();
+        fetchAppliances();
         reset();
     }
 

@@ -5,13 +5,11 @@ export const deleteApplianceRoute = {
   method: "delete",
   handler: async (req, res) => {
     const { applianceID, propertyApplianceID } = req.body;
-    
-    console.log(applianceID, propertyApplianceID);
 
     const response = await callRemoveAppliance(applianceID, propertyApplianceID);
 
     console.log(response);
 
-    //res.status(200).json({ message: "All good."});
+    res.status(200).json({ message: "All good."});
   },
 };

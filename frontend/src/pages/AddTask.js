@@ -4,18 +4,20 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { UseUser } from "../auth/useUser";
-import { useToken } from "../auth/useToken";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { Modal } from "react-bootstrap";
-import { ApplianceTypeSelect } from "../components/ApplianceTypeSelect";
-import { FeatureTypeSelect } from "../components/FeatureTypeSelect";
+import { ApplianceSelect } from "../components/ApplianceSelect";
+import { FeatureSelect } from "../components/FeatureSelect";
 
 export const AddTask = () => {
 
   const user = UseUser();
-  const [token, setToken] = useToken();
-  const { id, email, isVerified } = user;
+  //const [token, setToken] = useToken();
+  //const { id, email, isVerified } = user;
+  const [taskChoice, setTaskChoice] = useState("");
+  const [appliancesVisibile, setAppliancesVisible] = useState(false);
+  const [featuresVisibile, setFeaturesVisible] = useState(false);
   const [message, setMessage] = useState("");
   const [addedOrExists, setAddedOrExists] = useState("");
 
@@ -28,6 +30,19 @@ export const AddTask = () => {
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
+
+  useEffect(() => {
+    if (taskChoice === "Appliance"){
+      setAppliancesVisible(true);
+      setFeaturesVisible(false);
+    } else if (taskChoice === "Feature"){
+      setFeaturesVisible(true);
+      setAppliancesVisible(false);
+    } else {
+      setAppliancesVisible(false);
+      setFeaturesVisible(false);
+    }
+  }, [taskChoice])
 
   const onSubmit = async (data) => {
     const response = await axios.post("/api/addTask", {
@@ -79,9 +94,29 @@ export const AddTask = () => {
           </Form.Select>
         </Form.Group>
 
-        <ApplianceTypeSelect register={register}/>
+        <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="featureType">
+                Associate task with:{" "}
+            </Form.Label>
+            <Form.Select
+                id="featureType"
+                {...register("featureType", { 
+                  required: true,
+                  onChange: (e) =>
+                    setTaskChoice(
+                      e.target.options[e.target.selectedIndex].text
+                    )
+                })}
+            >
+                <option value={""}>--</option>
+                <option value={"Appliance"}>Appliance</option>
+                <option value={"Feature"}>Feature</option>
+            </Form.Select>
+        </Form.Group>
 
-        <FeatureTypeSelect register={register}/>
+        {appliancesVisibile && <ApplianceSelect register={register}/>}
+
+        {featuresVisibile && <FeatureSelect register={register}/>}
 
         <Form.Group className="mb-3">
           <Form.Label className="blue-text" htmlFor="dueDate">
@@ -93,14 +128,6 @@ export const AddTask = () => {
             {...register("dueDate", { required: true })}
           />
         </Form.Group>
-
-        <Form.Check 
-          className="mb-3"
-          type="switch"
-          id="allProperties"
-          label="Add task to all properties"
-          {...register("allProperties")}
-        />
 
         <hr></hr>
 

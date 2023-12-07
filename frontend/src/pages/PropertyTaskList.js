@@ -13,6 +13,7 @@ export const PropertyTaskList = () => {
 
   const [property, setProperty] = useState({});
   const [tasks, setTasks] = useState([]);
+  
 
     useEffect (() => {
         const fetchProperty = async () => {
@@ -38,7 +39,7 @@ export const PropertyTaskList = () => {
     
     useEffect (() => {
         fetchTasks();
-    }, [tasks]);
+    }, []);
 
     const navigate = useNavigate();
     const addTask = () => navigate('/addTask/' + propertyID);
@@ -59,7 +60,7 @@ export const PropertyTaskList = () => {
                                     <SwitchModal task={task} fetchTasks={() => fetchTasks()} key={"out" + i} i={i} color={"red"}/>
                                 )
                             } else {
-                                return(null)
+                                return (null);
                             }
                         })}
                     </Form>

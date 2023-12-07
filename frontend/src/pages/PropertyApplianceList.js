@@ -28,7 +28,6 @@ export const PropertyApplianceList = () => {
 
     const fetchAppliances = async () => {
         const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
-        console.log(result.data.getAppliances);
         if (result.data.getAppliances) {
             setAppliances(result.data.getAppliances);
         } else {

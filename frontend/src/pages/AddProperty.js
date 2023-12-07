@@ -9,6 +9,7 @@ import { useToken } from "../auth/useToken";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Modal } from "react-bootstrap";
+import { ExteriorField } from "../components/ExteriorField";
 
 export const AddProperty = () => {
   const user = UseUser();
@@ -22,6 +23,7 @@ export const AddProperty = () => {
 
   const [propertyType, setPropertyType] = useState("");
   const [roofFieldVisibile, setRoofFieldVisibile] = useState(false);
+  const [exteriorFieldVisibile, setExteriorFieldVisibile] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -29,9 +31,11 @@ export const AddProperty = () => {
 
   useEffect(() => {
     if (propertyType === "Cabin" || propertyType === "Home") {
+      setExteriorFieldVisibile(true);
       setRoofFieldVisibile(true);
     } else {
       setRoofFieldVisibile(false);
+      setExteriorFieldVisibile(false);
     }
   }, [propertyType]);
 
@@ -111,7 +115,7 @@ export const AddProperty = () => {
                 onChange: (e) =>
                   setPropertyType(
                     e.target.options[e.target.selectedIndex].text
-                  ),
+                  )
               })}
             >
               <option value={"Apartment"}>Apartment</option>
@@ -138,16 +142,6 @@ export const AddProperty = () => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="pets">
-              Pets:{" "}
-            </Form.Label>
-            <Form.Select id="pets" defaultValue={"No"} {...register("pets", { required: true })}>
-              <option value={"No"}>No</option>
-              <option value={"Yes"}>Yes</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group className="mb-3">
             <Form.Label className="blue-text" htmlFor="heating">
               Heating Type:{" "}
             </Form.Label>
@@ -160,6 +154,8 @@ export const AddProperty = () => {
               <option value={"heating_oil"}>Oil</option>
             </Form.Select>
           </Form.Group>
+
+          {exteriorFieldVisibile && <ExteriorField register={register} />}
 
           <hr></hr>
 

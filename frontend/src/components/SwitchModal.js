@@ -14,7 +14,6 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
     const handleOpen = () => setShow(true);
 
     const saveTask = async (entryID) => {
-        console.log(entryID);
         const response = await axios.post("/api/updateTask", {
             entryID: entryID
         });
