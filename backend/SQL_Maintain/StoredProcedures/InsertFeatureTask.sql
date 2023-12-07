@@ -20,7 +20,7 @@ BEGIN
     
     SET propertyFeaturesID_p = LAST_INSERT_ID();
 
-    INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
+    INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID, eventID)
         SELECT
             userID_p as userID,
             propertyID_p as propertyID,
@@ -36,7 +36,8 @@ BEGIN
 				ELSE NOW()
 			END AS dueDate,
 			propertyFeaturesID_p,
-            NULL AS propertyApplianceID
+            NULL AS propertyApplianceID,
+            NULL AS eventID
         FROM featureTask ft JOIN tasks t USING(taskID)
         WHERE featureID = addFeatureID;
 

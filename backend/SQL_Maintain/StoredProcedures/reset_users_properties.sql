@@ -68,24 +68,24 @@ BEGIN
 		-- Create feature and appliance tasks
 		-- description, dueDate, userID, defaultDate, frequency, featureType, applianceType, propertyID, propretyApplianceID, propertyFeatureID, @message_res
 
-		CALL add_task('Service the snowblower for winter.', NULL, NULL, '09-30', "1 YEAR", NULL, "snowblower", NULL, NULL, NULL, @message_res);
-		CALL add_task("Time to clean the dryer vent again.", NULL, NULL, '05-31', "1 YEAR", NULL, "clothes dryer", NULL, NULL, NULL,@message_res);
-		CALL add_task("Time to clean the oven", NULL, NULL, NULL, "1 MONTH", NULL, "oven", NULL, NULL, NULL, @message_res);
-		CALL add_task("Inspect and clean indoor unit's air filter.", NULL, NULL, NULL, "1 MONTH", NULL, "mini split", NULL, NULL, NULL,@message_res);
-		CALL add_task("Clean the dishwasher filter.", NULL, NULL, NULL, "1 MONTH", NULL, "dishwasher", NULL, NULL, NULL,@message_res);
-		CALL add_task("Clean or replace your air filters", NULL, NULL, NULL, "3 MONTH", NULL, "air conditioner", NULL, NULL, NULL,@message_res);
-		CALL add_task("Defrost the freezer", NULL, NULL, "05-31", "1 YEAR", NULL, "freezer", NULL,NULL, NULL, @message_res);
-		CALL add_task("Inspect and clean fridge coils.", NULL, NULL, NULL, "1 MONTH", NULL, "refrigerator", NULL, NULL, NULL,@message_res);
-		CALL add_task("Inspect stovepipe and flue before fall.", NULL, NULL, '09-30', "1 YEAR", NULL, "woodstove", NULL, NULL, NULL,@message_res);
-		CALL add_task("Drain the tank and wash out sediment.", NULL, NULL, '05-31', "1 YEAR", NULL, "water heater", NULL, NULL, NULL,@message_res);
-		CALL add_task("Clean  the trash compactor.", NULL, NULL, NULL, "1 MONTH", NULL, "trash compactor", NULL, NULL, NULL,@message_res);
-		CALL add_task("Deep clean the microwave", NULL, NULL, NULL, "6 MONTH", NULL, "microwave oven", NULL, NULL, NULL,@message_res);
-		CALL add_task("Check the oil and sparkplugs.", NULL, NULL, '03-31', "1 YEAR", NULL, "lawnmower", NULL,NULL, NULL, @message_res);
-		CALL add_task("No real regular maintenance, just keep it clean.", NULL, NULL, NULL, "1 MONTH", NULL, "air fryer", NULL, NULL, NULL,@message_res);
-		CALL add_task("Empty the bag/dump debris.", NULL, NULL, NULL, "1 MONTH", NULL, "vacuum cleaner", NULL, NULL, NULL,@message_res);
-		CALL add_task("Contact your provider for annual maintenance", NULL, NULL, '09-30', "1 YEAR", NULL, "oil furnace", NULL, NULL, NULL,@message_res);
-		CALL add_task("Clean the gutters and check the shingles", NULL, NULL, '06-30', "1 YEAR", "roof_shingles", NULL, NULL, NULL, NULL, @message_res);
-		CALL add_task("Clean the gutters.", NULL, NULL,'06-30', "1 YEAR", "roof_metal", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task('Service the snowblower for winter.', NULL, NULL, '09-30', "1 YEAR", NULL, "snowblower", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Time to clean the dryer vent again.", NULL, NULL, '05-31', "1 YEAR", NULL, "clothes dryer", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Time to clean the oven", NULL, NULL, NULL, "1 MONTH", NULL, "oven", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Inspect and clean indoor unit's air filter.", NULL, NULL, NULL, "1 MONTH", NULL, "mini split", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Clean the dishwasher filter.", NULL, NULL, NULL, "1 MONTH", NULL, "dishwasher", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Clean or replace your air filters", NULL, NULL, NULL, "3 MONTH", NULL, "air conditioner", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Defrost the freezer", NULL, NULL, "05-31", "1 YEAR", NULL, "freezer", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Inspect and clean fridge coils.", NULL, NULL, NULL, "1 MONTH", NULL, "refrigerator", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Inspect stovepipe and flue before fall.", NULL, NULL, '09-30', "1 YEAR", NULL, "woodstove", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Drain the tank and wash out sediment.", NULL, NULL, '05-31', "1 YEAR", NULL, "water heater", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Clean  the trash compactor.", NULL, NULL, NULL, "1 MONTH", NULL, "trash compactor", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Deep clean the microwave", NULL, NULL, NULL, "6 MONTH", NULL, "microwave oven", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Check the oil and sparkplugs.", NULL, NULL, '03-31', "1 YEAR", NULL, "lawnmower", NULL,NULL, NULL, NULL, @message_res);
+		CALL add_task("No real regular maintenance, just keep it clean.", NULL, NULL, NULL, "1 MONTH", NULL, "air fryer", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Empty the bag/dump debris.", NULL, NULL, NULL, "1 MONTH", NULL, "vacuum cleaner", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Contact your provider for annual maintenance", NULL, NULL, '09-30', "1 YEAR", NULL, "oil furnace", NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Clean the gutters and check the shingles", NULL, NULL, '06-30', "1 YEAR", "roof_shingles", NULL, NULL, NULL, NULL, NULL, @message_res);
+		CALL add_task("Clean the gutters.", NULL, NULL,'06-30', "1 YEAR", "roof_metal", NULL, NULL, NULL, NULL, NULL, @message_res);
 		
 		-- Create default tasks added to all new properties
 		CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
