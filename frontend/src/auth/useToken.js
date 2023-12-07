@@ -10,13 +10,11 @@ export const useToken = () => {
       }
     }
     return null;
-    // return localStorage.getItem("token");
   });
 
   const setToken = (newToken) => {
-    // localStorage.setItem("token", newToken);
     const secureCookie = true;
-    // Currently stopping login process. Investigate and make true
+    // Make true in future.
     const httpOnlyCookie = false;
 
     const cookieOptions = `path=/;${secureCookie ? "secure;" : ""}${
