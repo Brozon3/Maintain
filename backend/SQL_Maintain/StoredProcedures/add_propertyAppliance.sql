@@ -37,7 +37,7 @@ BEGIN
 	SET propertyApplianceID_p = LAST_INSERT_ID();
      
     -- Add appliance tasks to usertasklist
-	INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
+	INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID, eventID)
 		SELECT
 				userID_p as userID,
 				propertyID_p as propertyID,
@@ -53,7 +53,8 @@ BEGIN
 					ELSE CURDATE()
 					END AS dueDate,
                 NULL,
-                propertyApplianceID_p
+                propertyApplianceID_p,
+                NULL
 			FROM applianceTasks JOIN tasks t USING(taskID) WHERE applianceID = applianceID_p;
             
 END//

@@ -14,6 +14,7 @@ IN applianceType_p			VARCHAR(45),
 IN propertyID_p				INT,
 IN propertyApplianceID_p	INT,
 IN propertyFeatureID_p		INT,
+IN eventID_p				VARCHAR(45),
 OUT message_res 			VARCHAR(255))
 BEGIN
 	DECLARE rowsAffected 	INT;
@@ -70,8 +71,8 @@ BEGIN
 		INSERT INTO propertyTasks (propertyID, taskID) VALUES (propertyID_p, taskID_p);
 		SET message_res = CONCAT(message_res, "property task added");
 	ELSEIF userID_p IS NOT NULL THEN
-		INSERT INTO userTaskList (userID, propertyID, taskID, propertyFeatureID, propertyApplianceID, dueDate) VALUES
-        (userID_p, propertyID_p, taskID_p, propertyFeatureID_p, propertyApplianceID_p, dueDate_p);
+		INSERT INTO userTaskList (userID, propertyID, taskID, propertyFeatureID, propertyApplianceID, dueDate, eventID) VALUES
+        (userID_p, propertyID_p, taskID_p, propertyFeatureID_p, propertyApplianceID_p, dueDate_p, eventID_p);
         SET message_res = CONCAT(message_res, "item added to user task list.");
 		
 	END IF;
