@@ -4,7 +4,7 @@ DROP procedure IF EXISTS remove_property;
 DELIMITER //
 
 CREATE PROCEDURE remove_property (
-IN propertyID_param	INT,
+IN propertyID_p	INT,
 OUT message_res VARCHAR(45)
 )
 	
@@ -16,10 +16,12 @@ BEGIN
 		SET sql_error = TRUE;
         
 	START TRANSACTION;
-	DELETE FROM userProperty WHERE propertyID = propertyID_param;
-    DELETE FROM propertyFeatures WHERE propertyID = propertyID_param;
-    DELETE FROM propertyAppliances WHERE propertyID = propertyID_param;
-    DELETE FROM propertyTasks WHERE propertyID = propertyID_param;
+	DELETE FROM userProperty WHERE propertyID = propertyID_p;
+	DELETE FROM propertyFeatures WHERE propertyID = propertyID_p;
+	DELETE FROM propertyTasks WHERE propertyID = propertyID_p;
+	DELETE FROM userTaskList WHERE propertyID = propertyID_p;
+	DELETE FROM propertyAppliances WHERE propertyID = propertyID_p;
+    DELETE FROM properties WHERE propertyID = propertyID_p;
     
     IF sql_error = FALSE THEN
 		COMMIT;
@@ -34,4 +36,16 @@ BEGIN
 END//
 
 DELIMITER ;
+
+SET @ID = 363;
+SELECT * FROM properties WHERE propertyID = @ID;
+DELETE FROM userProperty WHERE propertyID = @ID;
+DELETE FROM propertyFeatures WHERE propertyID = @ID;
+DELETE FROM propertyTasks WHERE propertyID = @ID;
+DELETE FROM userTaskList WHERE propertyID = @ID;
+DELETE FROM propertyAppliances WHERE propertyID = @ID;
+DELETE FROM properties WHERE propertyID = @ID;
+
+
+CALL remove_property(@ID, @message_res);
 

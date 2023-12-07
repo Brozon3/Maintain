@@ -17,7 +17,7 @@ SELECT
 	pa.serialNumber as serialNumber,
 	f.featureType as featureType,    
 	utl.dueDate AS dueDate,
-    utl.eventIDas eventID
+    utl.eventID AS eventID
 FROM
 	tasks t
 	JOIN userTaskList utl ON(t.taskID = utl.taskID)
