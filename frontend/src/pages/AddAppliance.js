@@ -22,6 +22,7 @@ export const ApplianceForm = ({ fetchAppliances }) => {
     const handleOpen = () => setShow(true);
 
     const onSubmit = async (data) => {
+        console.log(data);
         const response = await axios.post("/api/addAppliance", {
             user: user,
             propertyID: propertyID,
@@ -39,7 +40,7 @@ export const ApplianceForm = ({ fetchAppliances }) => {
                 className="container w-50 justify-content-center"
                 >
                 
-                <ApplianceTypeSelect type={"no_label"} register={register}/>
+                <ApplianceTypeSelect register={register}/>
 
                 <Form.Group className="mb-3">
                     <Form.Label className="blue-text" htmlFor="manufacturer">
@@ -101,7 +102,7 @@ export const ApplianceForm = ({ fetchAppliances }) => {
                         {...register("warrantyLength", { required: true })}
                     />
                 </Form.Group>
-
+                <hr></hr>
 
                 <Button className="green-button" onClick={handleOpen}>
                     Add Appliance
@@ -124,7 +125,7 @@ export const ApplianceForm = ({ fetchAppliances }) => {
                     <Button className="blue-button" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button className="green-button" onClick={handleSubmit}>
+                    <Button className="green-button" onClick={handleSubmit(onSubmit)}>
                         Add Appliance
                     </Button>
                 </Modal.Footer>

@@ -140,16 +140,17 @@ export const AddTask = () => {
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="blue-text">
-            Property {addedOrExists}{" "}
+            Add Task
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="blue-text">{message}</Modal.Body>
+          <Modal.Body className="blue-text">
+            Are you sure you want to add this task?
+          </Modal.Body>
         <Modal.Footer>
           <Button
             className="blue-button"
-            onClick={() => navigate("/displayProperties")}
           >
-            View Properties
+            Cancel
           </Button>
           <Button className="green-button" onClick={handleClose}>
             Add Another Property

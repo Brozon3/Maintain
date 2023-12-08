@@ -35,21 +35,21 @@ export const ViewProperty = () => {
                 <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
                 <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
 
-                <Accordion className="green-border">
+                <Accordion className="green-border p-3">
                     <Accordion.Item eventKey="0">
-                        <Accordion.Header className="blue-text">Property Features</Accordion.Header>
+                        <Accordion.Header className="blue-text">Features</Accordion.Header>
                         <Accordion.Body>
                         
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="1">
-                        <Accordion.Header className="blue-text">Property Appliances</Accordion.Header>
+                        <Accordion.Header className="blue-text">Appliances</Accordion.Header>
                         <Accordion.Body>
                             <PropertyApplianceList />
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="2">
-                        <Accordion.Header className="blue-text">Property Tasks</Accordion.Header>
+                        <Accordion.Header className="blue-text">Tasks</Accordion.Header>
                         <Accordion.Body>
                             <PropertyTaskList />
                         </Accordion.Body>
