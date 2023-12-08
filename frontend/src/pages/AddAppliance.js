@@ -28,7 +28,6 @@ export const ApplianceForm = ({ fetchAppliances }) => {
             data: data
         })
         handleClose();
-        fetchAppliances();
         reset();
     }
 
@@ -37,7 +36,6 @@ export const ApplianceForm = ({ fetchAppliances }) => {
             <Container className="container main">
                 <h1 className="mb-3 p-3 blue-header">Add an Appliance</h1>
                 <Form
-                onSubmit={handleSubmit(onSubmit)}
                 className="container w-50 justify-content-center"
                 >
                 

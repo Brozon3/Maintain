@@ -59,6 +59,7 @@ export const ViewProperty = () => {
                 </Accordion>
                 <br></br>
                 <br></br>
+                <br></br>
 
 
             </Container>
