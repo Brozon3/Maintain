@@ -42,8 +42,17 @@ export const callInsertEventID = async (entryID, eventID) => {
 };
 
 export const callAddTask = async (userID, propertyID, taskObject) => {
-  const { description, dueDate, defaultDate, frequency, featureType, applianceType, propertyApplianceID, propertyFeatureID, eventID } =
-    taskObject;
+  const {
+    description,
+    dueDate,
+    defaultDate,
+    frequency,
+    featureType,
+    applianceType,
+    propertyApplianceID,
+    propertyFeaturesID,
+    eventID,
+  } = taskObject;
   return new Promise((resolve, reject) => {
     try {
       const sql =
@@ -60,8 +69,8 @@ export const callAddTask = async (userID, propertyID, taskObject) => {
           applianceType,
           propertyID,
           propertyApplianceID,
-          propertyFeatureID,
-          eventID
+          propertyFeaturesID,
+          eventID,
         ],
         function (err, result) {
           if (err) {
