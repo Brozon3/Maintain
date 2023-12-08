@@ -52,7 +52,7 @@ export const ApplianceField = ({ appliance, i, fetchAppliances }) => {
         </Col>
         <Col lg={1}>
           <Button className="blue-button" onClick={handleOpen}>
-            -
+            Delete
           </Button>
         </Col>
       </Row>
