@@ -5,6 +5,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken";
 import { FcGoogle } from "react-icons/fc";
+import { EmailOrUsernameLoginFail } from "./EmailOrUsernameLoginFailModal";
 
 export const LoginPage = ({ loggedIn, setLoggedIn }) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,6 +13,7 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+  const [loginFailShow, setLoginFailShow] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
   const oauthToken = urlParams.get("token");
@@ -51,7 +53,8 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
       navigate("/displayProperties");
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        navigate("/EmailOrUsernameLoginFail");
+        // navigate("/EmailOrUsernameLoginFail");
+        setLoginFailShow(true);
       } else {
         console.error("Login error:", error);
       }
@@ -59,66 +62,72 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
   };
 
   return (
-    <Container className="container main">
-      <h1 className="mb-3 p-3 blue-header ">Login</h1>
-      <Form className="container w-50 justify-content-center">
-        {errorMessage && <div className="fail">{errorMessage}</div>}
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="email">
-            Your Email Address:{" "}
-          </Form.Label>
-          <Form.Control
-            id="email"
-            placeholder="email@example.com"
-            value={emailValue}
-            onChange={(e) => setEmailValue(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="password">
-            Password:{" "}
-          </Form.Label>
-          <Form.Control
-            id="password"
-            type="password"
-            placeholder="password"
-            value={passwordValue}
-            onChange={(e) => setPasswordValue(e.target.value)}
-          />
-        </Form.Group>
-        <hr></hr>
-        <Button
-          disabled={!emailValue || !passwordValue}
-          className="green-button mx-3"
-          onClick={onLoginClicked}
-        >
-          Log In
-        </Button>
-        <Button
-          className="green-button mx-3"
-          onClick={() => navigate("/signUpPage")}
-        >
-          Sign Up
-        </Button>
-        <Button
-          className="green-button mx-3"
-          onClick={() => navigate("/forgotPassword")}
-        >
-          Forgot Password?
-        </Button>
+    <>
+      <Container className="container main">
+        <h1 className="mb-3 p-3 blue-header ">Login</h1>
+        <Form className="container w-50 justify-content-center">
+          {errorMessage && <div className="fail">{errorMessage}</div>}
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="email">
+              Your Email Address:{" "}
+            </Form.Label>
+            <Form.Control
+              id="email"
+              placeholder="email@example.com"
+              value={emailValue}
+              onChange={(e) => setEmailValue(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="password">
+              Password:{" "}
+            </Form.Label>
+            <Form.Control
+              id="password"
+              type="password"
+              placeholder="password"
+              value={passwordValue}
+              onChange={(e) => setPasswordValue(e.target.value)}
+            />
+          </Form.Group>
+          <hr></hr>
+          <Button
+            disabled={!emailValue || !passwordValue}
+            className="green-button mx-3"
+            onClick={onLoginClicked}
+          >
+            Log In
+          </Button>
+          <Button
+            className="green-button mx-3"
+            onClick={() => navigate("/signUpPage")}
+          >
+            Sign Up
+          </Button>
+          <Button
+            className="green-button mx-3"
+            onClick={() => navigate("/forgotPassword")}
+          >
+            Forgot Password?
+          </Button>
 
-        <Button
-          className="google-sign-in-button m-3"
-          variant="custom"
-          disabled={!googleOauthUrl}
-          onClick={() => {
-            window.location.href = googleOauthUrl;
-          }}
-        >
-          <FcGoogle className="google-icon" />
-          Log in with Google
-        </Button>
-      </Form>
-    </Container>
+          <Button
+            className="google-sign-in-button m-3"
+            variant="custom"
+            disabled={!googleOauthUrl}
+            onClick={() => {
+              window.location.href = googleOauthUrl;
+            }}
+          >
+            <FcGoogle className="google-icon" />
+            Log in with Google
+          </Button>
+        </Form>
+      </Container>
+      <EmailOrUsernameLoginFail
+        show={loginFailShow}
+        setShow={setLoginFailShow}
+      />
+    </>
   );
 };
