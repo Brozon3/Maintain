@@ -6,9 +6,10 @@ export const EmailOrUsernameLoginFail = ({ show, setShow }) => {
   const handleOpen = () => setShow(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       handleClose();
     }, 3000);
+    return () => clearTimeout(timeout);
   }, [handleClose]);
 
   return (
