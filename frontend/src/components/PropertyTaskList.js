@@ -55,7 +55,7 @@ export const PropertyTaskList = () => {
                     }
                 })}
             </Form>
-            <Button className="my-3 green-button non-card-button" type="submit" onClick={addTask}>
+            <Button className="my-3 green-button" type="submit" onClick={addTask}>
                 Add Custom Task 
             </Button>
         </>
