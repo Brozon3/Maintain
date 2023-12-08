@@ -3,12 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DisplayProperties } from "./pages/ViewProperties";
 import { Footer } from "./components/Footer";
 import { AddProperty } from "./pages/AddProperty";
-import { PropertyApplianceList } from "./pages/PropertyApplianceList";
-import { PropertyTaskList } from "./pages/PropertyTaskList";
 import "./index.css";
 import { AddTask } from "./pages/AddTask";
-import { useEffect, useState } from "react";
-import data from "./data/dummyProperties.json";
+import { useState } from "react";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { PleaseVerifyEmailPage } from "./pages/auth/PleaseVerifyEmailPage";
@@ -20,14 +17,12 @@ import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePag
 import { EmailOrUsernameLoginFail } from "./pages/auth/EmailOrUsernameLoginFail";
 import { UsernameExistsSignUpFail } from "./pages/auth/UsernameExistsSignUpFail";
 import { PasswordRequirements } from "./auth/PasswordRequirements";
-import axios from "axios";
+import { ViewProperty } from "./pages/ViewProperty";
+import { ApplianceForm } from "./pages/AddAppliance";
 
 export function App() {
   const [user] = useState(null);
-
-  const [properties, setProperties] = useState(data);
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {}, [user, properties]);
 
   return (
     <BrowserRouter>
@@ -60,23 +55,24 @@ export function App() {
           <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
           <Route
             path="/displayProperties"
-            element={<DisplayProperties properties={properties} />}
+            element={<DisplayProperties/>}
           />
           <Route
             path="/addProperty"
-            element={<AddProperty properties={properties} />}
+            element={<AddProperty />}
           />
           <Route
-            path="/applianceList/:propertyID"
-            element={<PropertyApplianceList properties={properties} />}
+            path="/addAppliance/:propertyID"
+            element={<ApplianceForm />}
           />
+
           <Route
-            path="/taskList/:propertyID"
-            element={<PropertyTaskList properties={properties} />}
+            path="/viewproperty/:propertyID"
+            element={<ViewProperty />}
           />
           <Route
             path="/addTask/:propertyID"
-            element={<AddTask properties={properties} />}
+            element={<AddTask />}
           />
           <Route path="/pleaseVerify" element={<PleaseVerifyEmailPage />} />
         </Route>

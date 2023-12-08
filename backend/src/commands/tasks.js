@@ -54,10 +54,14 @@ export const callAddTask = async (userID, propertyID, taskObject) => {
           description,
           dueDate,
           userID,
+          defaultDate,
           frequency,
           featureType,
           applianceType,
           propertyID,
+          propertyApplianceID,
+          propertyFeatureID,
+          eventID
         ],
         function (err, result) {
           if (err) {

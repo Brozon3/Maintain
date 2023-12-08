@@ -8,7 +8,7 @@ export const PropertyCard = ({ property, onDelete }) => {
   const handleOpen = () => setShow(true);
 
   const navigate = useNavigate();
-  const viewProperty = (id) => navigate("/taskList/" + id);
+  const viewProperty = (id) => navigate("/viewproperty/" + id);
 
   const [show, setShow] = useState(false);
 

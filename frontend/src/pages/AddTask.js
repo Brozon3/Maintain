@@ -95,12 +95,12 @@ export const AddTask = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="featureType">
+            <Form.Label className="blue-text" htmlFor="choice">
                 Associate task with:{" "}
             </Form.Label>
             <Form.Select
-                id="featureType"
-                {...register("featureType", { 
+                id="choice"
+                {...register("choice", { 
                   required: true,
                   onChange: (e) =>
                     setTaskChoice(

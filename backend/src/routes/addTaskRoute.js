@@ -1,3 +1,4 @@
+import { populate } from "dotenv";
 import { callAddTask } from "../commands/tasks.js";
 
 export const addTask = {
@@ -5,6 +6,8 @@ export const addTask = {
     method: "post",
     handler: async (req, res) => {
         const { user, propertyID, data } = req.body;
+
+        console.log(user, propertyID, data);
 
         const taskResult = await callAddTask(user.userID, propertyID, data);
 

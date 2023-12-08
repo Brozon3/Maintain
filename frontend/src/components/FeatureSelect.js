@@ -27,12 +27,12 @@ export const FeatureSelect = ({ register }) => {
 
     return(
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="feature">
+          <Form.Label className="blue-text" htmlFor="propertyFeatureID">
             Feature:{" "}
           </Form.Label>
           <Form.Select
-            id="feature"
-            {...register("feature", { required: true })}
+            id="propertyFeatureID"
+            {...register("propertyFeatureID", { required: true })}
           >
             {features.map((feature, i) => {
               return(

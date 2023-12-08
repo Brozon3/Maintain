@@ -1,30 +1,18 @@
 import React, {useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import { PropertyDoubleButton } from "../components/PropertyDoubleButton";
 import { useParams } from "react-router";
-import { ApplianceForm } from "../components/ApplianceForm";
-import { ApplianceField } from "../components/ApplianceField";
+import { ApplianceField } from "./ApplianceField";
 import axios from "axios"
+import { useNavigate } from "react-router";
 
 export const PropertyApplianceList = () => {
 
     const { propertyID } = useParams();
 
-    const [property, setProperty] = useState({});
     const [appliances, setAppliances] = useState([]);
 
-    const fetchProperty = async () => {
-        const result = await axios.get(`/api/properties/${propertyID}`)
-        if (result.data) {
-            setProperty(result.data);
-        } else {
-            setProperty([]);
-        }
-    };
-
-    useEffect (() => {
-        fetchProperty();
-    }, []);
+    const navigate = useNavigate();
+    const addAppliance = () => navigate("/addAppliance/" + propertyID);
 
     const fetchAppliances = async () => {
         const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
@@ -41,13 +29,7 @@ export const PropertyApplianceList = () => {
     }, []);
 
     return (
-        <Container className="text-center main">
-
-            <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
-            <h2 className="blue-secondary-header">{(property.city) + ", " + (property.prov)}</h2>
-
-            <PropertyDoubleButton current={"appliance"} propertyID={propertyID}/>
-
+        <>
             <Container className="blue-border my-3 blue-text">
                 <Row className="my-3 table-input">
                     <Col lg={1}>
@@ -79,14 +61,13 @@ export const PropertyApplianceList = () => {
                 {appliances.map((appliance, i) => {
                     return(
                         <ApplianceField appliance={appliance} i={i} fetchAppliances={fetchAppliances} />
-                    )   
+                    )
                 })}
-   
-                <ApplianceForm fetchAppliances={fetchAppliances} />                
 
             </Container>
-         
-        </Container>
-
+            <Button type="submit" className="green-button mx-3" onClick={addAppliance}>
+                Add Appliance
+            </Button>
+        </>
     )
 }

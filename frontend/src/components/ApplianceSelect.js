@@ -26,12 +26,12 @@ export const ApplianceSelect = ({ register }) => {
 
     return(
         <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="appliance">
+          <Form.Label className="blue-text" htmlFor="propertyApplianceID">
             Appliance:{" "}
           </Form.Label>
           <Form.Select
-            id="appliance"
-            {...register("appliance", { required: true })}
+            id="propertyApplianceID"
+            {...register("propertyApplianceID", { required: true })}
           >
             {appliances.map((appliance, i) => {
               return(

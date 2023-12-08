@@ -18,6 +18,9 @@ export const ApplianceTypeSelect = ({ register }) => {
 
     return (
         <Form.Group className="mb-3">
+            <Form.Label className="blue-test" htmlFor="applianceType">
+                Appliance Type:
+            </Form.Label>
             <Form.Select
                 id="applianceType"
                 {...register("applianceType", { required: true })}
