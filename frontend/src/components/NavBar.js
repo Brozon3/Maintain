@@ -1,12 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { UseUser } from "../auth/useUser";
+import { LoginModal } from "../pages/auth/LoginModal.js";
 
 export const NavBar = ({ loggedIn, setLoggedIn }) => {
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
 
   const user = UseUser();
@@ -15,8 +16,8 @@ export const NavBar = ({ loggedIn, setLoggedIn }) => {
     if (user) {
       setLoggedIn(true);
     } else {
-      setLoggedIn(false)
-    };
+      setLoggedIn(false);
+    }
   }, [user, setLoggedIn]);
 
   const logOutHandler = () => {
@@ -25,7 +26,8 @@ export const NavBar = ({ loggedIn, setLoggedIn }) => {
     navigate("/loginPage");
   };
 
-    return (
+  return (
+    <>
       <Navbar className="bg-body-tertiary border border-success" id="top">
         <Container>
           <Navbar.Brand href="/">
@@ -36,32 +38,39 @@ export const NavBar = ({ loggedIn, setLoggedIn }) => {
               alt="Maintain logo"
             />
           </Navbar.Brand>
-          {loggedIn && 
-          <Nav className="me-auto">
-            <Nav.Link className="green-text" href="/displayProperties">
-              <h4>Properties</h4>
-            </Nav.Link>
-          </Nav>
-          }
-          {loggedIn &&
-          <Nav>
-            <Nav.Link className="green-text" href="#" onClick={logOutHandler}>
-              <h4>Logout</h4>
-            </Nav.Link>
-          </Nav>  
-          }
-          {!loggedIn &&
-          <Nav>
-            <Nav.Link
-              className="green-text"
-              href="#login"
-              onClick={() => navigate("/loginPage")}
-            >
-              <h4>Login</h4>
-            </Nav.Link>
-          </Nav>
-          }
+          {loggedIn && (
+            <Nav className="me-auto">
+              <Nav.Link className="green-text" href="/displayProperties">
+                <h4>Properties</h4>
+              </Nav.Link>
+            </Nav>
+          )}
+          {loggedIn && (
+            <Nav>
+              <Nav.Link className="green-text" href="#" onClick={logOutHandler}>
+                <h4>Logout</h4>
+              </Nav.Link>
+            </Nav>
+          )}
+          {!loggedIn && (
+            <Nav>
+              <Nav.Link
+                className="green-text"
+                href="#login"
+                onClick={setShowLoginModal}
+              >
+                <h4>Login</h4>
+              </Nav.Link>
+            </Nav>
+          )}
         </Container>
       </Navbar>
-    );
-  };
+      <LoginModal
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        show={showLoginModal}
+        setShow={setShowLoginModal}
+      />
+    </>
+  );
+};
