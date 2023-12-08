@@ -12,7 +12,10 @@ export const PropertyApplianceList = () => {
     const [appliances, setAppliances] = useState([]);
 
     const navigate = useNavigate();
-    const addAppliance = () => navigate("/addAppliance/" + propertyID);
+    const addAppliance = () => {
+        console.log("Hello");
+        navigate("/addAppliance/" + propertyID);
+    }
 
     const fetchAppliances = async () => {
         const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
@@ -60,12 +63,12 @@ export const PropertyApplianceList = () => {
                 
                 {appliances.map((appliance, i) => {
                     return(
-                        <ApplianceField appliance={appliance} i={i} fetchAppliances={fetchAppliances} />
+                        <ApplianceField appliance={appliance} i={i} fetchAppliances={fetchAppliances} key={i}/>
                     )
                 })}
 
             </Container>
-            <Button type="submit" className="green-button mx-3" onClick={addAppliance}>
+            <Button type="submit" className="green-button mx-3" onClick={() => addAppliance()}>
                 Add Appliance
             </Button>
         </>

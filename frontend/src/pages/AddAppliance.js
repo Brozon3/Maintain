@@ -16,20 +16,22 @@ export const ApplianceForm = ({ fetchAppliances }) => {
     
     const { register, handleSubmit, reset } = useForm();
 
+    const navigate = useNavigate();
+    const viewProperty = () => navigate("/viewProperty/" + propertyID);
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
     const onSubmit = async (data) => {
-        console.log(data);
         const response = await axios.post("/api/addAppliance", {
             user: user,
             propertyID: propertyID,
             data: data
         })
         handleClose();
-        reset();
+        viewProperty();
     }
 
     return (

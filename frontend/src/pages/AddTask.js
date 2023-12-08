@@ -149,11 +149,12 @@ export const AddTask = () => {
         <Modal.Footer>
           <Button
             className="blue-button"
+            onClick={handleClose}
           >
             Cancel
           </Button>
           <Button className="green-button" onClick={handleClose}>
-            Add Another Property
+            Add Task
           </Button>
         </Modal.Footer>
       </Modal>
