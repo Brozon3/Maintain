@@ -14,7 +14,6 @@ import { HomePage } from "./pages/HomePage";
 import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { PasswordResetLandingPage } from "./pages/auth/PasswordResetLandingPage";
 import { EmailVerificationCodePage } from "./pages/auth/EmailVerificationCodePage";
-import { EmailOrUsernameLoginFail } from "./pages/auth/EmailOrUsernameLoginFail";
 import { UsernameExistsSignUpFail } from "./pages/auth/UsernameExistsSignUpFail";
 import { PasswordRequirements } from "./auth/PasswordRequirements";
 import { ViewProperty } from "./pages/ViewProperty";
@@ -27,7 +26,7 @@ export function App() {
   return (
     <BrowserRouter>
       <NavBar user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      
+
       <Footer />
 
       <Routes>
@@ -47,33 +46,14 @@ export function App() {
           path="/usernameExistsSignUpFail"
           element={<UsernameExistsSignUpFail />}
         />
-        <Route
-          path="/emailOrUsernameLoginFail"
-          element={<EmailOrUsernameLoginFail />}
-        />
         <Route element={<PrivateRoute user={user} />}>
           <Route path="/verifyEmail" element={<EmailVerificationCodePage />} />
-          <Route
-            path="/displayProperties"
-            element={<DisplayProperties/>}
-          />
-          <Route
-            path="/addProperty"
-            element={<AddProperty />}
-          />
-          <Route
-            path="/addAppliance/:propertyID"
-            element={<ApplianceForm />}
-          />
+          <Route path="/displayProperties" element={<DisplayProperties />} />
+          <Route path="/addProperty" element={<AddProperty />} />
+          <Route path="/addAppliance/:propertyID" element={<ApplianceForm />} />
 
-          <Route
-            path="/viewproperty/:propertyID"
-            element={<ViewProperty />}
-          />
-          <Route
-            path="/addTask/:propertyID"
-            element={<AddTask />}
-          />
+          <Route path="/viewproperty/:propertyID" element={<ViewProperty />} />
+          <Route path="/addTask/:propertyID" element={<AddTask />} />
           <Route path="/pleaseVerify" element={<PleaseVerifyEmailPage />} />
         </Route>
       </Routes>

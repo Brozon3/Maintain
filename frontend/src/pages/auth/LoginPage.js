@@ -53,7 +53,6 @@ export const LoginPage = ({ loggedIn, setLoggedIn }) => {
       navigate("/displayProperties");
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // navigate("/EmailOrUsernameLoginFail");
         setLoginFailShow(true);
       } else {
         console.error("Login error:", error);
