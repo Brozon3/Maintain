@@ -103,7 +103,7 @@ export const ApplianceForm = ({ fetchAppliances }) => {
                 </Form.Group>
 
 
-                <Button className="green-button" type="submit" onClick={handleOpen}>
+                <Button className="green-button" onClick={handleOpen}>
                     Add Appliance
                 </Button>
 

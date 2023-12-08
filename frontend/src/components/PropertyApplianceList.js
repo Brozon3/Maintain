@@ -54,7 +54,7 @@ export const PropertyApplianceList = () => {
                         <h6>Warranty Expired</h6>
                     </Col>
                     <Col lg={1}>    
-                        <h6>#</h6>
+                        
                     </Col>
                 </Row>
                 
