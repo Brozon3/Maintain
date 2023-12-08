@@ -14,7 +14,7 @@ export const useToken = () => {
 
   const setToken = (newToken) => {
     const secureCookie = true;
-    // Make true in future.
+    // Make true in future for increased security.
     const httpOnlyCookie = false;
 
     const cookieOptions = `path=/;${secureCookie ? "secure;" : ""}${
