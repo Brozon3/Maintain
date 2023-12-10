@@ -3,7 +3,7 @@ import { getGoogleUser } from "../../util/getGoogleUser.js";
 import { updateOrCreateUserFromOauth } from "../../util/updateOrCreateUserFromOauth.js";
 
 export const googleOauthCallbackRoute = {
-  path: "/auth/google/callback",
+  path: "/api/auth/google/callback",
   method: "get",
   handler: async (req, res) => {
     const { code } = req.query;

@@ -1,7 +1,7 @@
 import { getGoogleOauthUrl } from "../../util/getGoogleOauthURL.js";
 
 export const getGoogleOauthUrlRoute = {
-  path: "/auth/google/url",
+  path: "/api/auth/google/url",
   method: "get",
   handler: (req, res) => {
     const url = getGoogleOauthUrl();
