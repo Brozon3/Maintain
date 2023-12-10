@@ -5,12 +5,24 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { UseUser } from "../auth/useUser";
 import { LoginModal } from "../pages/auth/LoginModal.js";
+import { useToken } from "../auth/useToken";
 
 export const NavBar = ({ loggedIn, setLoggedIn }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [, setToken] = useToken();
   const navigate = useNavigate();
 
   const user = UseUser();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const oauthToken = urlParams.get("token");
+
+  useEffect(() => {
+    if (oauthToken) {
+      setToken(oauthToken);
+      setLoggedIn(true);
+    }
+  }, [oauthToken, setToken, navigate, setLoggedIn]);
 
   useEffect(() => {
     if (user) {
@@ -23,7 +35,7 @@ export const NavBar = ({ loggedIn, setLoggedIn }) => {
   const logOutHandler = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     setLoggedIn(false);
-    navigate("/loginPage");
+    navigate("/");
   };
 
   return (

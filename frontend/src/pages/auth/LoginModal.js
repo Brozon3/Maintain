@@ -23,19 +23,10 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
   const oauthToken = urlParams.get("token");
   const navigate = useNavigate();
 
-  //Check if there's a google user signed in.
-  useEffect(() => {
-    if (oauthToken) {
-      setToken(oauthToken);
-      setLoggedIn(true);
-      navigate("/displayProperties");
-    }
-  }, [oauthToken, setToken, navigate, setLoggedIn]);
-
   useEffect(() => {
     const loadOauthUrl = async () => {
       try {
-        const response = await axios.get("/auth/google/url");
+        const response = await axios.get("/api/auth/google/url");
         const { url } = response.data;
         setGoogleOauthUrl(url);
       } catch (e) {
@@ -55,6 +46,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
       setToken(token);
       setLoggedIn(true);
       navigate("/displayProperties");
+      handleClose();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setLoginFailShow(true);
@@ -66,7 +58,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
 
   return (
     <>
-      <Container className="container main">
+      <Container className="container">
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title className="blue-text">Login</Modal.Title>
@@ -98,47 +90,47 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
                 />
               </Form.Group>
               <hr></hr>
-              <Button
-                disabled={!emailValue || !passwordValue}
-                className="green-button mx-3"
-                onClick={onLoginClicked}
-              >
-                Log In
-              </Button>
-              <Button
-                className="green-button mx-3"
-                onClick={() => navigate("/signUpPage")}
-              >
-                Sign Up
-              </Button>
-              <Button
-                className="green-button mx-3"
-                onClick={() => navigate("/forgotPassword")}
-              >
-                Forgot Password?
-              </Button>
-
-              <Button
-                className="google-sign-in-button m-3"
-                variant="custom"
-                disabled={!googleOauthUrl}
-                onClick={() => {
-                  window.location.href = googleOauthUrl;
-                }}
-              >
-                <FcGoogle className="google-icon" />
-                Log in with Google
-              </Button>
             </Form>{" "}
           </Modal.Body>
           <Modal.Footer>
-            <EmailOrUsernameLoginFail
-              show={loginFailShow}
-              setShow={setLoginFailShow}
-            />
+            <Button
+              disabled={!emailValue || !passwordValue}
+              className="green-button mx-3"
+              onClick={onLoginClicked}
+            >
+              Log In
+            </Button>
+            <Button
+              className="green-button mx-3"
+              onClick={() => navigate("/signUpPage")}
+            >
+              Sign Up
+            </Button>
+            <Button
+              className="green-button mx-3"
+              onClick={() => navigate("/forgotPassword")}
+            >
+              Forgot Password?
+            </Button>
+
+            <Button
+              className="google-sign-in-button m-3"
+              variant="custom"
+              disabled={!googleOauthUrl}
+              onClick={() => {
+                window.location.href = googleOauthUrl;
+              }}
+            >
+              <FcGoogle className="google-icon" />
+              Log in with Google
+            </Button>
           </Modal.Footer>
         </Modal>
       </Container>
+      <EmailOrUsernameLoginFail
+        show={loginFailShow}
+        setShow={setLoginFailShow}
+      />
     </>
   );
 };
