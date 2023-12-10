@@ -11,7 +11,6 @@ import { ApplianceSelect } from "../components/ApplianceSelect";
 import { FeatureSelect } from "../components/FeatureSelect";
 
 export const AddTask = () => {
-
   const user = UseUser();
   //const [token, setToken] = useToken();
   //const { id, email, isVerified } = user;
@@ -32,23 +31,23 @@ export const AddTask = () => {
   const handleOpen = () => setShow(true);
 
   useEffect(() => {
-    if (taskChoice === "Appliance"){
+    if (taskChoice === "Appliance") {
       setAppliancesVisible(true);
       setFeaturesVisible(false);
-    } else if (taskChoice === "Feature"){
+    } else if (taskChoice === "Feature") {
       setFeaturesVisible(true);
       setAppliancesVisible(false);
     } else {
       setAppliancesVisible(false);
       setFeaturesVisible(false);
     }
-  }, [taskChoice])
+  }, [taskChoice]);
 
   const onSubmit = async (data) => {
     const response = await axios.post("/api/addTask", {
       user: user,
       propertyID: propertyID,
-      data: data
+      data: data,
     });
     handleOpen();
     setMessage(response.data.message);
@@ -56,101 +55,95 @@ export const AddTask = () => {
   };
 
   return (
-  <>
-    <Container className="container main">
-      <h1 className="mb-3 p-3 blue-header">Add a Task</h1>
-      <Form
-        onSubmit={handleSubmit(onSubmit)}
-        className="container w-50 justify-content-center"
-      >
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="description">
-            Task Description:{" "}
-          </Form.Label>
-          <Form.Control
-            placeholder="Clean the cat litter"
-            id="description"
-            {...register("description", { required: true })}
-          />
-        </Form.Group>
+    <>
+      <Container className="container main">
+        <h1 className="mb-3 p-3 blue-header">Add a Task</h1>
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="container w-50 justify-content-center"
+        >
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="description">
+              Task Description:{" "}
+            </Form.Label>
+            <Form.Control
+              placeholder="Clean the cat litter"
+              id="description"
+              {...register("description", { required: true })}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="frequency">
-            Frequency:{" "}
-          </Form.Label>
-          <Form.Select
-            id="frequency"
-            {...register("frequency", { required: true })}
-          >
-            <option value={""}>Once</option>
-            <option value={"7 DAYS"}>Weekly</option>
-            <option value={"14 DAYS"}>Bi-Weekly</option>
-            <option value={"1 MONTH"}>Monthly</option>
-            <option value={"2 MONTHS"}>Bi-Monthly</option>
-            <option value={"3 MONTHS"}>Quarterly</option>
-            <option value={"6 MONTHS"}>Semi-Annually</option>
-            <option value={"1 YEAR"}>Annually</option>
-            <option value={"2 YEARS"}>Bi-Annually</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-            <Form.Label className="blue-text" htmlFor="choice">
-                Associate task with:{" "}
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="frequency">
+              Frequency:{" "}
             </Form.Label>
             <Form.Select
-                id="choice"
-                {...register("choice", { 
-                  required: true,
-                  onChange: (e) =>
-                    setTaskChoice(
-                      e.target.options[e.target.selectedIndex].text
-                    )
-                })}
+              id="frequency"
+              {...register("frequency", { required: true })}
             >
-                <option value={""}>--</option>
-                <option value={"Appliance"}>Appliance</option>
-                <option value={"Feature"}>Feature</option>
+              <option value={""}>Once</option>
+              <option value={"7 DAYS"}>Weekly</option>
+              <option value={"14 DAYS"}>Bi-Weekly</option>
+              <option value={"1 MONTH"}>Monthly</option>
+              <option value={"2 MONTHS"}>Bi-Monthly</option>
+              <option value={"3 MONTHS"}>Quarterly</option>
+              <option value={"6 MONTHS"}>Semi-Annually</option>
+              <option value={"1 YEAR"}>Annually</option>
+              <option value={"2 YEARS"}>Bi-Annually</option>
             </Form.Select>
-        </Form.Group>
+          </Form.Group>
 
-        {appliancesVisibile && <ApplianceSelect register={register}/>}
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="choice">
+              Associate task with:{" "}
+            </Form.Label>
+            <Form.Select
+              id="choice"
+              {...register("choice", {
+                required: true,
+                onChange: (e) =>
+                  setTaskChoice(e.target.options[e.target.selectedIndex].text),
+              })}
+            >
+              <option value={""}>--</option>
+              <option value={"Appliance"}>Appliance</option>
+              <option value={"Feature"}>Feature</option>
+            </Form.Select>
+          </Form.Group>
 
-        {featuresVisibile && <FeatureSelect register={register}/>}
+          {appliancesVisibile && <ApplianceSelect register={register} />}
 
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="dueDate">
-            Complete by:{" "}
-          </Form.Label>
-          <Form.Control
-            type="date"
-            id="dueDate"
-            {...register("dueDate", { required: true })}
-          />
-        </Form.Group>
+          {featuresVisibile && <FeatureSelect register={register} />}
 
-        <hr></hr>
+          <Form.Group className="mb-3">
+            <Form.Label className="blue-text" htmlFor="dueDate">
+              Complete by:{" "}
+            </Form.Label>
+            <Form.Control
+              type="date"
+              id="dueDate"
+              {...register("dueDate", { required: true })}
+            />
+          </Form.Group>
 
-        <Button type="submit" className="green-button mx-3">
-          Submit
-        </Button>
-      </Form>
-    </Container>
+          <hr></hr>
 
-    <Modal show={show} onHide={handleClose}>
+          <Button type="submit" className="green-button mx-3">
+            Submit
+          </Button>
+          <div style={{ height: "15vh" }}></div>
+        </Form>
+      </Container>
+
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="blue-text">
-            Add Task
-          </Modal.Title>
+          <Modal.Title className="blue-text">Add Task</Modal.Title>
         </Modal.Header>
-          <Modal.Body className="blue-text">
-            Are you sure you want to add this task?
-          </Modal.Body>
+        <Modal.Body className="blue-text">
+          Are you sure you want to add this task?
+        </Modal.Body>
         <Modal.Footer>
-          <Button
-            className="blue-button"
-            onClick={handleClose}
-          >
+          <Button className="blue-button" onClick={handleClose}>
             Cancel
           </Button>
           <Button className="green-button" onClick={handleClose}>
@@ -158,6 +151,6 @@ export const AddTask = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-  </>
+    </>
   );
 };

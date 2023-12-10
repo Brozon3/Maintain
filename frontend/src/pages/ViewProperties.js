@@ -67,7 +67,7 @@ export function DisplayProperties() {
     <>
       <Container className="container main">
         {/* Only to show usage of useUser. */}
-        <h1 className="mb-3 p-3 blue-header">{userEmail}'s Properties</h1>
+        <h1 className="mb-3 p-3 blue-header">Properties</h1>
         <Row xs={1} md={2} className="g-4">
           {properties.map((property, i) => {
             return (

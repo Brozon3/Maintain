@@ -42,7 +42,7 @@ export const AddProperty = () => {
   const onSubmit = async (data) => {
     const response = await axios.post("/api/addProperty", {
       user: user,
-      data: data
+      data: data,
     });
     handleOpen();
     setMessage(response.data.message);
@@ -86,7 +86,11 @@ export const AddProperty = () => {
             <Form.Label className="blue-text" htmlFor="prov">
               Property Province:{" "}
             </Form.Label>
-            <Form.Select id="prov" defaultValue={"AB"} {...register("prov", { required: true })}>
+            <Form.Select
+              id="prov"
+              defaultValue={"AB"}
+              {...register("prov", { required: true })}
+            >
               <option value={"AB"}>AB</option>
               <option value={"BC"}>BC</option>
               <option value={"MB"}>MB</option>
@@ -115,7 +119,7 @@ export const AddProperty = () => {
                 onChange: (e) =>
                   setPropertyType(
                     e.target.options[e.target.selectedIndex].text
-                  )
+                  ),
               })}
             >
               <option value={"Apartment"}>Apartment</option>
@@ -162,6 +166,7 @@ export const AddProperty = () => {
           <Button type="submit" className="green-button mx-3">
             Submit
           </Button>
+          <div style={{ height: "15vh" }}></div>
         </Form>
       </Container>
 
