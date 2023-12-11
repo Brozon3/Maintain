@@ -7,7 +7,6 @@ import "./index.css";
 import { AddTask } from "./pages/AddTask";
 import { useState } from "react";
 import { PrivateRoute } from "./auth/PrivateRoute";
-import { LoginPage } from "./pages/auth/LoginPage";
 import { PleaseVerifyEmailPage } from "./pages/auth/PleaseVerifyEmailPage";
 import { SignUpPage } from "./pages/auth/SignUpPage";
 import { HomePage } from "./pages/HomePage";
@@ -31,10 +30,6 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/loginPage"
-          element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
-        />
         <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<PasswordResetLandingPage />} />

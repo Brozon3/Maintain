@@ -56,6 +56,11 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
     }
   };
 
+  const onSignUpClicked = () => {
+    navigate("/signUpPage");
+    handleClose();
+  };
+
   return (
     <>
       <Container className="container">
@@ -100,10 +105,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
             >
               Log In
             </Button>
-            <Button
-              className="green-button mx-3"
-              onClick={() => navigate("/signUpPage")}
-            >
+            <Button className="green-button mx-3" onClick={onSignUpClicked}>
               Sign Up
             </Button>
             <Button

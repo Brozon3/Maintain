@@ -40,11 +40,12 @@ export const EmailVerificationCodePage = () => {
         <h1 className="mb-3 p-3 blue-header">Please Verify Your Email</h1>
         <Form className="container w-50 justify-content-center">
           <p className="blue-secondary-header">
-            You should have received a verification code at the email you provided.
+            You should have received a verification code at the email you
+            provided.
           </p>
           <Form.Group>
             <Form.Label className="blue-text" htmlFor="verification">
-              Verifcation Code:{" "}
+              Verification Code:{" "}
             </Form.Label>
             <Form.Control
               value={verificationString}
@@ -54,7 +55,12 @@ export const EmailVerificationCodePage = () => {
             />
           </Form.Group>
           <hr></hr>
-          <Button onClick={onSubmitVerificationString} className="green-button mx-3">Submit</Button>
+          <Button
+            onClick={onSubmitVerificationString}
+            className="green-button mx-3"
+          >
+            Submit
+          </Button>
         </Form>
       </Container>
     </>
