@@ -1,0 +1,9 @@
+phases:
+  build:
+    commands:
+      - npm run build
+      - mv frontend/build backend/
+      - cd backend
+      - npm install
+      - npm shrinkwrap
+      - npm run buildpack
