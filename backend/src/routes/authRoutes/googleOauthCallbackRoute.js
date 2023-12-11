@@ -28,7 +28,7 @@ export const googleOauthCallbackRoute = {
       process.env.JWT_SECRET,
       (err, token) => {
         if (err) return res.sendStatus(500);
-        res.redirect(`http://maintain.lol/loginPage?token=${token}`);
+        res.redirect(`https://maintain.lol/loginPage?token=${token}`);
       }
     );
   },
