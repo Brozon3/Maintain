@@ -42,5 +42,6 @@ export const routes = [
   addApplianceRoute,
   updateTaskRoute,
   deleteApplianceRoute,
-  getPropertyFeaturesRoute
+  getPropertyFeaturesRoute,
+  listCalendarEvents 
 ];
