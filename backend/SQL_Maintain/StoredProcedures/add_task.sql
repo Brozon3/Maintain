@@ -38,7 +38,7 @@ BEGIN
     );
 		
     
-    ELSEIF dueDate_p IS NULL AND frequency_p IS NOT NULL THEN
+    ELSEIF dueDate_p IS NULL AND frequency_p IS NOT NULL AND frequency_p <> 'Once' THEN
 		SET fValue_p = SUBSTRING_INDEX(frequency_p, ' ', 1);
         SET fInterval_p = SUBSTRING_INDEX(frequency_p, ' ', -1);
         

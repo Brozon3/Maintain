@@ -9,4 +9,4 @@ phases:
       - cd ../backend
       - npm install
       - npm shrinkwrap
-      # - npm run buildpack
+      - npm run buildpack
