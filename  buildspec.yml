@@ -1,12 +1,11 @@
+---
 version: 0.2
-
 phases:
   pre_build:
     commands:
       - echo Installing frontend dependencies...
       - cd frontend
       - npm install
-
   build:
     commands:
       - echo Building frontend...
@@ -16,7 +15,6 @@ phases:
       - cd ../backend
       - npm install
       - npm shrinkwrap
-
   post_build:
     commands:
       - npm run buildpack
