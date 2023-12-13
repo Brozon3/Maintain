@@ -2,19 +2,15 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Installing frontend dependencies...
       - cd frontend
       - npm install
   build:
     commands:
-      - echo Building frontend...
       - npm run build
       - mv build ../backend/
-      - echo Building backend...
       - cd ../backend
       - npm install
       - npm shrinkwrap
   post_build:
     commands:
       - npm run buildpack
-      - echo Build completed
