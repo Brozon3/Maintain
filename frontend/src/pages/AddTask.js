@@ -81,7 +81,7 @@ export const AddTask = () => {
               id="frequency"
               {...register("frequency", { required: true })}
             >
-              <option value={""}>Once</option>
+              <option value={"Once"}>Once</option>
               <option value={"7 DAYS"}>Weekly</option>
               <option value={"14 DAYS"}>Bi-Weekly</option>
               <option value={"1 MONTH"}>Monthly</option>

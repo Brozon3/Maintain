@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { PropertyTaskList } from "../components/PropertyTaskList";
 import axios from "axios";
 import { PropertyApplianceList } from "../components/PropertyApplianceList";
+import { PropertyFeatureList } from "../components/PropertyFeatureList";
 
 export const ViewProperty = () => {
   const { propertyID } = useParams();
@@ -33,7 +34,9 @@ export const ViewProperty = () => {
         <Accordion className="green-border" defaultActiveKey={["2"]}>
           <Accordion.Item eventKey="0">
             <Accordion.Header className="blue-secondary-header">Features</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <PropertyFeatureList />
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header className="blue-secondary-header">
