@@ -19,8 +19,6 @@ import { PasswordRequirements } from "./auth/PasswordRequirements";
 import { ViewProperty } from "./pages/ViewProperty";
 import { ApplianceForm } from "./pages/AddAppliance";
 
-//Just to get things moving
-
 export function App() {
   const [user] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
