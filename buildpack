@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Navigate to the backend directory if not already there
-cd backend || exit
-
-# Remove any existing build artifacts
 rm -rf build.zip
 
-# Create a ZIP file of the backend directory contents
 zip -r build.zip .
