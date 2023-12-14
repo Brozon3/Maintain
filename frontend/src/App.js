@@ -19,7 +19,7 @@ import { PasswordRequirements } from "./auth/PasswordRequirements";
 import { ViewProperty } from "./pages/ViewProperty";
 import { ApplianceForm } from "./pages/AddAppliance";
 
-// Time to succeed.
+// Succeed.
 
 export function App() {
   const [user] = useState(null);
