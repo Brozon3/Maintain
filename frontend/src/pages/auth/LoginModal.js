@@ -15,6 +15,8 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
   const [loginFailShow, setLoginFailShow] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
