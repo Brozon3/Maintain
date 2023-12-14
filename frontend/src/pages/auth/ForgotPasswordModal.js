@@ -44,7 +44,7 @@ export const ForgotPasswordModal = ({ show, setShow }) => {
       </Container>
     </>
   ) : (
-    <Container className="container main">
+    <Container className="container">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="blue-text">Forgot Password</Modal.Title>
