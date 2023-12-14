@@ -5,7 +5,7 @@ import { UseUser } from "../auth/useUser";
 import { PropertyCard } from "../components/propertyCard";
 import axios from "axios";
 
-// DO NOT CHANGE propertyCard imports to Property. IT BREAKS EVERYTHING! and makes no sense
+// DO NOT CHANGE propertyCard imports to Property. IT BREAKS EVERYTHING! and is a very weird error
 
 export function DisplayProperties() {
   const [userEmail, setUserScreenName] = useState("");
