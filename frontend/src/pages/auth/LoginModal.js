@@ -7,6 +7,7 @@ import { useToken } from "../../auth/useToken";
 import { FcGoogle } from "react-icons/fc";
 import { EmailOrUsernameLoginFail } from "./EmailOrUsernameLoginFailModal";
 import { SignUpModal } from "./SignUpModal";
+import { ForgotPasswordModal } from "./ForgotPasswordModal";
 import Modal from "react-bootstrap/Modal";
 
 export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
@@ -15,9 +16,9 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [googleOauthUrl, setGoogleOauthUrl] = useState("");
-  const [loginFailShow, setLoginFailShow] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [loginFailModalShow, setLoginFailModalShow] = useState(false);
+  const [signUpModalShow, setSignUpModalShow] = useState(false);
+  const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -52,7 +53,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
       handleClose();
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setLoginFailShow(true);
+        setLoginFailModalShow(true);
       } else {
         console.error("Login error:", error);
       }
@@ -60,7 +61,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
   };
 
   const onSignUpClicked = () => {
-    navigate("/signUpPage");
+    setSignUpModalShow(true);
     handleClose();
   };
 
@@ -113,7 +114,10 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
             </Button>
             <Button
               className="green-button mx-3"
-              onClick={() => navigate("/forgotPassword")}
+              onClick={() => {
+                setForgotPasswordModalShow(true);
+                handleClose();
+              }}
             >
               Forgot Password?
             </Button>
@@ -133,10 +137,14 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
         </Modal>
       </Container>
       <EmailOrUsernameLoginFail
-        show={loginFailShow}
-        setShow={setLoginFailShow}
+        show={loginFailModalShow}
+        setShow={setLoginFailModalShow}
       />
-      <SignUpModal show={showSignUpModal} setShow={setShowSignUpModal} />
+      <SignUpModal show={signUpModalShow} setShow={setSignUpModalShow} />
+      <ForgotPasswordModal
+        show={forgotPasswordModalShow}
+        setShow={setForgotPasswordModalShow}
+      />
     </>
   );
 };

@@ -11,7 +11,9 @@ export const EmailVerificationSuccess = () => {
       <p className="blue-secondary-header">
         Thanks for verifying your email, now you can use all the app's features.
       </p>
-      <Button className="green-button mx-3" onClick={() => navigate("/")}>Go to home page</Button>
+      <Button className="green-button mx-3" onClick={() => navigate("/")}>
+        Go to home page
+      </Button>
     </Container>
   );
 };
