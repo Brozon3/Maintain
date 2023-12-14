@@ -19,7 +19,7 @@ import { PasswordRequirements } from "./auth/PasswordRequirements";
 import { ViewProperty } from "./pages/ViewProperty";
 import { ApplianceForm } from "./pages/AddAppliance";
 
-// Could you please
+// Time to succeed.
 
 export function App() {
   const [user] = useState(null);
