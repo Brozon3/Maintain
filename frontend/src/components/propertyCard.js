@@ -2,8 +2,6 @@ import { Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-// A comment to check on
-
 export const PropertyCard = ({ property, onDelete }) => {
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
