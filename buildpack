@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm -rf build.zip
+rm -rf maintainBuildpack.zip
 
-zip -r build.zip .
+zip -r maintainBuildpack.zip .
