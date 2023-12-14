@@ -6,6 +6,7 @@ import axios from "axios";
 import { useToken } from "../../auth/useToken";
 import { FcGoogle } from "react-icons/fc";
 import { EmailOrUsernameLoginFail } from "./EmailOrUsernameLoginFailModal";
+import { SignUpModal } from "./SignUpModal";
 import Modal from "react-bootstrap/Modal";
 
 export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
@@ -135,6 +136,7 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
         show={loginFailShow}
         setShow={setLoginFailShow}
       />
+      <SignUpModal show={showSignUpModal} setShow={setShowSignUpModal} />
     </>
   );
 };

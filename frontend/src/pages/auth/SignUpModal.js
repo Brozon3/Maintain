@@ -13,7 +13,7 @@ import {
 } from "../../auth/RealTimeValidation.js";
 import Modal from "react-bootstrap/Modal";
 
-export const SignUpPage = ({ show, setShow }) => {
+export const SignUpModal = ({ show, setShow }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
