@@ -73,7 +73,7 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
                 <td>
                     <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} id={"switch" + i}/>
                 </td>
-                <td style={{textAlign: "left"}}>
+                <td>
                     {task[0]}
                 </td>
                 <td className="text-right blue-text">

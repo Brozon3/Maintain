@@ -47,7 +47,9 @@ export const PropertyTaskList = () => {
       <Table responsive className="blue-border">
         <thead>
           <tr>
+            <th></th>
             <th className="mb-3 blue-header p-3">Outstanding Tasks</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
