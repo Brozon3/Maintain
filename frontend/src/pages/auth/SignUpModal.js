@@ -13,7 +13,12 @@ import {
 } from "../../auth/RealTimeValidation.js";
 import Modal from "react-bootstrap/Modal";
 
-export const SignUpModal = ({ show, setShow }) => {
+export const SignUpModal = ({
+  show,
+  setShow,
+  showLoginModal,
+  setShowLoginModal,
+}) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [, setToken] = useToken();
   const [emailValue, setEmailValue] = useState("");
@@ -115,7 +120,7 @@ export const SignUpModal = ({ show, setShow }) => {
 
             <Button
               className="green-button mx-3"
-              onClick={() => navigate("/loginPage")}
+              onClick={() => setShowLoginModal(true)}
             >
               Have an account? Log in!
             </Button>

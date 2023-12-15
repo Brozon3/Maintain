@@ -140,7 +140,12 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
         show={loginFailModalShow}
         setShow={setLoginFailModalShow}
       />
-      <SignUpModal show={signUpModalShow} setShow={setSignUpModalShow} />
+      <SignUpModal
+        show={signUpModalShow}
+        setShow={setSignUpModalShow}
+        showLoginModal={show}
+        setShowLoginModal={setShow}
+      />
       <ForgotPasswordModal
         show={forgotPasswordModalShow}
         setShow={setForgotPasswordModalShow}
