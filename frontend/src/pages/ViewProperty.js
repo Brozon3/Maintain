@@ -21,13 +21,16 @@ export const ViewProperty = () => {
       }
     };
     fetchProperty();
-  }, [property, propertyID]);
+  }, [property.propertyID]);
 
   return (
     <>
       <Container className="text-center main">
-        <h1 className="p-3 mb-3 blue-header">{property.address}</h1>
-        <h2 className="mb-3 p-3 blue-secondary-header">
+        <h1 className="p-3 mb-2 blue-header">{property.address}</h1>
+        <h2 className="mb-2 p-3 blue-secondary-header">
+          {property.type}
+        </h2>
+        <h2 className="mb-2 p-3 blue-secondary-header">
           {property.city + ", " + property.prov}
         </h2>
 

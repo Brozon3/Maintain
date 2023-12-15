@@ -4,7 +4,7 @@ html{
 
 body {
     min-height: 100vh !important;
-    background-color: #17A589 !important;
+    background-color: #2AB39E !important;
 }
 
 .main {
@@ -23,52 +23,58 @@ body {
 } 
 
 .form-check-input:checked {
-    background-color: #2A4D6A !important;
+    background-color: #294C69 !important;
 }
 
 .blue-text{
-    color: #2A4D6A !important;
+    color: #294C69 !important;
 }
 
 .blue-border {
     border: 10px solid !important;
-    border-color: #2A4D6A !important;
+    border-color: #294C69 !important;
     border-radius: 10px !important;
 }
 
 .blue-header {
-    color: #2A4D6A !important; 
+    color: #294C69 !important; 
     text-align: center !important; 
     font-size: 40px !important;
 }
 
 .blue-button {
-    background-color: #2A4D6A !important; 
+    background-color: #294C69 !important; 
     color: #F8F9FA !important; 
-    border-color: #17A589 !important;
+    border-color: #2AB39E !important;
 }
 
 .blue-secondary-header {
-    color: #2A4D6A !important; 
+    color: #294C69 !important; 
     text-align: center !important; 
     font-size: 20px !important;
 }
 
 .green-text {
-    color:#17A589 !important;
+    color:#2AB39E !important;
     text-decoration: none !important;
+}
+
+.green-secondary-header {
+    color: #2AB39E !important; 
+    text-align: center !important; 
+    font-size: 20px !important;
 }
 
 .green-border {
     border: 10px solid !important;
-    border-color: #17A589 !important;
+    border-color: #2AB39E !important;
     border-radius: 10px !important;
 }
 
 .green-button {
-    background-color: #17A589 !important; 
+    background-color: #2AB39E !important; 
     color: #F8F9FA !important; 
-    border-color: #2A4D6A !important;
+    border-color: #294C69 !important;
     min-width: fit-content !important;
 }
 
@@ -78,7 +84,7 @@ body {
 }
 
 .option:hover{
-    background-color: #2A4D6A;
+    background-color: #294C69;
 }
 
 .bg {
