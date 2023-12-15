@@ -167,5 +167,8 @@ SELECT description, dueDate FROM propertyTaskView WHERE propertyID = 309;
 SELECT * FROM defaultTasks;
 CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
 SELECT * FROM tasks;
+SELECT * FROM applianceView;
+SELECT * FROM userTaskList WHERE userID = 69;
+SELECT * FROM tasks WHERE taskID = 1095;
 
 
