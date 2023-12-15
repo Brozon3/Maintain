@@ -33,7 +33,7 @@ export const ApplianceSelect = ({ register }) => {
       >
         {appliances.map((appliance, i) => {
           return (
-            <option key={i} value={appliance.propertyApplianceID}>
+            <option key={i} value={appliance.propertypplianceID}>
               {" "}
               {appliance.manufacturer +
                 " " +
