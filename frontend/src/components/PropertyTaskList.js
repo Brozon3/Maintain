@@ -47,7 +47,9 @@ export const PropertyTaskList = () => {
       <Table responsive className="blue-border">
         <thead>
           <tr>
+            <th></th>
             <th className="mb-3 blue-header p-3">Outstanding Tasks</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -62,13 +64,15 @@ export const PropertyTaskList = () => {
                     />
                 )
             })}
-            <tr>
-                {overdueTasks.length === 0 && (
+            {overdueTasks.length === 0 && (
+                <tr>
+                    <td></td>
                     <td className="green-secondary-header mb-3">
                         {"Congratulations on keeping your property maintained!"}
                     </td>
-                )}
-            </tr>
+                    <td></td>
+                </tr>
+            )}
         </tbody>
       </Table>
       <Table responsive className="blue-border">
