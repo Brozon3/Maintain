@@ -1,5 +1,5 @@
 import express from "express";
-import 'dotenv/config';
+import "dotenv/config";
 import path from "path";
 import { routes } from "./routes/index.js";
 import { fileURLToPath } from "url";
@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get(/^(?!\/api).+/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 routes.forEach((route) => {
   app[route.method](route.path, route.handler);

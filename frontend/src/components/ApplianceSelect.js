@@ -5,40 +5,45 @@ import axios from "axios";
 import { Form } from "react-bootstrap";
 
 export const ApplianceSelect = ({ register }) => {
+  const { propertyID } = useParams();
 
-    const { propertyID } = useParams();
+  const [appliances, setAppliances] = useState([]);
 
-    const [appliances, setAppliances] = useState([]);
-
-    const fetchAppliances = async () => {
-        const result = await axios.get(`/api/propertyAppliances/${propertyID}`)
-        if (result.data.getAppliances) {
-            setAppliances(result.data.getAppliances);
-        } else {
-            setAppliances([]);
-        }
-        
+  const fetchAppliances = async () => {
+    const result = await axios.get(`/api/propertyAppliances/${propertyID}`);
+    if (result.data.getAppliances) {
+      setAppliances(result.data.getAppliances);
+    } else {
+      setAppliances([]);
     }
+  };
 
     useEffect(() => {
       fetchAppliances();
     }, [appliances.length])
 
-    return(
-        <Form.Group className="mb-3">
-          <Form.Label className="blue-text" htmlFor="propertyApplianceID">
-            Appliance:{" "}
-          </Form.Label>
-          <Form.Select
-            id="propertyApplianceID"
-            {...register("propertyApplianceID", { required: true })}
-          >
-            {appliances.map((appliance, i) => {
-              return(
-                 <option key={i} value={appliance.applianceID}> {appliance.manufacturer + " " + appliance.model + " " + appliance.applianceType} </option>
-              )
-            })}
-          </Form.Select>
-        </Form.Group>
-    )
-}
+  return (
+    <Form.Group className="mb-3">
+      <Form.Label className="blue-text" htmlFor="propertyApplianceID">
+        Appliance:{" "}
+      </Form.Label>
+      <Form.Select
+        id="propertyApplianceID"
+        {...register("propertyApplianceID", { required: true })}
+      >
+        {appliances.map((appliance, i) => {
+          return (
+            <option key={i} value={appliance.propertypplianceID}>
+              {" "}
+              {appliance.manufacturer +
+                " " +
+                appliance.model +
+                " " +
+                appliance.applianceType}{" "}
+            </option>
+          );
+        })}
+      </Form.Select>
+    </Form.Group>
+  );
+};
