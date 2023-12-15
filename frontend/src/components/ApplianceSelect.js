@@ -18,9 +18,9 @@ export const ApplianceSelect = ({ register }) => {
     }
   };
 
-    useEffect(() => {
-      fetchAppliances();
-    }, [appliances.length])
+  useEffect(() => {
+    fetchAppliances();
+  }, [appliances.length]);
 
   return (
     <Form.Group className="mb-3">
@@ -33,7 +33,7 @@ export const ApplianceSelect = ({ register }) => {
       >
         {appliances.map((appliance, i) => {
           return (
-            <option key={i} value={appliance.propertypplianceID}>
+            <option key={i} value={appliance.propertyApplianceID}>
               {" "}
               {appliance.manufacturer +
                 " " +
