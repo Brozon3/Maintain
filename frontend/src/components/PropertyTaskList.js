@@ -34,9 +34,9 @@ export const PropertyTaskList = () => {
         <>
             <Table responsive className="blue-border">
                 <thead>
-
-                    <th className='mb-3 blue-header p-3'>Outstanding Tasks</th>
-
+                    <tr>
+                        <th className='mb-3 blue-header p-3'>Outstanding Tasks</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -58,9 +58,11 @@ export const PropertyTaskList = () => {
             </Table>
             <Table responsive className="blue-border">
                 <thead>
-                    <th></th>
-                    <th className='mb-3 blue-header p-3'>Upcoming Tasks</th>
-                    <th></th>
+                    <tr>
+                        <th></th>
+                        <th className='mb-3 blue-header p-3'>Upcoming Tasks</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     {tasks.map((task, i) => {
