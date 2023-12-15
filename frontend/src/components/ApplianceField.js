@@ -40,22 +40,20 @@ export const ApplianceField = ({ appliance, i, fetchAppliances }) => {
 
   return (
     <>
-      <Row className="my-3 table-input" key={i}>
-        <Col lg={1}>{appliance.applianceType}</Col>
-        <Col lg={2}>{appliance.manufacturer}</Col>
-        <Col lg={2}>{appliance.model}</Col>
-        <Col lg={2}>{appliance.serialNumber}</Col>
-        <Col lg={2}>{appliance.purchaseDate.substring(0, 10)}</Col>
-        <Col lg={1}>{appliance.warrantyLength}</Col>
-        <Col lg={1}>
-          {warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}
-        </Col>
-        <Col lg={1}>
+      <tr>
+        <td className="blue-text">{appliance.applianceType}</td>
+        <td className="blue-text">{appliance.manufacturer}</td>
+        <td className="blue-text">{appliance.model}</td>
+        <td className="blue-text">{appliance.serialNumber}</td>
+        <td className="blue-text">{appliance.purchaseDate.substring(0, 10)}</td>
+        <td className="blue-text">{appliance.warrantyLength}</td>
+        <td className="blue-text">{warrantyCheck(appliance.purchaseDate, appliance.warrantyLength)}</td>
+        <td>
           <Button className="blue-button" onClick={handleOpen}>
             Delete
           </Button>
-        </Col>
-      </Row>
+        </td>
+      </tr>
       <Modal show={show} onHide={handleClose} key={"modal" + i}>
         <Modal.Header closeButton>
           <Modal.Title className="blue-text">Delete Appliance</Modal.Title>

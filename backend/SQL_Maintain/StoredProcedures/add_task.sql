@@ -38,7 +38,7 @@ BEGIN
     );
 		
     
-    ELSEIF dueDate_p IS NULL AND frequency_p IS NOT NULL THEN
+    ELSEIF dueDate_p IS NULL AND frequency_p IS NOT NULL AND frequency_p <> 'Once' THEN
 		SET fValue_p = SUBSTRING_INDEX(frequency_p, ' ', 1);
         SET fInterval_p = SUBSTRING_INDEX(frequency_p, ' ', -1);
         
@@ -89,12 +89,6 @@ BEGIN
 END//
 
 DELIMITER ;
-
-SELECT * FROM propertyTaskView WHERE propertyID = 376;
-
-			-- description,		 dueDate, 	userID, defaultDate, frequency, featureType, applianceType, propertyID, propretyApplianceID, propertyFeatureID, eventID, @message_res
-CALL add_task("Brand new task 2", "2023-12-09", "69", NULL, "1 WEEK", NULL, NULL, 376, NULL, NULL, NULL, @message_res);
-SELECT @message_res;
 
 
 

@@ -13,13 +13,14 @@ IN heating_param			VARCHAR(45),
 IN pets_param				TINYINT,
 IN propertyType_param		VARCHAR(45),
 IN roof_param				VARCHAR(45),
+IN exterior_param			VARCHAR(45),
 OUT propertyID_res 			INT,
 OUT message_res 			VARCHAR(45))
 	
 BEGIN
-	DECLARE propertyExists		INT;
-    DECLARE addFeatureID		INT;
-    DECLARE dueDate_p 			DATETIME;
+	DECLARE propertyExists			INT;
+    DECLARE addFeatureID			INT;
+    DECLARE dueDate_p 				DATETIME;
     DECLARE propertyFeaturesID_p	INT;
     
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
@@ -45,12 +46,18 @@ BEGIN
 			
 			-- Insert feature tasks
 			IF carpet_param = 1 THEN
-				CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);                    
-			ELSEIF heating_param IS NOT NULL THEN
+				CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);
+			END IF;
+			IF heating_param IS NOT NULL THEN
 				CALL insert_feature_task(userID_param, propertyID_res, heating_param, propertyFeaturesID_p);
-			ELSEIF roof_param IS NOT NULL THEN
+			END IF;
+			IF roof_param IS NOT NULL THEN
 				CALL insert_feature_task(userID_param, propertyID_res, roof_param, propertyFeaturesID_p);
 			END IF;
+            IF exterior_param IS NOT NULL THEN
+				CALL insert_feature_task(userID_param, propertyID_res, exterior_param, propertyFeaturesID_p);
+			END IF;
+            
             
 			-- Insert default tasks
 		   INSERT INTO userTaskList (userID, propertyID, taskID, dueDate, propertyFeaturesID, propertyApplianceID)
@@ -83,3 +90,10 @@ BEGIN
 END//
 
 DELIMITER ;
+
+CALL add_property(69, "47 John Coltrane Place", "St-Louis-de-Ha-Ha!", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
+
+SELECT * FROM users;
+SELECT * FROM userPropertyView WHERE userID=69;
+SELECT * FROM featureView WHERE propertyID=395;
+
