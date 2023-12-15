@@ -42,7 +42,6 @@ export const PropertyTaskList = () => {
                     <tr>
                         {tasks.map((task, i) => {
                             if (new Date(task[1]) <= today){
-                                setShowCongratsMessage(false);
                                 return(
                                     <SwitchModal task={task} fetchTasks={() => fetchTasks()} key={"out" + i} i={i} color={"red"}/>
                                 )
@@ -52,7 +51,7 @@ export const PropertyTaskList = () => {
                         })}
                     </tr>
                     <tr>
-                        {showCongratsMessage && <h1 className="green-secondary-header mb-3">{"Congratulations on keeping your property maintained!"}</h1>}
+                        {showCongratsMessage && <td className="green-secondary-header mb-3">{"Congratulations on keeping your property maintained!"}</td>}
                     </tr>
                 </tbody>
             </Table>

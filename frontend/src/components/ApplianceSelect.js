@@ -22,7 +22,7 @@ export const ApplianceSelect = ({ register }) => {
 
     useEffect(() => {
       fetchAppliances();
-    }, [appliances])
+    }, [appliances.length])
 
     return(
         <Form.Group className="mb-3">
