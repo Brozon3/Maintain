@@ -7,7 +7,7 @@ export const getPropertyByIDRoute = {
 
     let propertyID = req.params.propertyID;
     const propertyResult = await getPropertyByID(propertyID); 
-    const { propID, address, city, prov } = propertyResult;
-    res.status(200).json( {propertyID: propID, address, city, prov} );
+    const { propID, address, city, prov, type } = propertyResult;
+    res.status(200).json( {propertyID: propID, address, city, prov, type} );
   },
 };
