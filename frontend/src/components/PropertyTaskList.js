@@ -64,13 +64,15 @@ export const PropertyTaskList = () => {
                     />
                 )
             })}
-            <tr>
-                {overdueTasks.length === 0 && (
+            {overdueTasks.length === 0 && (
+                <tr>
+                    <td></td>
                     <td className="green-secondary-header mb-3">
                         {"Congratulations on keeping your property maintained!"}
                     </td>
-                )}
-            </tr>
+                    <td></td>
+                </tr>
+            )}
         </tbody>
       </Table>
       <Table responsive className="blue-border">
