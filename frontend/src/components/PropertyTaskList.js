@@ -9,21 +9,35 @@ export const PropertyTaskList = () => {
 
   const today = new Date();
 
-  const [tasks, setTasks] = useState([]);
-  const [showCongratsMessage, setShowCongratsMessage] = useState(true);
+  const [upcomingTasks, setUpcomingTasks] = useState([]);
+  const [overdueTasks, setOverdueTasks] = useState([]);
 
   const fetchTasks = async () => {
     const result = await axios.get(`/api/propertyTasks/${propertyID}`);
-    if (result.data.tasks) {
-      setTasks(result.data.tasks);
+    const upcomingTasks = [];
+    const overdueTasks = [];
+    const tasks = result.data.tasks;
+    if (tasks.length > 0) {
+      for (let i = 0; i < tasks.length; i++){
+        if (tasks[i] !== undefined) {
+          if (new Date(tasks[i][1]) <= today){
+            overdueTasks.push(tasks[i]);
+          } else {
+            upcomingTasks.push(tasks[i]);
+          }
+        }
+      }
+      setOverdueTasks(overdueTasks);
+      setUpcomingTasks(upcomingTasks);
     } else {
-      setTasks([]);
+      setUpcomingTasks([]);
+      setOverdueTasks([]);
     }
   };
 
   useEffect(() => {
     fetchTasks();
-  }, [tasks.length]);
+  }, [upcomingTasks.length, overdueTasks.length]);
 
   const navigate = useNavigate();
   const addTask = () => navigate("/addTask/" + propertyID);
@@ -37,31 +51,24 @@ export const PropertyTaskList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {tasks.map((task, i) => {
-              if (new Date(task[1]) <= today) {
-                // setShowCongratsMessage(false);
+            {overdueTasks.map((task, i) => {
                 return (
-                  <SwitchModal
+                    <SwitchModal
                     task={task}
                     fetchTasks={() => fetchTasks()}
                     key={"out" + i}
                     i={i}
                     color={"red"}
-                  />
-                );
-              } else {
-                return null;
-              }
+                    />
+                )
             })}
-          </tr>
-          <tr>
-            {showCongratsMessage && (
-              <h1 className="green-secondary-header mb-3">
-                {"Congratulations on keeping your property maintained!"}
-              </h1>
-            )}
-          </tr>
+            <tr>
+                {overdueTasks.length === 0 && (
+                    <td className="green-secondary-header mb-3">
+                        {"Congratulations on keeping your property maintained!"}
+                    </td>
+                )}
+            </tr>
         </tbody>
       </Table>
       <Table responsive className="blue-border">
@@ -73,19 +80,15 @@ export const PropertyTaskList = () => {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task, i) => {
-            if (new Date(task[1]) > today) {
-              return (
+          {upcomingTasks.map((task, i) => {
+            return (
                 <SwitchModal
-                  task={task}
-                  fetchTasks={() => fetchTasks()}
-                  key={"up" + i}
-                  i={i}
+                    task={task}
+                    fetchTasks={() => fetchTasks()}
+                    key={"up" + i}
+                    i={i}
                 />
-              );
-            } else {
-              return null;
-            }
+            );
           })}
         </tbody>
       </Table>
