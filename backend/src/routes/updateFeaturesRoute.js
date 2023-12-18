@@ -4,9 +4,9 @@ export const updateFeaturesRoute = {
   path: "/api/updateFeatures",
   method: "post",
   handler: async (req, res) => {
-    const { features, propertyID } = req.body;
+    const { features, propertyID, userID } = req.body;
 
-    const featuresResult = await callUpdateFeatures(features, propertyID);
+    const featuresResult = await callUpdateFeatures(features, propertyID, userID);
 
     console.log(featuresResult[0]);
 
