@@ -48,7 +48,7 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
                 <td>
                     {task[0]}
                 </td>
-                <td className="text-right red-text">
+                <td className="red-text">
                     {calculateDaysDue(task)}
                 </td>
                 <Modal show={show} onHide={handleClose}>
@@ -76,7 +76,7 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
                 <td>
                     {task[0]}
                 </td>
-                <td className="text-right blue-text">
+                <td className="blue-text">
                     {calculateDaysDue(task)}
                 </td>
                 <Modal show={show} onHide={handleClose}>
