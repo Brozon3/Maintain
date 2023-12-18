@@ -11,8 +11,11 @@ export const forgotPasswordRoute = {
       onSuccess: () => {
         res.sendStatus(200);
       },
-      onFailure: () => {
-        res.sendStatus(500);
+      onFailure: (e) => {
+        res.status(500).send({
+          message: e.message,
+          errorCode: e.code,
+        });
       },
     });
   },

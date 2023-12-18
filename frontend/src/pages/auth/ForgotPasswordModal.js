@@ -8,50 +8,24 @@ import { PasswordResetLandingModal } from "./PasswordResetLandingModal";
 export const ForgotPasswordModal = ({ show, setShow }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [emailValue, setEmailValue] = useState("");
-  const [success, setSuccess] = useState(false);
   const [showPasswordResetLandingModal, setShowPasswordResetLandingModal] =
     useState(false);
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
 
-  const submitTimeout = () => {
-    const timeout = setTimeout(() => {
-      setShowPasswordResetLandingModal(true);
-      handleClose();
-    }, 3000);
-    return () => clearTimeout(timeout);
-  };
-
   const handleSubmitClicked = async (e) => {
     e.preventDefault();
     try {
       await axios.put(`/api/forgotPassword/${emailValue}`);
-      setSuccess(true);
-      submitTimeout();
+      setShowPasswordResetLandingModal(true);
+      handleClose();
     } catch (e) {
-      setErrorMessage(e);
+      setErrorMessage(e.response.data.message);
     }
   };
 
-  return success ? (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className="blue-text"> Success </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="blue-text">
-          A reset link has been sent to you email.
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
-      <PasswordResetLandingModal
-        show={showPasswordResetLandingModal}
-        setShow={setShowPasswordResetLandingModal}
-        emailValue={emailValue}
-      />
-    </>
-  ) : (
+  return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -86,6 +60,11 @@ export const ForgotPasswordModal = ({ show, setShow }) => {
           </Modal.Footer>
         </Form>
       </Modal>
+      <PasswordResetLandingModal
+        show={showPasswordResetLandingModal}
+        setShow={setShowPasswordResetLandingModal}
+        emailValue={emailValue}
+      />
     </>
   );
 };
