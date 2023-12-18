@@ -84,6 +84,7 @@ BEGIN
 		CALL add_task("No real regular maintenance, just keep it clean.", NULL, NULL, NULL, "1 MONTH", NULL, "air fryer", NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Empty the bag/dump debris.", NULL, NULL, NULL, "1 MONTH", NULL, "vacuum cleaner", NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Contact your provider for annual maintenance", NULL, NULL, '09-30', "1 YEAR", NULL, "oil furnace", NULL, NULL, NULL, NULL, @message_res);
+        CALL add_task("Vacuum the carpet", NULL, NULL, '09-30', "1 WEEK", "carpet", NULL, NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Clean the gutters and check the shingles", NULL, NULL, '06-30', "1 YEAR", "roof_shingles", NULL, NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Clean the gutters.", NULL, NULL,'06-30', "1 YEAR", "roof_metal", NULL, NULL, NULL, NULL, NULL, @message_res);
 		

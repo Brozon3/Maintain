@@ -45,3 +45,5 @@ END//
 
 DELIMITER ;
 
+SELECT f.featureType, t.description 
+FROM features f JOIN featureTask ft USING(featureID) JOIN tasks t USING(taskID);
