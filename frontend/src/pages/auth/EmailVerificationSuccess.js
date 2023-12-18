@@ -9,7 +9,7 @@ export const EmailVerificationSuccess = ({ show, setShow }) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate(`/`);
+      // navigate(`/`);
       handleClose();
     }, 3000);
     return () => clearTimeout(timeout);
