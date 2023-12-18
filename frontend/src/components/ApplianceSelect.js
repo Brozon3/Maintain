@@ -14,7 +14,7 @@ export const ApplianceSelect = ({ register }) => {
     if (result.data.getAppliances) {
       setAppliances(result.data.getAppliances);
     } else {
-      setAppliances([]);
+      setAppliances([null]);
     }
   };
 

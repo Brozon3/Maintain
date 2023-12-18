@@ -7,22 +7,53 @@ import axios from "axios"
 export const PropertyFeatureList = () => {
 
     const { propertyID } = useParams();
-
-    const [features, setFeatures] = useState([]);
+    const [carpet, setCarpet] = useState(null);
+    const [heating, setHeating] = useState(null);
+    const [exterior, setExterior] = useState(null);
+    const [roof, setRoof] = useState(null);
 
     useEffect(() => {
+
         const fetchFeatures = async () => {
-            const result = await axios.get(`/api/propertyFeatures/${propertyID}`)
-            if (result.data.getFeatures) {
-                setFeatures(result.data.getFeatures);
+            const result = await axios.get(`/api/propertyFeatures/${propertyID}`);
+            let features = result.data.getFeatures;
+            features = features.map(feature => feature.featureID);
+
+            if (features.includes(376)){
+                setCarpet("carpet");
             } else {
-                setFeatures([]);
+                setCarpet(null);
             }
-    
+
+            if (features.includes(377)){
+                setRoof("roof_metal");
+            } else if (features.includes(378)){
+                setRoof("roof_shingles")
+            } else {
+                setRoof(null);
+            }
+
+            if (features.includes(379)){
+                setHeating("heating_electric");
+            } else if (features.includes(380)){
+                setHeating("heating_oil")
+            } else {
+                setHeating(null);
+            }
+
+            if (features.includes(381)){
+                setExterior("exterior_vinyl");
+            } else if (features.includes(382)){
+                setExterior("exterior_aluminum")
+            } else if (features.includes(383)){
+                setExterior("exterior_paint")
+            } else {
+                setHeating(null);
+            }
+            
         }
         fetchFeatures();
-        console.log(features);
-    }, [features.length])
+    }, [])
 
     return(
         <>
@@ -34,7 +65,7 @@ export const PropertyFeatureList = () => {
                                 Carpet:{" "}
                             </Form.Label>
                             <Form.Select id="carpet">
-                                <option value={"--"}>--</option>
+                                <option value={carpet}>{carpet}</option>
                                 <option value={"Yes"}>Yes</option>
                                 <option value={"No"}>No</option>
                             </Form.Select>
@@ -46,7 +77,7 @@ export const PropertyFeatureList = () => {
                                 Heating Type:{" "}
                             </Form.Label>
                             <Form.Select id="heating">
-                                <option value={"--"}>--</option>
+                                <option value={heating}>{heating}</option>
                                 <option value={"Electric"}>Electric</option>
                                 <option value={"Oil"}>Oil</option>
                             </Form.Select>
@@ -60,7 +91,7 @@ export const PropertyFeatureList = () => {
                                 Roof Type:{" "}
                             </Form.Label>
                             <Form.Select id="roof">
-                                <option value={"--"}>--</option>
+                                <option value={roof}>{roof}</option>
                                 <option value={"Shingles"}>Shingles</option>
                                 <option value={"Metal"}>Metal</option>
                             </Form.Select>
@@ -72,7 +103,7 @@ export const PropertyFeatureList = () => {
                                 Exterior Type:{" "}
                             </Form.Label>
                             <Form.Select id="exterior">
-                                <option value={"--"}>--</option>
+                                <option value={exterior}>{exterior}</option>
                                 <option value={"Vinyl"}>Vinyl</option>
                                 <option value={"Aluminum"}>Aluminum</option>
                                 <option value={"Paint"}>Paint</option>
