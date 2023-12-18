@@ -16,15 +16,14 @@ BEGIN
 		SET sql_error = TRUE;
         
 	START TRANSACTION;
-	DELETE FROM userProperty WHERE propertyID = propertyID_p;
-	DELETE FROM propertyFeatures WHERE propertyID = propertyID_p;
-	DELETE FROM propertyTasks WHERE propertyID = propertyID_p;
-	DELETE FROM userTaskList WHERE propertyID = propertyID_p;
-	DELETE FROM propertyAppliances WHERE propertyID = propertyID_p;
+	DELETE FROM userProperty WHERE propertyID = @propertyID_p;
+	DELETE FROM propertyTasks WHERE propertyID = @propertyID_p;
+	DELETE FROM userTaskList WHERE propertyID = @propertyID_p;
+	DELETE FROM propertyFeatures WHERE propertyID = @propertyID_p;
+	DELETE FROM propertyAppliances WHERE propertyID = @propertyID_p;
     
     IF sql_error = FALSE THEN
 		COMMIT;
-        DELETE FROM properties WHERE propertyID = propertyID_param;
         SET message_res = 'Property Removed';
 	ELSE 
 		ROLLBACK;
@@ -34,4 +33,15 @@ BEGIN
 
 END//
 
-DELIMITER;
+DELIMITER ;
+SET @propertyID_p = '404';
+SELECT * FROM userPropertyView WHERE propertyID = @propertyID_p;
+CALL remove_property(@propertyID_p, @message_res);
+
+DELETE FROM userProperty WHERE propertyID = @propertyID_p;
+DELETE FROM propertyTasks WHERE propertyID = @propertyID_p;
+DELETE FROM userTaskList WHERE propertyID = @propertyID_p;
+DELETE FROM propertyFeatures WHERE propertyID = @propertyID_p;
+DELETE FROM propertyAppliances WHERE propertyID = @propertyID_p;
+
+
