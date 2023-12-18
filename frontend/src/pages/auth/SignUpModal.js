@@ -12,6 +12,8 @@ import {
   initialConditionsMet,
 } from "../../auth/RealTimeValidation.js";
 import Modal from "react-bootstrap/Modal";
+import { UsernameExistsSignUpFailModal } from "./UsernameExistsSignUpFailModal.js";
+import { EmailVerificationCodeModal } from "./EmailVerificationCodeModal.js";
 
 export const SignUpModal = ({
   show,
@@ -25,6 +27,10 @@ export const SignUpModal = ({
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
   const [conditionsMet, setConditionsMet] = useState(initialConditionsMet);
+  const [showUserNameExistsSignUpFail, setShowUserNameExistsSignUpFail] =
+    useState(false);
+  const [showEmailVerificationModal, setShowEmailVerificationModal] =
+    useState(false);
 
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -42,13 +48,12 @@ export const SignUpModal = ({
 
       const { token } = response.data;
       setToken(token);
-      // TODO: MODAL
-      navigate(`/pleaseVerify?email=${encodeURIComponent(emailValue)}`);
+      setShowEmailVerificationModal(true);
+      handleClose();
     } catch (error) {
-      // Change to modal.
       if (error.response.data.error === "UsernameExistsException") {
-        // set warning modal message instead.
-        navigate("/usernameExistsSignUpFail");
+        setShowUserNameExistsSignUpFail(true);
+        handleClose();
       } else {
         console.error("Login error:", error);
       }
@@ -120,17 +125,26 @@ export const SignUpModal = ({
 
             <Button
               className="green-button mx-3"
-              onClick={() => setShowLoginModal(true)}
+              onClick={() => {
+                setShowLoginModal(true);
+                handleClose();
+              }}
             >
               Have an account? Log in!
             </Button>
           </Modal.Footer>
         </Modal>
       </Container>
-      {/* <EmailOrUsernameLoginFail
-        show={loginFailShow}
-        setShow={setLoginFailShow} */}
-      {/* /> */}
+      <UsernameExistsSignUpFailModal
+        show={showUserNameExistsSignUpFail}
+        setShow={setShowUserNameExistsSignUpFail}
+        setShowLoginModal={setShowLoginModal}
+      />
+      <EmailVerificationCodeModal
+        show={showEmailVerificationModal}
+        setShow={setShowEmailVerificationModal}
+        email={emailValue}
+      />
     </>
   );
 };

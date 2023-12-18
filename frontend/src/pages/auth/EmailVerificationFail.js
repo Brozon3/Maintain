@@ -1,19 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import { Button } from "react-bootstrap";
+import { useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
 
-export const EmailVerificationFail = () => {
-  const navigate = useNavigate();
+export const EmailVerificationFail = ({ show, setShow }) => {
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleClose();
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [show]);
 
   return (
-    <Container className="container main">
-      <h1 className="p-3 mb-3 blue-header">Uh Oh!</h1>
-      <p className="blue-secondary-header">Something went wrong when verifying your email.</p>
-      <Container className="w-50 d-flex justify-content-center">
-        <Button className="green-button my-2" onClick={() => navigate(-1)}>
-          Try Again
-        </Button>
-      </Container>
-    </Container>
+    <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="blue-text">Uh Oh</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="blue-text">
+          Something went wrong when verifying your email. Please try again.
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
+    </>
   );
 };
