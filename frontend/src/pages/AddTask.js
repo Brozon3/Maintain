@@ -21,9 +21,12 @@ export const AddTask = () => {
   const [addedOrExists, setAddedOrExists] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
-  const navigate = useNavigate();
+  
+
 
   const { propertyID } = useParams();
+  const navigate = useNavigate();
+  const viewProperty = (propertyID) => navigate("/viewproperty/" + propertyID);
 
   const [show, setShow] = useState(false);
 
@@ -51,7 +54,7 @@ export const AddTask = () => {
     });
     handleOpen();
     setMessage(response.data.message);
-    reset();
+    viewProperty(propertyID);
   };
 
   return (

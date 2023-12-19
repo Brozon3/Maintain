@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from "react";
-import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useParams } from "react-router";
 import { ApplianceField } from "./ApplianceField";
 import axios from "axios"
@@ -10,6 +10,7 @@ export const PropertyApplianceList = () => {
     const { propertyID } = useParams();
 
     const [appliances, setAppliances] = useState([]);
+    const [noAppliancesMessage, setNoAppliancesMessage] = useState(true);
 
     const navigate = useNavigate();
     const addAppliance = () => {
@@ -29,45 +30,38 @@ export const PropertyApplianceList = () => {
     
     useEffect (() => {
         fetchAppliances();
-    }, []);
+        if (appliances.length === 0){
+            setNoAppliancesMessage(true);
+        } else {
+            setNoAppliancesMessage(false);
+        }
+    }, [appliances.length]);
 
     return (
         <>
-            <Container className="blue-border my-3 blue-text">
-                <Row className="my-3 table-input">
-                    <Col lg={1}>
-                        <h6>Type</h6>
-                    </Col>
-                    <Col lg={2}>    
-                        <h6>Manufacturer</h6>
-                    </Col>
-                    <Col lg={2}>    
-                        <h6>Model</h6>
-                    </Col>
-                    <Col lg={2}>    
-                        <h6>Serial Number</h6>
-                    </Col>
-                    <Col lg={2}>    
-                        <h6>Purchase Date</h6>
-                    </Col>
-                    <Col lg={1}>    
-                        <h6>Warranty Length</h6>
-                    </Col>
-                    <Col lg={1}>    
-                        <h6>Warranty Expired</h6>
-                    </Col>
-                    <Col lg={1}>    
-                        
-                    </Col>
-                </Row>
-                
-                {appliances.map((appliance, i) => {
-                    return(
-                        <ApplianceField appliance={appliance} i={i} fetchAppliances={fetchAppliances} key={i}/>
-                    )
-                })}
-
-            </Container>
+            <Table responsive className="blue-border">
+                <thead >
+                    <tr>
+                        <th className="blue-text">{"Type"}</th>
+                        <th className="blue-text">{"Manufacturer"}</th>
+                        <th className="blue-text">{"Model"}</th>
+                        <th className="blue-text">{"Serial Number"}</th>
+                        <th className="blue-text">{"Purchase Date"}</th>
+                        <th className="blue-text">{"Warranty Length"}</th>
+                        <th className="blue-text">{"Warranty Expired"}</th>
+                        <th className="blue-text">{"Delete"}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {appliances.map((appliance, i) => {
+                        return(
+                            <ApplianceField appliance={appliance} i={i} fetchAppliances={() => fetchAppliances()} key={i}/>
+                        )
+                    })}
+                </tbody>
+            </Table>
+            {noAppliancesMessage && <h1 className="green-secondary-header mb-3">{"There are currently no appliances associated with this property."}</h1>}
+            
             <Button type="submit" className="green-button mx-3" onClick={() => addAppliance()}>
                 Add Appliance
             </Button>

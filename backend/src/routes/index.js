@@ -19,7 +19,11 @@ import { addApplianceRoute } from "./addApplianceRoute.js";
 import { updateTaskRoute } from "./updateTaskRoute.js";
 import { deleteApplianceRoute } from "./deleteApplianceRoute.js";
 import { getPropertyFeaturesRoute } from "./getPropertyFeaturesRoute.js"
+<<<<<<< HEAD
 import { listCalendarEvents } from "./listCalendarEventsRoute.js"
+=======
+import { updateFeaturesRoute } from "./updateFeaturesRoute.js"
+>>>>>>> testing
 
 export const routes = [
   addProperty,
@@ -43,5 +47,9 @@ export const routes = [
   updateTaskRoute,
   deleteApplianceRoute,
   getPropertyFeaturesRoute,
+<<<<<<< HEAD
   listCalendarEvents 
+=======
+  updateFeaturesRoute,
+>>>>>>> testing
 ];

@@ -1,15 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import { Button } from "react-bootstrap";
+import { useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
 
-export const PasswordResetSuccess = () => {
-  const navigate = useNavigate();
+export const PasswordResetSuccess = ({ show, setShow }) => {
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleClose();
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [show]);
 
   return (
-    <Container className="container main" >
-      <h1 className="blue-header mb-3 p-3">Success!</h1>
-      <p className="blue-secondary-header">Your password has been reset. Please login with your new password.</p>
-      <Button className="green-button mx-3" onClick={() => navigate("/loginPage")}>Login</Button>
-    </Container>
+    <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="blue-text">Success!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="blue-text">
+          Your password has been reset. Please login with your new password.{" "}
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
+    </>
   );
 };

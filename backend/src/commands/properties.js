@@ -40,7 +40,11 @@ export const callRemoveProperty = async (propertyObject) => {
 };
 
 export const callAddProperty = async (userID, propertyObject) => {
+<<<<<<< HEAD
   const { address, city, prov, type, roof, exterior, carpet, pets, heating } =
+=======
+  const { address, city, prov, type, roof, carpet, pets, heating, exterior } =
+>>>>>>> testing
     propertyObject;
   return new Promise((resolve, reject) => {
     try {
@@ -48,7 +52,22 @@ export const callAddProperty = async (userID, propertyObject) => {
         "CALL Maintain_Database.add_property(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @propertyID_res, @message_res)";
       conn.query(
         sql,
+<<<<<<< HEAD
         [userID, address, city, prov, carpet, heating, pets, type, roof, exterior],
+=======
+        [
+          userID,
+          address,
+          city,
+          prov,
+          carpet,
+          heating,
+          pets,
+          type,
+          roof,
+          exterior,
+        ],
+>>>>>>> testing
         function (err, result) {
           if (err) {
             console.error("Error adding property", err);
@@ -161,15 +180,16 @@ export const getPropertyFeatures = async (propertyID) => {
 export const getPropertyTasks = async (propertyID) => {
   return new Promise((resolve, reject) => {
     try {
-      const sql = "SELECT * FROM Maintain_Database.propertyTaskView WHERE propertyID = ?"
+      const sql =
+        "SELECT * FROM Maintain_Database.propertyTaskView WHERE propertyID = ?";
       conn.query(sql, [propertyID], function (err, result) {
         if (err) {
-          console.error("Error getting property tasks: ", err)
+          console.error("Error getting property tasks: ", err);
           reject(err);
         } else {
           resolve(result);
         }
-      })
+      });
     } catch (error) {
       console.error("Error connecting to the database: ", error);
       reject(error);

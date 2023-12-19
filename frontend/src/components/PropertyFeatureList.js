@@ -1,87 +1,164 @@
 import React, {useState, useEffect } from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form, Modal, Container } from "react-bootstrap";
 import { useParams } from "react-router";
 import axios from "axios"
-
+import { useForm } from "react-hook-form";
+import { UseUser } from "../auth/useUser";
 
 export const PropertyFeatureList = () => {
 
     const { propertyID } = useParams();
+    const [carpet, setCarpet] = useState(null);
+    const [heating, setHeating] = useState(null);
+    const [exterior, setExterior] = useState(null);
+    const [roof, setRoof] = useState(null);
+    const [show, setShow] = useState(false);
+    const user = UseUser();
 
-    const [features, setFeatures] = useState([]);
+    const { register, handleSubmit, reset } = useForm();
 
-    const fetchFeatures = async () => {
-        const result = await axios.get(`/api/propertyFeatures/${propertyID}`)
-        if (result.data.getFeatures) {
-            setFeatures(result.data.getFeatures);
-        } else {
-            setFeatures([]);
-        }
-
-    }
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
 
     useEffect(() => {
+
+        const fetchFeatures = async () => {
+            const result = await axios.get(`/api/propertyFeatures/${propertyID}`);
+            let features = result.data.getFeatures;
+            features = features.map(feature => feature.featureID);
+            console.log(features);
+
+            if (features.includes(384)){
+                setCarpet("carpet");
+            } else {
+                setCarpet(null);
+            }
+
+            if (features.includes(385)){
+                setRoof("roof_metal");
+            } else if (features.includes(386)){
+                setRoof("roof_shingles")
+            } else {
+                setRoof(null);
+            }
+
+            if (features.includes(387)){
+                setHeating("heating_electric");
+            } else if (features.includes(388)){
+                setHeating("heating_oil")
+            } else {
+                setHeating(null);
+            }
+
+            if (features.includes(389)){
+                setExterior("exterior_vinyl");
+            } else if (features.includes(390)){
+                setExterior("exterior_aluminum")
+            } else if (features.includes(391)){
+                setExterior("exterior_paint")
+            } else {
+                setHeating(null);
+            }
+            
+        }
         fetchFeatures();
+    }, [])
+
+    useForm({
+        carpet: {carpet},
+        roof: {roof},
+        heating: {heating},
+        exterior: {exterior}
     })
 
+    const onSubmit = async (data) => {
+        console.log(data);
+        const response = await axios.post("/api/updateFeatures", {
+            userID: user.userID,
+            propertyID: propertyID,
+            features: data
+        })
+        handleOpen();
+      };
+
     return(
-        <Form className="container w-75 blue-border my-3">
-            <Row className="my-3">
-                <Col lg={6}>
-                    <Form.Group className="mb-3">
-                        <Form.Label className="blue-text" htmlFor="carpet">
-                            Carpet:{" "}
-                        </Form.Label>
-                        <Form.Select id="carpet">
-                            <option value={"--"}>--</option>
-                            <option value={"Yes"}>Yes</option>
-                            <option value={"No"}>No</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-                <Col lg={6}>
-                    <Form.Group>
-                        <Form.Label className="blue-text" htmlFor="heating">
-                            Heating Type:{" "}
-                        </Form.Label>
-                        <Form.Select id="heating">
-                            <option value={"--"}>--</option>
-                            <option value={"Electric"}>Electric</option>
-                            <option value={"Oil"}>Oil</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Row className="my-3">
-                <Col lg={6}>
-                    <Form.Group>
-                        <Form.Label className="blue-text" htmlFor="roof">
-                            Roof Type:{" "}
-                        </Form.Label>
-                        <Form.Select id="roof">
-                            <option value={"--"}>--</option>
-                            <option value={"Shingles"}>Shingles</option>
-                            <option value={"Metal"}>Metal</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-                <Col lg={6}>
-                    <Form.Group>
-                        <Form.Label className="blue-text" htmlFor="exterior">
-                            Exterior Type:{" "}
-                        </Form.Label>
-                        <Form.Select id="exterior">
-                            <option value={"--"}>--</option>
-                            <option value={"Vinyl"}>Vinyl</option>
-                            <option value={"Aluminum"}>Aluminum</option>
-                            <option value={"Paint"}>Paint</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Button type="submit" className="green-button mx-3">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <Container className="container w-75 blue-border my-3">
+                <Row className="my-3">
+                    <Col lg={6}>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="blue-text" htmlFor="carpet">
+                                Carpet:{" "}
+                            </Form.Label>
+                            <Form.Select id="carpet" defaultValue={carpet} {...register("carpet")}>
+                                <option value={carpet}>{carpet}</option>
+                                <option value={"Yes"}>Yes</option>
+                                <option value={"No"}>No</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col lg={6}>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="blue-text" htmlFor="heating">
+                                Heating Type:{" "}
+                            </Form.Label>
+                            <Form.Select id="heating" defaultValue={heating} {...register("heating")}>
+                                <option value={heating}>{heating}</option>
+                                <option value={"Electric"}>Electric</option>
+                                <option value={"Oil"}>Oil</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className="my-3">
+                    <Col lg={6}>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="blue-text" htmlFor="roof">
+                                Roof Type:{" "}
+                            </Form.Label>
+                            <Form.Select id="roof" defaultValue={roof} {...register("roof")}>
+                                <option value={roof}>{roof}</option>
+                                <option value={"Shingles"}>Shingles</option>
+                                <option value={"Metal"}>Metal</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col lg={6}>
+                        <Form.Group>
+                            <Form.Label className="blue-text" htmlFor="exterior">
+                                Exterior Type:{" "}
+                            </Form.Label>
+                            <Form.Select id="exterior" defaultValue={exterior} {...register("exterior")}>
+                                <option value={exterior}>{exterior}</option>
+                                <option value={"Vinyl"}>Vinyl</option>
+                                <option value={"Aluminum"}>Aluminum</option>
+                                <option value={"Paint"}>Paint</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Button type="submit" className="green-button mx-3" onClick={handleOpen}>
                 Save
             </Button>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="blue-text">Save Features</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="blue-text">
+                    Are you sure you want to save these features?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="blue-button" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button className="green-button" type="submit">
+                        Save Features
+                    </Button>
+                </Modal.Footer>
+            </Modal>  
         </Form>
     )
 }

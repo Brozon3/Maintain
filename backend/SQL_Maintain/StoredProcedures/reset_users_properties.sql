@@ -84,6 +84,7 @@ BEGIN
 		CALL add_task("No real regular maintenance, just keep it clean.", NULL, NULL, NULL, "1 MONTH", NULL, "air fryer", NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Empty the bag/dump debris.", NULL, NULL, NULL, "1 MONTH", NULL, "vacuum cleaner", NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Contact your provider for annual maintenance", NULL, NULL, '09-30', "1 YEAR", NULL, "oil furnace", NULL, NULL, NULL, NULL, @message_res);
+        CALL add_task("Vacuum the carpet", NULL, NULL, '09-30', "1 WEEK", "carpet", NULL, NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Clean the gutters and check the shingles", NULL, NULL, '06-30', "1 YEAR", "roof_shingles", NULL, NULL, NULL, NULL, NULL, @message_res);
 		CALL add_task("Clean the gutters.", NULL, NULL,'06-30', "1 YEAR", "roof_metal", NULL, NULL, NULL, NULL, NULL, @message_res);
 		
@@ -96,17 +97,17 @@ BEGIN
 		-- Dev 1 default properties & appliances
 		SET userID_p = 69;
 		-- Property 1
-		CALL add_property(userID_p, "44 Cheshire Place", "St. John's", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "44 Cheshire Place", "St. John's", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal","exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "snowblower", "234886598", NOW(), 5, "Poulan Pro", "445", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID_p, "48 Python Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 Python Place", "London", "ON", 1, "heating_oil", 1, "Home", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
 		-- Property 3
-		CALL add_property(userID_p, "47 John Coltrane Place", "St-Louis-de-Ha-Ha!", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "47 John Coltrane Place", "St-Louis-de-Ha-Ha!", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oil furnace", "fkfdsASDFJAS", NOW(), 50, "MorrHeat", "MH80", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "lawnmower", "dlsgkjh", NOW(), NULL, "Troy Built", "Check Don't Change 3 in 1", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200", @propertyApplianceID);
@@ -114,17 +115,17 @@ BEGIN
 		-- Dev 2 default properties & appliances
 		SET userID_p = 2;
 		-- Property 1
-		CALL add_property(userID_p, "44 College Rd.", "Halifax", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "44 College Rd.", "Halifax", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "snowblower", "234886598", NOW(), 5, "Poulan Pro", "445", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID_p, "48 North Atlantic", "Peterborough", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 North Atlantic", "Peterborough", "ON", 1, "heating_oil", 1, "Home", "roof_metal", "exterior_vinyl",@propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
 		-- Property 3
-		CALL add_property(userID_p, "47 Ridge Road", "Montreal", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "47 Ridge Road", "Montreal", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oil furnace", "fkfdsASDFJAS", NOW(), 50, "MorrHeat", "MH80", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "lawnmower", "dlsgkjh", NOW(), NULL, "Troy Built", "Check Don't Change 3 in 1", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200", @propertyApplianceID);
@@ -132,17 +133,17 @@ BEGIN
 		-- Dev 3 default properties & appliances
 		SET userID_p = 79;
 		-- Property 1
-		CALL add_property(userID_p, "44 My Place", "Dartmouth", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "44 My Place", "Dartmouth", "NL", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "snowblower", "234886598", NOW(), 5, "Poulan Pro", "445", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oven", "76393456120as", NOW(), 2, "Frigidaire Gallery", "GCRE306CAF", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "refrigerator", "kjdfgkjh348askjh", NOW(), 2, "LG Electronics", "LRFGC2706S", @propertyApplianceID);
 		-- Property 2
-		CALL add_property(userID_p, "48 Murach place", "Mount Pearl", "ON", 1, "heating_oil", 1, "Home", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "48 Murach place", "Mount Pearl", "ON", 1, "heating_oil", 1, "Home", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes washing machine", "ASFJHdkkjshg", NOW(), 5, "Samsung", "WA50R5200AW", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "clothes dryer", "ASHFD3457565", NOW(), 2, "Hotpoint", "HTX24EASKWS", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "mini split", "DHDD33453456", NOW(), 1, "DuctlessAire", "DA2421-H2", @propertyApplianceID);
 		-- Property 3
-		CALL add_property(userID_p, "47 Sweet Way", "Beving", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", @propertyID, @message_res);
+		CALL add_property(userID_p, "47 Sweet Way", "Beving", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 		CALL add_propertyAppliance(userID_p, @propertyID, "oil furnace", "fkfdsASDFJAS", NOW(), 50, "MorrHeat", "MH80", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "lawnmower", "dlsgkjh", NOW(), NULL, "Troy Built", "Check Don't Change 3 in 1", @propertyApplianceID);
 		CALL add_propertyAppliance(userID_p, @propertyID, "woodstove", "ASDF2345644", NOW(), NULL, "Pleasant Hearth", "LWS-2200", @propertyApplianceID);
@@ -167,5 +168,8 @@ SELECT description, dueDate FROM propertyTaskView WHERE propertyID = 309;
 SELECT * FROM defaultTasks;
 CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
 SELECT * FROM tasks;
+SELECT * FROM applianceView;
+SELECT * FROM userTaskList WHERE userID = 69;
+SELECT * FROM tasks WHERE taskID = 1095;
 
 

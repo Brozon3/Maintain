@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 
 export const EmailOrUsernameLoginFail = ({ show, setShow }) => {
@@ -10,7 +10,7 @@ export const EmailOrUsernameLoginFail = ({ show, setShow }) => {
       handleClose();
     }, 3000);
     return () => clearTimeout(timeout);
-  }, [handleClose]);
+  }, []);
 
   return (
     <>
