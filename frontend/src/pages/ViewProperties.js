@@ -23,6 +23,13 @@ export function DisplayProperties() {
   const user = UseUser();
   const { userID, max_properties } = user;
 
+  const getCalendarEvents = async () => {
+    const result = await axios.post(`/api/listCalendarEvents`, {user: user});
+  }
+  useEffect(() => {
+    getCalendarEvents();
+  }, []);
+
   const fetchProperties = async () => {
     const result = await axios.get(`/api/getUserProperties/${userID}`);
     if (result.data.userProperties) {

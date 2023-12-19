@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import { getPropertyTasks } from "properties.js"
+import { getPropertyTasks } from "./properties.js"
 import "dotenv/config";
 
 export const listEvents = async (auth) => {

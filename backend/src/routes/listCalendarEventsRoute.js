@@ -5,13 +5,12 @@ export const listCalendarEvents = {
   path: "/api/listCalendarEvents",
   method: "post",
   handler: async (req, res) => {
-    let { oauthToken } = req.body;
+    const { user } = req.body;
     // console.log(user);
     // console.log(req);
-    oauthClient.setCredentials(oauthToken);
+    oauthClient.setCredentials(user);
     console.log(oauthClient);
-    listEvents(oauthClient);
-
+    listEvents(oauthClient)
     // req.status(200).json({
     //   message: "Groovy.",
     // });
