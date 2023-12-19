@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../auth/useUser";
-import { PropertyCard } from "../components/propertyCard.js";
+import { PropertyCard } from "../components/propertyCard";
 import axios from "axios";
+
+// DO NOT CHANGE propertyCard imports to Property. IT BREAKS EVERYTHING! and is a very bizarre error
 
 export function DisplayProperties() {
   const [userEmail, setUserScreenName] = useState("");

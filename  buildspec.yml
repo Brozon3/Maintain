@@ -2,6 +2,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - npm install -g npm@latest
       - cd frontend
       - npm install
   build:
@@ -13,4 +14,8 @@ phases:
       - npm shrinkwrap
   post_build:
     commands:
-      - npm run buildpack
+      - cd ..
+      - zip -r maintain.zip backend/
+artifacts:
+  files:
+    - maintain.zip

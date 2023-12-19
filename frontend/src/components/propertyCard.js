@@ -1,7 +1,8 @@
-import axios from "axios";
 import { Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+
+// DO NOT CHANGE FILENAME TO PropertyCard.js Everything will break. I don't know why.
 
 export const PropertyCard = ({ property, onDelete }) => {
   const handleClose = () => setShow(false);

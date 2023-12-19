@@ -40,15 +40,15 @@ export const callRemoveProperty = async (propertyObject) => {
 };
 
 export const callAddProperty = async (userID, propertyObject) => {
-  const { address, city, prov, type, roof, carpet, pets, heating } =
+  const { address, city, prov, type, roof, exterior, carpet, pets, heating } =
     propertyObject;
   return new Promise((resolve, reject) => {
     try {
       const sql =
-        "CALL Maintain_Database.add_property(?, ?, ?, ?, ?, ?, ?, ?, ?, @propertyID_res, @message_res)";
+        "CALL Maintain_Database.add_property(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @propertyID_res, @message_res)";
       conn.query(
         sql,
-        [userID, address, city, prov, carpet, heating, pets, type, roof],
+        [userID, address, city, prov, carpet, heating, pets, type, roof, exterior],
         function (err, result) {
           if (err) {
             console.error("Error adding property", err);
