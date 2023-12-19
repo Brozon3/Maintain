@@ -90,11 +90,5 @@ END//
 
 DELIMITER ;
 
-SELECT * FROM propertyTaskView WHERE propertyID = 376;
-
-			-- description,		 dueDate, 	userID, defaultDate, frequency, featureType, applianceType, propertyID, propretyApplianceID, propertyFeatureID, eventID, @message_res
-CALL add_task("Brand new task 2", "2023-12-09", "69", NULL, "1 WEEK", NULL, NULL, 376, NULL, NULL, NULL, @message_res);
-SELECT @message_res;
-
 
 

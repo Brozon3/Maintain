@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { RoofField } from "../components/RoofField";
 import { UseUser } from "../auth/useUser";
-import { useToken } from "../auth/useToken";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Modal } from "react-bootstrap";
@@ -13,8 +12,6 @@ import { ExteriorField } from "../components/ExteriorField";
 
 export const AddProperty = () => {
   const user = UseUser();
-  const [token, setToken] = useToken();
-  const { id, email, isVerified } = user;
   const [message, setMessage] = useState("");
   const [addedOrExists, setAddedOrExists] = useState("");
 

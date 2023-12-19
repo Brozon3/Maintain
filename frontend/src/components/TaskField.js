@@ -19,7 +19,6 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
         });
         fetchTasks();
         handleClose();
-        
     };
 
     const calculateDaysDue = (task) => {
@@ -42,20 +41,16 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
     
     if (color === "red"){
         return(
-            <>
-                <Row>
-                    <Col lg={1}>
-                        <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} id={"switch" + i}/>
-                    </Col>
-                    <Col lg={8}>
-                        <p style={{textAlign: "left"}}>
-                            {task[0]}
-                        </p>
-                    </Col>
-                    <Col lg={3}>
-                        <Form.Text className="text-right red-text">{calculateDaysDue(task)}</Form.Text>
-                    </Col>
-                </Row>
+            <tr>
+                <td>
+                    <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} id={"switch" + i}/>
+                </td>
+                <td>
+                    {task[0]}
+                </td>
+                <td className="red-text">
+                    {calculateDaysDue(task)}
+                </td>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title className="blue-text">Complete Task</Modal.Title>
@@ -70,24 +65,20 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
                     </Button>
                     </Modal.Footer>
                 </Modal>
-            </>
+            </tr>
         )
     } else {
         return(
-            <>
-                <Row>
-                    <Col lg={1}>
-                        <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} id={"switch" + i}/>
-                    </Col>
-                    <Col lg={8}>
-                        <p style={{textAlign: "left"}}>
-                            {task[0]}
-                        </p>
-                    </Col>
-                    <Col lg={3}>
-                        <Form.Text className="text-right blue-text">{calculateDaysDue(task)}</Form.Text>
-                    </Col>
-                </Row>
+            <tr>
+                <td>
+                    <Form.Check type={"switch"} onClick={handleOpen} defaultChecked={false} id={"switch" + i}/>
+                </td>
+                <td>
+                    {task[0]}
+                </td>
+                <td className="blue-text">
+                    {calculateDaysDue(task)}
+                </td>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title className="blue-text">Complete Task</Modal.Title>
@@ -102,7 +93,7 @@ export const SwitchModal = ({task, i, color, fetchTasks}) => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </>
+            </tr>
         )
     }
 }
