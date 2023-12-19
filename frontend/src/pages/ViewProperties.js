@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../auth/useUser";
-<<<<<<< HEAD
-import { PropertyCard } from "../components/propertyCard";
-=======
 import { PropertyCard } from "../components/propertyCard.js";
->>>>>>> testing
 import axios from "axios";
 
 // DO NOT CHANGE propertyCard imports to Property. IT BREAKS EVERYTHING! and is a very bizarre error
