@@ -15,8 +15,6 @@ export const PropertyFeatureList = () => {
     const [show, setShow] = useState(false);
     const user = UseUser();
 
-    const { register, handleSubmit, reset } = useForm();
-
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
@@ -63,13 +61,8 @@ export const PropertyFeatureList = () => {
         }
         fetchFeatures();
     }, [])
-
-    useForm({
-        carpet: {carpet},
-        roof: {roof},
-        heating: {heating},
-        exterior: {exterior}
-    })
+    
+    const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -78,7 +71,8 @@ export const PropertyFeatureList = () => {
             propertyID: propertyID,
             features: data
         })
-        handleOpen();
+        handleClose();
+        reset();
       };
 
     return(
@@ -90,7 +84,7 @@ export const PropertyFeatureList = () => {
                             <Form.Label className="blue-text" htmlFor="carpet">
                                 Carpet:{" "}
                             </Form.Label>
-                            <Form.Select id="carpet" defaultValue={carpet} {...register("carpet")}>
+                            <Form.Select id="carpet" name="carpet" defaultValue={carpet} {...register("carpet")}>
                                 <option value={carpet}>{carpet}</option>
                                 <option value={"Yes"}>Yes</option>
                                 <option value={"No"}>No</option>
@@ -99,7 +93,7 @@ export const PropertyFeatureList = () => {
                     </Col>
                     <Col lg={6}>
                         <Form.Group className="mb-3">
-                            <Form.Label className="blue-text" htmlFor="heating">
+                            <Form.Label className="blue-text" name="heating" htmlFor="heating">
                                 Heating Type:{" "}
                             </Form.Label>
                             <Form.Select id="heating" defaultValue={heating} {...register("heating")}>
@@ -116,7 +110,7 @@ export const PropertyFeatureList = () => {
                             <Form.Label className="blue-text" htmlFor="roof">
                                 Roof Type:{" "}
                             </Form.Label>
-                            <Form.Select id="roof" defaultValue={roof} {...register("roof")}>
+                            <Form.Select id="roof" defaultValue={roof} name="roof" {...register("roof")}>
                                 <option value={roof}>{roof}</option>
                                 <option value={"Shingles"}>Shingles</option>
                                 <option value={"Metal"}>Metal</option>
@@ -128,7 +122,7 @@ export const PropertyFeatureList = () => {
                             <Form.Label className="blue-text" htmlFor="exterior">
                                 Exterior Type:{" "}
                             </Form.Label>
-                            <Form.Select id="exterior" defaultValue={exterior} {...register("exterior")}>
+                            <Form.Select id="exterior" defaultValue={exterior} name="exterior" {...register("exterior")}>
                                 <option value={exterior}>{exterior}</option>
                                 <option value={"Vinyl"}>Vinyl</option>
                                 <option value={"Aluminum"}>Aluminum</option>
@@ -139,7 +133,7 @@ export const PropertyFeatureList = () => {
                 </Row>
             </Container>
 
-            <Button type="submit" className="green-button mx-3" onClick={handleOpen}>
+            <Button className="green-button mx-3" onClick={handleOpen} type="button">
                 Save
             </Button>
 

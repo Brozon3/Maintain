@@ -76,6 +76,8 @@ body {
     color: #F8F9FA !important; 
     border-color: #294C69 !important;
     min-width: fit-content !important;
+    width: fit-content !important;
+    height: fit-content !important;
 }
 
 .non-card-button {
