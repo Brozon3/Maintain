@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken";
 import { FcGoogle } from "react-icons/fc";
@@ -98,41 +98,55 @@ export const LoginModal = ({ loggedIn, setLoggedIn, show, setShow }) => {
                   onChange={(e) => setPasswordValue(e.target.value)}
                 />
               </Form.Group>
-              <hr></hr>
             </Form>{" "}
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              disabled={!emailValue || !passwordValue}
-              className="green-button mx-3"
-              onClick={onLoginClicked}
-            >
-              Log In
-            </Button>
-            <Button className="green-button mx-3" onClick={onSignUpClicked}>
-              Sign Up
-            </Button>
-            <Button
-              className="green-button mx-3"
-              onClick={() => {
-                setForgotPasswordModalShow(true);
-                handleClose();
-              }}
-            >
-              Forgot Password?
-            </Button>
+            <Row className="container justify-content-center">
+              <Button
+                disabled={!emailValue || !passwordValue}
+                className="green-button mx-3"
+                onClick={onLoginClicked}
+              >
+                Log In
+              </Button>
+            </Row>
 
-            <Button
-              className="google-sign-in-button m-3"
-              variant="custom"
-              disabled={!googleOauthUrl}
-              onClick={() => {
-                window.location.href = googleOauthUrl;
-              }}
-            >
-              <FcGoogle className="google-icon" />
-              Log in with Google
-            </Button>
+
+            <Row className="container justify-content-center">
+              <Button className="green-button mx-3" onClick={onSignUpClicked}>
+                Sign Up
+              </Button>
+            </Row>
+
+            
+            <Row className="container justify-content-center">
+              <Button
+                className="green-button mx-3"
+                onClick={() => {
+                  setForgotPasswordModalShow(true);
+                  handleClose();
+                }}
+              >
+                Forgot Password?
+              </Button>
+            </Row>
+
+            <Row className="container justify-content-center">
+              <Button
+                className="google-sign-in-button m-3"
+                style={{width: "fit-content"}}
+                variant="custom"
+                disabled={!googleOauthUrl}
+                onClick={() => {
+                  window.location.href = googleOauthUrl;
+                }}
+              >
+                <FcGoogle className="google-icon" />
+                Log in with Google
+              </Button>
+            </Row>
+            
+
           </Modal.Footer>
         </Modal>
       </Container>

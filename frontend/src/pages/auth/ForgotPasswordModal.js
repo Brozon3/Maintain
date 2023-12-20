@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Modal, Button, Row } from "react-bootstrap";
 import axios from "axios";
-import Modal from "react-bootstrap/Modal";
 import { PasswordResetLandingModal } from "./PasswordResetLandingModal";
 
 export const ForgotPasswordModal = ({ show, setShow }) => {
@@ -39,7 +37,7 @@ export const ForgotPasswordModal = ({ show, setShow }) => {
             Enter your email and we'll send a reset link.
             {errorMessage && <div className="fail">{errorMessage}</div>}
             <Form.Group className="mb-3">
-              <Form.Label className="blue-text" htmlFor="emailValue">
+              <Form.Label className="blue-text my-3" htmlFor="emailValue">
                 Email:{" "}
               </Form.Label>
               <Form.Control
@@ -50,13 +48,17 @@ export const ForgotPasswordModal = ({ show, setShow }) => {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              type="submit"
-              className="green-button mx-3"
-              disabled={!emailValue}
-            >
-              Submit
-            </Button>
+
+            <Row className="container justify-content-center">
+              <Button
+                type="submit"
+                className="green-button mx-3"
+                disabled={!emailValue}
+              >
+                Submit
+              </Button>
+            </Row>
+            
           </Modal.Footer>
         </Form>
       </Modal>

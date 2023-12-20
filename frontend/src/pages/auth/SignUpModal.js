@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
+import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../../auth/useToken.js";
 import { PasswordRequirements } from "../../auth/PasswordRequirements.js";
@@ -11,7 +9,6 @@ import {
   RealTimeValidation,
   initialConditionsMet,
 } from "../../auth/RealTimeValidation.js";
-import Modal from "react-bootstrap/Modal";
 import { UsernameExistsSignUpFailModal } from "./UsernameExistsSignUpFailModal.js";
 import { EmailVerificationCodeModal } from "./EmailVerificationCodeModal.js";
 
@@ -111,27 +108,32 @@ export const SignUpModal = ({
             <PasswordRequirements conditionsMet={conditionsMet} />
             <hr></hr>
 
-            <Button
-              disabled={
-                !emailValue ||
-                !passwordValue ||
-                passwordValue !== confirmPasswordValue
-              }
-              className="green-button mx-3"
-              onClick={onSignUpClicked}
-            >
-              Sign Up
-            </Button>
+            <Row className="container justify-content-center">
+              <Button
+                disabled={
+                  !emailValue ||
+                  !passwordValue ||
+                  passwordValue !== confirmPasswordValue
+                }
+                className="green-button mx-3"
+                onClick={onSignUpClicked}
+              >
+                Sign Up
+              </Button>
+            </Row>
+            
+            <Row className="container justify-content-center">
+              <Button
+                className="green-button mx-3"
+                onClick={() => {
+                  setShowLoginModal(true);
+                  handleClose();
+                }}
+              >
+                Have an account? Log in!
+              </Button>
+            </Row>
 
-            <Button
-              className="green-button mx-3"
-              onClick={() => {
-                setShowLoginModal(true);
-                handleClose();
-              }}
-            >
-              Have an account? Log in!
-            </Button>
           </Modal.Footer>
         </Modal>
       </Container>
