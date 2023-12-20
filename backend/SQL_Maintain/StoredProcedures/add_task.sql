@@ -30,9 +30,9 @@ BEGIN
     IF dueDate_p IS NULL AND defaultDate_p IS NOT NULL THEN
 		SET dueDate_p = STR_TO_DATE(
         IF(
-            STR_TO_DATE(CONCAT(YEAR(NOW()), defaultDate_p), '%Y-%m-%d') < CURDATE(),
-            CONCAT(YEAR(NOW()) + 1, defaultDate_p),
-            CONCAT(YEAR(NOW()), defaultDate_p)
+            STR_TO_DATE(CONCAT(YEAR(NOW()), '-', defaultDate_p), '%Y-%m-%d') < CURDATE(),
+				CONCAT(YEAR(NOW()) + 1, '-', defaultDate_p),
+				CONCAT(YEAR(NOW()), '-', defaultDate_p)
         ),
         '%Y-%m-%d'
     );
