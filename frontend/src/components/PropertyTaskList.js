@@ -17,6 +17,7 @@ export const PropertyTaskList = () => {
     const upcomingTasks = [];
     const overdueTasks = [];
     const tasks = result.data.tasks;
+    console.log(tasks);
     if (tasks.length > 0) {
       for (let i = 0; i < tasks.length; i++){
         if (tasks[i] !== undefined) {

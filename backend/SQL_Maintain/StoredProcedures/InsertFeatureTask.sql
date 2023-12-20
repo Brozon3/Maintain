@@ -27,12 +27,13 @@ BEGIN
             t.taskID,
             CASE
 				WHEN t.defaultDate IS NOT NULL THEN 
-					STR_TO_DATE(IF(
-									STR_TO_DATE(CONCAT(YEAR(NOW()), t.defaultDate), '%Y-%m-%d') < CURDATE(),
-									CONCAT(YEAR(NOW()) + 1, t.defaultDate),
-									CONCAT(YEAR(NOW()), t.defaultDate)
-									),
-								'%Y-%m-%d')
+					STR_TO_DATE(
+                    IF(
+						STR_TO_DATE(CONCAT(YEAR(NOW()), '-', @defaultDate), '%Y-%m-%d') < CURDATE(),
+							CONCAT(YEAR(NOW()) + 1, '-',  @defaultDate),
+							CONCAT(YEAR(NOW()), '-', @defaultDate)
+							),
+					'%Y-%m-%d')
 				ELSE NOW()
 			END AS dueDate,
 			propertyFeaturesID_p,
@@ -45,5 +46,27 @@ END//
 
 DELIMITER ;
 
-SELECT f.featureType, t.description 
+USE Maintain_Database;
+SELECT * FROM userPropertyView WHERE userID = 69;
+SET @propertyID = 437;
+SET @userID = 69;
+SELECT * FROM userTaskList WHERE propertyFeaturesID = @propertyFeaturesID_p;
+CALL insert_feature_task(@userID, @propertyID, 'carpet', @propertyFeaturesID_p);
+SELECT @propertyFeaturesID_p;
+SELECT * FROM userTaskList WHERE propertyFeaturesID = @propertyFeaturesID_p;
+
+USE Maintain_Database;
+SELECT f.featureType, t.description, t.frequency, t.defaultDate
 FROM features f JOIN featureTask ft USING(featureID) JOIN tasks t USING(taskID);
+
+SET @defaultDate = '06-30';
+SELECT CONCAT(YEAR(NOW()), '-', @defaultDate);
+SELECT STR_TO_DATE(CONCAT(YEAR(NOW()), '-', @defaultDate), '%Y-%m-%d');
+
+SELECT STR_TO_DATE(
+                    IF(
+						STR_TO_DATE(CONCAT(YEAR(NOW()), '-', @defaultDate), '%Y-%m-%d') < CURDATE(),
+							CONCAT(YEAR(NOW()) + 1, '-',  @defaultDate),
+							CONCAT(YEAR(NOW()), '-', @defaultDate)
+							),
+					'%Y-%m-%d');

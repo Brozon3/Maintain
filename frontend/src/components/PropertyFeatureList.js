@@ -26,33 +26,33 @@ export const PropertyFeatureList = () => {
             features = features.map(feature => feature.featureID);
             console.log(features);
 
-            if (features.includes(384)){
+            if (features.includes(416)){
                 setCarpet("carpet");
             } else {
                 setCarpet(null);
             }
 
-            if (features.includes(385)){
+            if (features.includes(417)){
                 setRoof("roof_metal");
-            } else if (features.includes(386)){
+            } else if (features.includes(418)){
                 setRoof("roof_shingles")
             } else {
                 setRoof(null);
             }
 
-            if (features.includes(387)){
+            if (features.includes(419)){
                 setHeating("heating_electric");
-            } else if (features.includes(388)){
+            } else if (features.includes(420)){
                 setHeating("heating_oil")
             } else {
                 setHeating(null);
             }
 
-            if (features.includes(389)){
+            if (features.includes(421)){
                 setExterior("exterior_vinyl");
-            } else if (features.includes(390)){
+            } else if (features.includes(422)){
                 setExterior("exterior_aluminum")
-            } else if (features.includes(391)){
+            } else if (features.includes(423)){
                 setExterior("exterior_paint")
             } else {
                 setHeating(null);
