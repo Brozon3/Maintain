@@ -8,7 +8,7 @@ IN userID_param				INT,
 IN address_param			VARCHAR(45),
 IN city_param				VARCHAR(45),
 IN prov_param				VARCHAR(45),
-IN carpet_param				TINYINT,
+IN carpet_param				VARCHAR(45),
 IN heating_param			VARCHAR(45),
 IN pets_param				TINYINT,
 IN propertyType_param		VARCHAR(45),
@@ -45,7 +45,7 @@ BEGIN
 			SET propertyID_res = LAST_INSERT_ID();
 			
 			-- Insert feature tasks
-			IF carpet_param = 1 THEN
+			IF carpet_param = 'Yes' THEN
 				CALL insert_feature_task(userID_param, propertyID_res, 'carpet', propertyFeaturesID_p);
 			END IF;
 			IF heating_param IS NOT NULL THEN
@@ -91,7 +91,7 @@ END//
 
 DELIMITER ;
 
-CALL add_property(69, "47 John Coltrane Place", "St-Louis-de-Ha-Ha!", "NB ", 1, "heating_electric", 1, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
+CALL add_property(69, "47 John Coltrane Place", "St-Louis-de-Ha-Ha!", "NB ", 'Yes', "heating_electric", NULL, "Cabin", "roof_metal", "exterior_vinyl", @propertyID, @message_res);
 
 SELECT * FROM users;
 SELECT * FROM userPropertyView WHERE userID=69;

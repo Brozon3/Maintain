@@ -92,7 +92,7 @@ BEGIN
 		CALL add_default_task("Test smoke alarms and replace batteries", "11-01", "1 YEAR");
 		CALL add_default_task("Property walk-through and inspection", "06-30", "1 YEAR");
 		CALL add_default_task("Winter is coming! Time to bring in the patio furniture,", "10-30", "1 YEAR");
-		CALL add_default_task("Inpect fire exthinguishers.", "11-01", "6 MONTH");
+		CALL add_default_task("Inspect fire exthinguishers.", "11-01", "6 MONTH");
 
 		-- Dev 1 default properties & appliances
 		SET userID_p = 69;
@@ -171,5 +171,6 @@ SELECT * FROM tasks;
 SELECT * FROM applianceView;
 SELECT * FROM userTaskList WHERE userID = 69;
 SELECT * FROM tasks WHERE taskID = 1095;
+SELECT * FROM featureView;
 
 
