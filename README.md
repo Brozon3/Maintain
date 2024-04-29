@@ -1,4 +1,4 @@
-[https://](https://maintain.lol/)
+[https://maintain.lol/]
 
 # Table of Contents
 
